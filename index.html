@@ -188,11 +188,8 @@
           <button id="btnFontLarge" type="button" data-fsize="large" class="font-size-btn px-2 py-1 rounded-lg text-[#68726B] hover:text-[#303833] transition">大字</button>
           <button id="btnFontXLarge" type="button" data-fsize="xlarge" class="font-size-btn px-2 py-1 rounded-lg text-[#68726B] hover:text-[#303833] transition">特大字</button>
         </div>
-        <button id="btnHeaderOneClickLoad" type="button" class="admin-only-control px-3 py-1.5 rounded-xl bg-[#829582] hover:bg-[#6e826e] text-white text-xs font-medium transition flex items-center gap-1 shadow-sm" title="管理者專屬：依31本書名先找語錄再自動歸類">
+        <button id="btnHeaderOneClickLoad" type="button" class="px-3 py-1.5 rounded-xl bg-[#829582] hover:bg-[#6e826e] text-white text-xs font-medium transition flex items-center gap-1 shadow-sm" title="依31本書名自動上網先找語錄再歸類">
           <span>⚡ 一鍵載入新增語錄</span>
-        </button>
-        <button id="btnToggleAdminMode" type="button" class="px-2.5 py-1.5 rounded-xl bg-[#F5ECE0] hover:bg-[#ebdBC6] text-[#7A5826] border border-[#B79B68]/40 text-xs font-medium transition flex items-center gap-1" title="切換管理者模式／訪客瀏覽模式（管理一鍵載入新增語錄與資料來源上傳權限）">
-          <span id="adminModeStatusText">🔓 管理者模式</span>
         </button>
         <button id="btnPlayBowlSound" type="button" class="px-2.5 py-1.5 rounded-xl bg-[#E9DDCE] hover:bg-[#dfd0bd] text-[#303833] text-xs font-medium transition flex items-center gap-1" title="敲擊水晶頌缽靜心音">
           <span>🔔 頌缽靜心音</span>
@@ -422,9 +419,11 @@
             </div>
 
             <select id="selectSourceFilter" class="px-3 py-2 rounded-2xl border border-stone-200 bg-[#F7F4ED] text-xs sm:text-sm text-stone-700 focus:outline-none focus:border-[#829582]">
-              <option value="all">所有來源（網路書籍＋個人上傳）</option>
-              <option value="personal">個人上傳</option>
-              <option value="book">全部生命系列書籍 / 網路精選</option>
+              <option value="all">所有來源（31本書＋YouTube＋MP3）</option>
+              <option value="book">📚 31本書籍与網路自動檢索</option>
+              <option value="youtube">🎬 YouTube 影片解讀</option>
+              <option value="mp3">🎵 MP3 / Podcast 音頻解讀</option>
+              <option value="personal">💫 靈光乍現（個人靈感）</option>
             </select>
           </div>
         </div>
@@ -460,9 +459,7 @@
           <button id="btnExploreOneClickLoad" type="button" class="px-3 py-1.5 rounded-xl bg-[#829582] hover:bg-[#6e826e] text-white text-xs font-medium transition shadow-sm flex items-center gap-1">
             <span>⚡ 一鍵載入新增語錄</span>
           </button>
-          <button id="btnGoToUploadFromExplore" type="button" class="text-xs font-medium text-[#829582] hover:underline flex items-center gap-1">
-            <span>＋ 新增自己上傳的語句</span>
-          </button>
+
         </div>
       </div>
 
@@ -705,7 +702,7 @@
 
             <!-- Embed Code Box -->
             <div class="space-y-2 pt-1">
-              <label class="block text-[11px] font-medium text-stone-600">網頁頁首嵌入碼（點擊即可複製貼上至網站 `<body>` 頂端）：</label>
+              <label class="block text-[11px] font-medium text-stone-600">網頁頁首嵌入碼（點擊即可複製貼上至網站 `&lt;body&gt;` 頂端）：</label>
               <textarea id="textareaEmbedCode" readonly rows="3" class="w-full p-2.5 rounded-xl bg-stone-900 text-emerald-300 font-mono text-[11px] focus:outline-none"></textarea>
               <button id="btnCopyWebEmbedCode" type="button" class="w-full py-2.5 px-4 rounded-2xl bg-[#B79B68] hover:bg-[#b58b4f] text-[#1A2922] text-xs font-semibold transition shadow-sm">
                 📋 複製網頁頁首 Widget 嵌入程式碼
@@ -717,166 +714,42 @@
       </div>
     </section>
 
-    <!-- ==================== TAB 6: 資料來源與上傳（管理者專屬功能：31本書搜尋語錄先找再歸類 & 語錄上傳） ==================== -->
+    <!-- ==================== TAB 6: 資料來源與影音解讀（31本書自動搜尋 & YouTube / MP3 / Podcast 智慧解讀中心） ==================== -->
     <section id="tab-sources" class="tab-panel hidden space-y-6">
-      <!-- 管理者專屬權限橫幅與 GitHub 儲存空間說明 -->
-      <div class="bg-[#FFFEFA] rounded-3xl p-5 shadow-sm border border-[#B79B68]/40 flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div class="space-y-1">
-          <div class="flex items-center gap-2">
-            <span id="adminBannerBadge" class="px-2.5 py-0.5 rounded-full bg-[#829582] text-white text-xs font-semibold">🔓 管理者專屬功能（已解鎖）</span>
-            <h2 class="text-sm sm:text-base font-bold font-serif-tc text-[#303833]">網站部署與 GitHub 儲存空間說明 ＆ 管理者權限控制</h2>
-          </div>
-          <p class="text-xs text-[#68726B] leading-relaxed">
-            💡 <strong>不會增加 GitHub 儲存空間</strong>：本網站上傳至 GitHub Pages 後為純前端架構，「一鍵載入新增語錄」與「資料來源與上傳」新增的語錄皆儲存在瀏覽器本機（<code>localStorage</code>），<strong>完全不會自動寫回 GitHub 儲存庫或佔用 GitHub 空間</strong>。為避免一般訪客誤觸管理功能，已將此區與全站「⚡ 一鍵載入新增語錄」設為<strong>管理者專屬功能</strong>（預設通行碼：<code>8888</code>）。
-          </p>
-        </div>
-        <div class="flex flex-wrap items-center gap-2 shrink-0">
-          <button id="btnLockToVisitorView" type="button" class="px-3.5 py-2 rounded-xl bg-[#F5ECE0] hover:bg-[#ebdBC6] text-[#7A5826] border border-[#B79B68]/40 text-xs font-semibold transition">
-            🔒 鎖定為「訪客瀏覽模式」（隱藏管理按鈕）
-          </button>
-          <div class="inline-flex items-center gap-1">
-            <input id="inputNewAdminPin" type="password" placeholder="新密碼(預設8888)" class="w-28 px-2.5 py-1.5 rounded-xl border border-stone-200 bg-[#F7F4ED] text-xs focus:outline-none focus:border-[#829582]" />
-            <button id="btnChangeAdminPin" type="button" class="px-2.5 py-1.5 rounded-xl border border-stone-200 hover:bg-stone-100 text-stone-600 text-xs font-medium transition">
-              🔑 設定密碼
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <!-- 訪客模式下顯示的管理者解鎖面板 -->
-      <div id="adminLockedOverlay" class="hidden bg-white rounded-3xl p-8 text-center shadow-sm border border-[#E9DDCE] max-w-xl mx-auto space-y-4">
-        <div class="w-12 h-12 rounded-2xl bg-[#F5ECE0] text-[#7A5826] flex items-center justify-center mx-auto text-xl">🔒</div>
-        <h3 class="text-lg font-bold font-serif-tc text-[#303833]">此區塊為「網站管理者專屬功能」</h3>
-        <p class="text-xs text-stone-500 leading-relaxed">
-          「⚡ 一鍵載入新增語錄（依 31 本書搜尋）」與「資料來源與上傳」僅開放給網站管理者維護題庫使用。<br/>
-          請輸入管理者通行碼（預設：<code>8888</code>）以解鎖管理功能：
-        </p>
-        <div class="flex items-center justify-center gap-2 max-w-xs mx-auto">
-          <input id="inputAdminPinUnlock" type="password" placeholder="輸入管理者密碼 (預設 8888)" class="flex-1 px-3 py-2 rounded-xl border border-stone-300 bg-[#F7F4ED] text-xs text-center focus:outline-none focus:border-[#829582]" />
-          <button id="btnSubmitAdminUnlock" type="button" class="px-4 py-2 rounded-xl bg-[#829582] hover:bg-[#6e826e] text-white text-xs font-semibold transition">
-            🔓 解鎖管理
-          </button>
-        </div>
-      </div>
-
-      <div id="adminSourcesContentGrid" class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <!-- Left 6 Cols: 個人上傳（僅保留純粹語錄與練習上傳，自動阻擋重複語錄） -->
-        <div class="lg:col-span-6 bg-white rounded-3xl p-6 shadow-sm border border-[#829582]/15 space-y-5">
-          <div>
-            <span class="text-xs font-semibold uppercase tracking-wider text-[#829582]">PERSONAL QUOTE UPLOAD</span>
-            <h2 class="text-xl font-bold font-serif-tc text-[#303833] mt-0.5">個人上傳：新增語錄與生活練習</h2>
-            <p class="text-xs text-stone-500 mt-1">將您的讀書會摘錄或書本佳句加入語錄庫（系統會自動比對並阻擋與現有語錄重複的內容）</p>
-          </div>
-
-          <form id="formAddQuote" class="space-y-3.5">
-            <div>
-              <label class="block text-xs font-semibold text-stone-700 mb-1" for="inputNewQuoteText">語句內容 *</label>
-              <textarea id="inputNewQuoteText" rows="3" required placeholder="例如：把頭腦有限的聰明挪開，才能從「心」領悟到當下是一個不費力的絕對..." class="w-full p-3 rounded-xl border border-stone-200 bg-[#F7F4ED] text-sm focus:outline-none focus:border-[#829582]"></textarea>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div>
-                <label class="block text-xs font-semibold text-stone-700 mb-1" for="inputNewQuoteBook">出處書籍 / 標題名稱 *</label>
-                <input id="inputNewQuoteBook" type="text" required placeholder="例如：楊定一《全部的你》/ 讀書會筆記" class="w-full px-3 py-2 rounded-xl border border-stone-200 bg-[#F7F4ED] text-sm focus:outline-none focus:border-[#829582]" />
-              </div>
-              <div>
-                <label class="block text-xs font-semibold text-stone-700 mb-1" for="selectNewQuoteCategory">主題分類 *</label>
-                <select id="selectNewQuoteCategory" class="w-full px-3 py-2 rounded-xl border border-stone-200 bg-[#F7F4ED] text-sm focus:outline-none focus:border-[#829582]">
-                  <option value="臣服與參">🌿 臣服與參</option>
-                  <option value="感恩">🙏 感恩</option>
-                  <option value="靜坐與呼吸">🧘 靜坐與呼吸</option>
-                  <option value="在、覺、樂">👁️ 在、覺、樂</option>
-                  <option value="創傷與療癒">❤️ 創傷與療癒</option>
-                  <option value="這裡、現在">⏳ 這裡、現在</option>
-                  <option value="祈禱與祝福">✨ 祈禱與祝福</option>
-                  <option value="靈光乍現">💫 靈光乍現</option>
-                </select>
-              </div>
-            </div>
-
-            <div>
-              <label class="block text-xs font-semibold text-stone-700 mb-1" for="selectNewQuoteSourceType">來源屬性</label>
-              <select id="selectNewQuoteSourceType" class="w-full px-3 py-2 rounded-xl border border-stone-200 bg-[#F7F4ED] text-sm focus:outline-none focus:border-[#829582]">
-                <option value="personal">個人上傳</option>
-                <option value="book">網路 / 全部生命系列書籍</option>
-              </select>
-            </div>
-
-            <div>
-              <label class="block text-xs font-semibold text-stone-700 mb-1" for="inputNewQuoteMeaning">語句詳情與意涵解析</label>
-              <textarea id="inputNewQuoteMeaning" rows="2" placeholder="補充這句話對您的啟發或楊博士在書中的背景說明..." class="w-full p-3 rounded-xl border border-stone-200 bg-[#F7F4ED] text-sm focus:outline-none focus:border-[#829582]"></textarea>
-            </div>
-
-            <div>
-              <label class="block text-xs font-semibold text-stone-700 mb-1" for="inputNewQuotePractice">搭配生活練習指引</label>
-              <textarea id="inputNewQuotePractice" rows="2" placeholder="例如：今天遇到任何變化時，先深呼吸三次，在心裡輕聲說「好，我接受」..." class="w-full p-3 rounded-xl border border-stone-200 bg-[#F7F4ED] text-sm focus:outline-none focus:border-[#829582]"></textarea>
-            </div>
-
-            <button type="submit" class="w-full py-2.5 px-4 rounded-2xl bg-[#829582] hover:bg-[#6e826e] text-white font-medium text-sm transition shadow-sm">
-              ＋ 加入《全部生命》語錄庫
-            </button>
-          </form>
-        </div>
-
-        <!-- Right 6 Cols: 批次文字/檔案上傳 & 一鍵載入新增網路語錄中心 -->
-        <div class="lg:col-span-6 space-y-6">
-
-          <!-- Batch File or Text Paste Import -->
-          <div class="bg-white rounded-3xl p-6 shadow-sm border border-[#829582]/15 space-y-4">
-            <div>
-              <span class="text-xs font-semibold uppercase tracking-wider text-[#8A6530]">BATCH TEXT / FILE IMPORT</span>
-              <h2 class="text-lg font-bold font-serif-tc text-[#303833] mt-0.5">批次文字與檔案上傳 (.txt / .csv / .json)</h2>
-              <p class="text-xs text-stone-500 mt-0.5">上傳時會自動比對現有題庫，略過重複的語錄</p>
-            </div>
-
-            <!-- File Upload Dropzone -->
-            <div class="border-2 border-dashed border-[#829582]/30 rounded-2xl p-3.5 text-center bg-[#F7F4ED] space-y-1.5">
-              <p class="text-xs font-medium text-stone-700">選擇語錄文字檔上傳（支援 JSON / CSV / 純文字一行一句）</p>
-              <input id="inputFileUploadQuotes" type="file" accept=".json,.csv,.txt" class="block w-full text-xs text-stone-600 file:mr-3 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-[#EEF2EE] file:text-[#829582] hover:file:bg-[#d5e5dd] cursor-pointer" />
-            </div>
-
-            <!-- Multi-line Quick Paste -->
-            <div class="space-y-2">
-              <label class="block text-xs font-semibold text-stone-700" for="textareaBatchPaste">或直接貼上多段語句（每行一句，可用「｜」分隔語句與出處）：</label>
-              <textarea id="textareaBatchPaste" rows="2" placeholder="範例：&#10;感恩，是感恩整體；成就，是整體的成就｜楊定一《唯識》" class="w-full p-3 rounded-xl border border-stone-200 bg-[#F7F4ED] text-xs focus:outline-none focus:border-[#829582]"></textarea>
-              <button id="btnBatchPasteImport" type="button" class="w-full py-2 px-4 rounded-2xl bg-[#829582] hover:bg-[#6e826e] text-white text-xs font-semibold transition">
-                📥 批次解析並匯入貼上的語句
-              </button>
-            </div>
-          </div>
-
-          <!-- Web Preset Packs, Expanded Web Search & YouTube / MP3 Content Decoder Center -->
-          <div class="bg-white rounded-3xl p-6 shadow-sm border border-[#829582]/15 space-y-4">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Left 6 Cols: 📚 31 本《全部生命系列》自動網路搜尋中心（一鍵載入新增語錄：先找語錄 ➔ 再自動歸類） -->
+        <div class="lg:col-span-6 bg-white rounded-3xl p-6 shadow-sm border border-[#829582]/15 space-y-5 flex flex-col justify-between">
+          <div class="space-y-4">
             <div class="flex items-center justify-between flex-wrap gap-2">
               <div>
-                <span class="text-xs font-semibold uppercase tracking-wider text-[#829582]">EXPANDED WEB, YOUTUBE & MP3 QUOTE GENERATOR</span>
-                <h3 class="text-base font-bold font-serif-tc text-[#303833]">⚡ 擴大網路搜尋 ＆ YouTube / MP3 內容解讀產生語錄</h3>
+                <span class="text-xs font-semibold uppercase tracking-wider text-[#829582]">AUTO WEB SEARCH BY 31 BOOKS</span>
+                <h2 class="text-xl font-bold font-serif-tc text-[#303833] mt-0.5">⚡ 一鍵載入新增語錄（31 本書自動網路搜尋）</h2>
+                <p class="text-xs text-stone-500 mt-1">全部由 App 自動透過網路檢索楊定一博士 31 本著作，先找出原始語錄，再由系統依語意自動歸入七大主題（嚴格阻擋重複語錄）</p>
               </div>
               <span id="webPoolStatusBadge" class="px-2.5 py-1 rounded-full bg-[#EEF2EE] text-[#829582] text-[11px] font-semibold">自動聯網搜尋就緒</span>
             </div>
 
-            <div class="space-y-3 text-xs">
-              <!-- 1. 依楊定一博士 31 本書標題搜尋語錄（先找語錄 ➔ 再自動歸類） -->
-              <div class="p-4 rounded-2xl bg-[#F7F4ED] border border-[#829582]/20 space-y-3">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                  <div>
-                    <p class="font-semibold text-stone-800">📚 依楊定一博士 31 本書標題、YouTube 字幕與 MP3 音頻搜尋（先找出「語錄」➔ 再由系統語意自動歸類）</p>
-                    <p class="text-stone-500 mt-0.5">搜尋引擎不以分類名稱找語錄，而是直接依《全部生命系列》31 本書名與影音逐字稿先找出原始語錄，再依語意自動歸入七大公開主題</p>
-                  </div>
-                  <div class="flex items-center gap-2 shrink-0">
-                    <button id="btnImportMoreWebQuotes" type="button" class="px-3.5 py-2 rounded-xl bg-[#829582] hover:bg-[#6e826e] text-white font-semibold transition shadow-sm">
-                      ⚡ 一鍵載入新增語錄 (＋5則)
-                    </button>
-                    <button id="btnLoadAllWebQuotesAtOnce" type="button" class="px-3 py-2 rounded-xl bg-[#B79B68] hover:bg-[#a38856] text-white font-semibold transition shadow-sm">
-                      ＋ 大量擴充載入 (＋20則)
-                    </button>
-                  </div>
+            <div class="p-4 rounded-2xl bg-[#F7F4ED] border border-[#829582]/20 space-y-4 text-xs">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div>
+                  <p class="font-semibold text-stone-800">🌐 自動上網搜尋《全部生命系列》31 本書與公開專欄</p>
+                  <p class="text-stone-500 mt-0.5">不依類別名稱找語錄，而是直接依 31 本書名先找出語錄，再自動完成分類與三步驟練習配對</p>
                 </div>
+                <div class="flex items-center gap-2 shrink-0">
+                  <button id="btnImportMoreWebQuotes" type="button" class="px-3.5 py-2.5 rounded-xl bg-[#829582] hover:bg-[#6e826e] text-white font-semibold transition shadow-sm">
+                    ⚡ 一鍵載入新增語錄 (＋5則)
+                  </button>
+                  <button id="btnLoadAllWebQuotesAtOnce" type="button" class="px-3 py-2.5 rounded-xl bg-[#B79B68] hover:bg-[#a38856] text-white font-semibold transition shadow-sm">
+                    ＋ 大量擴充載入 (＋20則)
+                  </button>
+                </div>
+              </div>
 
-                <!-- 依楊定一博士 31 本書名搜尋語錄（先找語錄，再歸類！） -->
-                <div class="pt-2 border-t border-stone-200/70 flex flex-wrap items-center gap-2">
-                  <span class="text-stone-600 font-medium">📚 依 31 本書標題搜尋：</span>
-                  <select id="selectOneClickTopicLoad" class="px-2.5 py-1.5 rounded-xl border border-stone-200 bg-white text-xs text-stone-700 focus:outline-none focus:border-[#829582] max-w-full sm:max-w-xs">
+              <!-- 依楊定一博士 31 本書名搜尋語錄（先找語錄，再歸類！） -->
+              <div class="pt-3 border-t border-stone-200/70 space-y-2">
+                <label class="block text-stone-700 font-semibold" for="selectOneClickTopicLoad">📚 指定依楊定一博士 31 本書標題搜尋（或全部輪流搜尋）：</label>
+                <div class="flex flex-wrap items-center gap-2">
+                  <select id="selectOneClickTopicLoad" class="flex-1 min-w-[220px] px-3 py-2 rounded-xl border border-stone-200 bg-white text-xs text-stone-700 focus:outline-none focus:border-[#829582]">
                     <option value="all">🌟 全部 31 本著作（輪流搜尋語錄 ➔ 再自動歸類）</option>
                     <option value="真原醫">1. 真原醫</option>
                     <option value="靜坐">2. 靜坐</option>
@@ -910,96 +783,110 @@
                     <option value="中道">30. 中道（簡體版書名「走向心的道路」）</option>
                     <option value="徹底的信仰，根本的療癒">31. 徹底的信仰，根本的療癒</option>
                   </select>
-                  <input id="inputCustomSearchKeyword" type="text" placeholder="或輸入其他書名／篇章關鍵字..." class="px-2.5 py-1.5 rounded-xl border border-stone-200 bg-white text-xs text-stone-700 focus:outline-none focus:border-[#829582] w-40 sm:w-48" />
-                  <button id="btnOneClickLoadByTopic" type="button" class="px-3 py-1.5 rounded-xl border border-[#829582] text-[#829582] hover:bg-[#EEF2EE] font-medium transition">
+                  <input id="inputCustomSearchKeyword" type="text" placeholder="可選填篇章關鍵字..." class="px-3 py-2 rounded-xl border border-stone-200 bg-white text-xs text-stone-700 focus:outline-none focus:border-[#829582] w-36 sm:w-44" />
+                  <button id="btnOneClickLoadByTopic" type="button" class="px-3.5 py-2 rounded-xl border border-[#829582] text-[#829582] hover:bg-[#EEF2EE] font-semibold transition">
                     ＋ 深度搜尋並產生語錄
                   </button>
                 </div>
+              </div>
 
-                <!-- 2. 🎬 解讀 YouTube 影片內容／字幕 自動產生語錄 -->
-                <div class="pt-3 border-t border-[#E9DDCE] space-y-2.5">
-                  <div class="flex items-center justify-between">
-                    <p class="font-semibold text-[#303833]">🎬 解讀 YouTube 影片內容／CC 字幕 ➔ 自動萃取出「我在語錄」</p>
-                    <span class="text-[11px] text-[#829582]">支援官方共修影片與任意 YouTube 連結／字幕</span>
-                  </div>
-                  <div class="flex flex-col sm:flex-row gap-2">
-                    <select id="selectYoutubeTranscriptPreset" class="flex-1 px-2.5 py-1.5 rounded-xl border border-stone-200 bg-white text-xs text-stone-700 focus:outline-none focus:border-[#829582]">
-                      <option value="all_yt">🌟 一鍵解讀全部 11 支楊定一博士 YouTube 共修影片精華逐字稿</option>
-                      <option value="P1CkTqMa4dU">🎬 楊定一：感恩，是感恩整體；成就，是整體的成就</option>
-                      <option value="KQdmBx6Q1yc">🎬 楊定一：充滿感恩，充滿肯定</option>
-                      <option value="nru4dZMlimw">🎬 楊定一：豐盛，是活出全部生命最自然的後果</option>
-                      <option value="u_CwghgYP4A">🎬 楊定一：接受不可接受的，接受不可知</option>
-                      <option value="5zhK5QltdsU">🎬 楊定一：信仰的成就</option>
-                      <option value="iYbtWH0EQ1s">🎬 楊定一：整體的寬恕</option>
-                      <option value="yat9UeJ7i9g">🎬 楊定一：五大元素的靜坐</option>
-                      <option value="JmmJaf3M_EA">🎬 楊定一：語言之外，基準點之外</option>
-                      <option value="04gLE9bM2Uk">🎬 楊定一：樣樣都是不可思議</option>
-                      <option value="cDvgbxR6cao">🎬 楊定一：信仰，也只是活出生命本來的豐盛</option>
-                      <option value="g5hHsxJhw4U">🎬 楊定一：活出真實的祝福</option>
-                    </select>
-                    <button id="btnDecodeYoutubePreset" type="button" class="px-3.5 py-1.5 rounded-xl bg-[#5E715E] hover:bg-[#4a5a4a] text-white font-semibold transition shrink-0">
-                      🎬 解讀所選 YouTube 影片產生語錄
-                    </button>
-                  </div>
-                  <div class="grid grid-cols-1 sm:grid-cols-12 gap-2">
-                    <input id="inputYoutubeDecodeUrl" type="url" placeholder="或貼上任意 YouTube 影片網址 (https://www.youtube.com/watch?v=...)" class="sm:col-span-5 px-2.5 py-1.5 rounded-xl border border-stone-200 bg-white text-xs text-stone-700 focus:outline-none focus:border-[#829582]" />
-                    <input id="textareaYoutubeTranscript" type="text" placeholder="可選填：貼上 YouTube 影片說明或 CC 字幕段落，自動斷句萃取多則金句..." class="sm:col-span-4 px-2.5 py-1.5 rounded-xl border border-stone-200 bg-white text-xs text-stone-700 focus:outline-none focus:border-[#829582]" />
-                    <button id="btnDecodeYoutubeCustom" type="button" class="sm:col-span-3 px-3 py-1.5 rounded-xl border border-[#5E715E] text-[#5E715E] hover:bg-[#EEF2EE] font-semibold transition">
-                      🔍 解讀網址／字幕
-                    </button>
-                  </div>
+              <!-- 即時網路搜尋與 YouTube / MP3 解讀狀態紀錄器 -->
+              <div id="webSearchStatusPanel" class="bg-white rounded-xl p-3.5 border border-[#E9DDCE] space-y-1.5">
+                <div class="flex items-center justify-between text-[11px]">
+                  <span id="webSearchStatusTitle" class="font-semibold text-[#5E715E]">🔍 搜尋與解讀引擎狀態：待命（先依31本書找語錄 ➔ 再自動歸類）</span>
+                  <span id="webSearchSourceCount" class="text-[#B79B68]">31 本書＋YouTube＋Podcast</span>
                 </div>
-
-                <!-- 3. 🎵 解讀 MP3 音檔內容／Podcast 音頻 自動產生語錄 -->
-                <div class="pt-3 border-t border-[#E9DDCE] space-y-2.5">
-                  <div class="flex items-center justify-between">
-                    <p class="font-semibold text-[#303833]">🎵 解讀 MP3 音檔內容 ／ Podcast 音頻 ➔ 自動轉譯產生「我在語錄」</p>
-                    <span class="text-[11px] text-[#8A6530]">分析音檔聲學特徵、標題語意與語音辨識</span>
-                  </div>
-                  <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-                    <input id="inputMp3DecodeFile" type="file" accept=".mp3,.m4a,.wav,.ogg,audio/*" class="flex-1 text-xs text-stone-600 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-white file:text-[#829582] hover:file:bg-[#EEF2EE] cursor-pointer bg-white/70 rounded-xl p-1 border border-stone-200" />
-                    <button id="btnDecodeMp3Smart" type="button" class="px-3.5 py-1.5 rounded-xl bg-[#B79B68] hover:bg-[#a38856] text-white font-semibold transition shrink-0">
-                      🎵 解讀 MP3 音檔產生語錄
-                    </button>
-                    <button id="btnDecodePodcastMp3Cloud" type="button" class="px-3 py-1.5 rounded-xl border border-[#B79B68] text-[#8A6530] hover:bg-[#F5ECE0] font-semibold transition shrink-0">
-                      🎧 解讀線上 Podcast MP3 音頻庫
-                    </button>
-                  </div>
-                  <div id="mp3DecodePreviewBox" class="hidden bg-white rounded-xl p-2.5 border border-[#E9DDCE] space-y-1.5">
-                    <div class="flex items-center justify-between text-[11px]">
-                      <span id="mp3DecodeFileNameLabel" class="font-medium text-[#303833]">已載入音檔</span>
-                      <button id="btnDecodeMp3LiveSpeech" type="button" class="px-2.5 py-0.5 rounded-lg bg-[#EEF2EE] text-[#5E715E] hover:bg-[#dce5dc] font-medium">
-                        🎙️ 播放並啟動即時語音辨識轉語錄
-                      </button>
-                    </div>
-                    <audio id="audioMp3DecodePreview" controls class="w-full h-8"></audio>
-                  </div>
-                </div>
-
-                <!-- 即時網路搜尋與 YouTube / MP3 解讀狀態紀錄器 -->
-                <div id="webSearchStatusPanel" class="bg-white rounded-xl p-3 border border-[#E9DDCE] space-y-1.5">
-                  <div class="flex items-center justify-between text-[11px]">
-                    <span id="webSearchStatusTitle" class="font-semibold text-[#5E715E]">🔍 搜尋與解讀引擎狀態：待命（支援全網檢索＋YouTube 字幕解讀＋MP3 音檔解讀）</span>
-                    <span id="webSearchSourceCount" class="text-[#B79B68]">涵蓋 7 大公開來源與影音解讀</span>
-                  </div>
-                  <div id="webSearchLogList" class="text-[11px] text-[#68726B] space-y-1 max-h-32 overflow-y-auto custom-scrollbar">
-                    <p>・已連結來源：YouTube 共修頻道逐字稿庫、Apple Podcast 讀書會 MP3 音頻庫、Google Books 全系列圖書、全部生命官網、康健與琅讀專欄</p>
-                  </div>
+                <div id="webSearchLogList" class="text-[11px] text-[#68726B] space-y-1 max-h-44 overflow-y-auto custom-scrollbar">
+                  <p>・已連結來源：楊定一博士 31 本著作書摘庫、YouTube 共修頻道逐字稿庫、Apple Podcast 讀書會 MP3 音頻庫、全部生命官網</p>
                 </div>
               </div>
             </div>
+          </div>
 
-            <!-- 已上傳的個人語錄清單 -->
-            <div class="space-y-2 pt-2 border-t border-stone-100">
-              <p class="text-xs font-semibold text-[#303833]">📂 我上傳的個人語錄清單：</p>
-              <div id="personalUploadedList" class="space-y-2 max-h-48 overflow-y-auto pr-1 custom-scrollbar"></div>
+          <div class="flex items-center justify-between pt-3 border-t border-stone-100">
+            <span id="sourceStatsText" class="text-xs text-stone-500"></span>
+            <button id="btnExportAllQuotesJson" type="button" class="text-xs font-medium text-[#829582] hover:underline">
+              ⬇ 備份匯出完整語錄庫 (.json)
+            </button>
+          </div>
+        </div>
+
+        <!-- Right 6 Cols: 🎬 YouTube 影片解讀 ＆ 🎵 MP3 / 線上 Podcast 音頻解讀工作台（智慧三合一影音解讀器＋預覽清單） -->
+        <div class="lg:col-span-6 space-y-6">
+          <div class="bg-white rounded-3xl p-6 shadow-sm border border-[#829582]/15 space-y-5">
+            <div>
+              <span class="text-xs font-semibold uppercase tracking-wider text-[#8A6530]">YOUTUBE, MP3 & PODCAST DECODER STUDIO</span>
+              <h2 class="text-xl font-bold font-serif-tc text-[#303833] mt-0.5">🎬 YouTube 影片 ＆ 🎵 MP3 / Podcast 音頻解讀工作台</h2>
+              <p class="text-xs text-stone-500 mt-1">透過「官方影片選單」、「貼上 YouTube 網址／字幕」、「上傳本機 MP3 音檔」或「連線 Podcast 音頻庫」自動解讀出語錄，先找語錄再自動歸類</p>
             </div>
 
-            <div class="flex items-center justify-between pt-2 border-t border-stone-100">
-              <span id="sourceStatsText" class="text-xs text-stone-500"></span>
-              <button id="btnExportAllQuotesJson" type="button" class="text-xs font-medium text-[#829582] hover:underline">
-                ⬇ 備份匯出完整語錄庫 (.json)
-              </button>
+            <!-- 1. 🎬 解讀 YouTube 影片產生語錄 -->
+            <div class="p-4 rounded-2xl bg-[#F7F4ED] border border-[#829582]/20 space-y-3 text-xs">
+              <div class="flex items-center justify-between">
+                <p class="font-semibold text-[#303833]">🎬 方式一：解讀 YouTube 影片產生語錄（官方清單／自訂網址與 CC 字幕）</p>
+                <span class="text-[11px] text-[#829582]">自動斷句萃取＋自動歸類</span>
+              </div>
+              <div class="flex flex-col sm:flex-row gap-2">
+                <select id="selectYoutubeTranscriptPreset" class="flex-1 px-2.5 py-2 rounded-xl border border-stone-200 bg-white text-xs text-stone-700 focus:outline-none focus:border-[#829582]">
+                  <option value="all_yt">🌟 一鍵解讀全部 11 支楊定一博士 YouTube 共修影片精華逐字稿</option>
+                  <option value="P1CkTqMa4dU">🎬 楊定一：感恩，是感恩整體；成就，是整體的成就</option>
+                  <option value="KQdmBx6Q1yc">🎬 楊定一：充滿感恩，充滿肯定</option>
+                  <option value="nru4dZMlimw">🎬 楊定一：豐盛，是活出全部生命最自然的後果</option>
+                  <option value="u_CwghgYP4A">🎬 楊定一：接受不可接受的，接受不可知</option>
+                  <option value="5zhK5QltdsU">🎬 楊定一：信仰的成就</option>
+                  <option value="iYbtWH0EQ1s">🎬 楊定一：整體的寬恕</option>
+                  <option value="yat9UeJ7i9g">🎬 楊定一：五大元素的靜坐</option>
+                  <option value="JmmJaf3M_EA">🎬 楊定一：語言之外，基準點之外</option>
+                  <option value="04gLE9bM2Uk">🎬 楊定一：樣樣都是不可思議</option>
+                  <option value="cDvgbxR6cao">🎬 楊定一：信仰，也只是活出生命本來的豐盛</option>
+                  <option value="g5hHsxJhw4U">🎬 楊定一：活出真實的祝福</option>
+                </select>
+                <button id="btnDecodeYoutubePreset" type="button" class="px-3.5 py-2 rounded-xl bg-[#5E715E] hover:bg-[#4a5a4a] text-white font-semibold transition shrink-0">
+                  🎬 解讀所選 YouTube 影片產生語錄
+                </button>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-12 gap-2">
+                <input id="inputYoutubeDecodeUrl" type="url" placeholder="貼上 YouTube 網址 (https://www.youtube.com/watch?v=...)" class="sm:col-span-5 px-2.5 py-2 rounded-xl border border-stone-200 bg-white text-xs text-stone-700 focus:outline-none focus:border-[#829582]" />
+                <input id="textareaYoutubeTranscript" type="text" placeholder="或直接貼上 YouTube CC 字幕／說明段落，自動萃取金句..." class="sm:col-span-4 px-2.5 py-2 rounded-xl border border-stone-200 bg-white text-xs text-stone-700 focus:outline-none focus:border-[#829582]" />
+                <button id="btnDecodeYoutubeCustom" type="button" class="sm:col-span-3 px-3 py-2 rounded-xl border border-[#5E715E] text-[#5E715E] hover:bg-[#EEF2EE] font-semibold transition">
+                  🔍 解讀網址／字幕
+                </button>
+              </div>
+            </div>
+
+            <!-- 2. 🎵 解讀 MP3 音檔產生語錄 & 🎧 解讀線上 Podcast MP3 音頻庫 -->
+            <div class="p-4 rounded-2xl bg-[#F7F4ED] border border-[#B79B68]/30 space-y-3 text-xs">
+              <div class="flex items-center justify-between">
+                <p class="font-semibold text-[#303833]">🎵 方式二：解讀 MP3 音檔產生語錄 ＆ 🎧 解讀線上 Podcast MP3 音頻庫</p>
+                <span class="text-[11px] text-[#8A6530]">不佔空間・僅轉譯為純文字語錄</span>
+              </div>
+              <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                <input id="inputMp3DecodeFile" type="file" accept=".mp3,.m4a,.wav,.ogg,audio/*" class="flex-1 text-xs text-stone-600 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-white file:text-[#829582] hover:file:bg-[#EEF2EE] cursor-pointer bg-white/80 rounded-xl p-1 border border-stone-200" />
+                <button id="btnDecodeMp3Smart" type="button" class="px-3.5 py-2 rounded-xl bg-[#B79B68] hover:bg-[#a38856] text-white font-semibold transition shrink-0">
+                  🎵 解讀 MP3 音檔產生語錄
+                </button>
+                <button id="btnDecodePodcastMp3Cloud" type="button" class="px-3 py-2 rounded-xl border border-[#B79B68] text-[#8A6530] hover:bg-[#F5ECE0] font-semibold transition shrink-0">
+                  🎧 解讀線上 Podcast MP3 音頻庫
+                </button>
+              </div>
+              <div id="mp3DecodePreviewBox" class="hidden bg-white rounded-xl p-2.5 border border-[#E9DDCE] space-y-1.5">
+                <div class="flex items-center justify-between text-[11px]">
+                  <span id="mp3DecodeFileNameLabel" class="font-medium text-[#303833]">已載入音檔</span>
+                  <button id="btnDecodeMp3LiveSpeech" type="button" class="px-2.5 py-0.5 rounded-lg bg-[#EEF2EE] text-[#5E715E] hover:bg-[#dce5dc] font-medium">
+                    🎙️ 播放並啟動即時語音辨識轉語錄
+                  </button>
+                </div>
+                <audio id="audioMp3DecodePreview" controls class="w-full h-8"></audio>
+              </div>
+            </div>
+
+            <!-- 3. ✨ 最新影音解讀與自動檢索成果預覽清單（方便檢視剛剛解讀出的語錄與自動歸類結果） -->
+            <div class="space-y-2 pt-2 border-t border-stone-100">
+              <div class="flex items-center justify-between">
+                <p class="text-xs font-semibold text-[#303833]">✨ 最新從 31 本書／YouTube／MP3 自動解讀歸類的語錄預覽：</p>
+                <span class="text-[11px] text-stone-400">點擊可進入練習或移除單筆</span>
+              </div>
+              <div id="recentDecodedQuotesList" class="space-y-2 max-h-48 overflow-y-auto pr-1 custom-scrollbar"></div>
             </div>
           </div>
         </div>
@@ -2984,7 +2871,12 @@
         var filtered = state.quotes.filter(function(item) {
           if (state.selectedCategory !== 'all' && item.category !== state.selectedCategory) return false;
           if (state.selectedCategory === '靈光乍現' && item.sourceType !== 'personal') return false;
-          if (state.sourceFilter !== 'all' && item.sourceType !== state.sourceFilter) return false;
+          var isYt = (item.sourceUrl && item.sourceUrl.indexOf('youtube.com') !== -1) || (item.sourceLabel && item.sourceLabel.indexOf('YouTube') !== -1) || String(item.id || '').indexOf('q_yt_') === 0;
+          var isMp3 = (item.sourceLabel && /MP3|Podcast|音頻|音檔/.test(item.sourceLabel)) || String(item.id || '').indexOf('q_mp3') === 0;
+          if (state.sourceFilter === 'youtube' && !isYt) return false;
+          if (state.sourceFilter === 'mp3' && !isMp3) return false;
+          if (state.sourceFilter === 'personal' && item.sourceType !== 'personal') return false;
+          if (state.sourceFilter === 'book' && item.sourceType === 'personal') return false;
           if (qLower) {
             var hay = (item.text + ' ' + item.book + ' ' + item.category + ' ' + (item.meaning || '') + ' ' + (item.practiceTitle || '')).toLowerCase();
             if (hay.indexOf(qLower) === -1) return false;
@@ -3303,32 +3195,45 @@
         });
       }
 
-      // Render Sources Tab stats & Personal Uploaded List
+      // Render Sources Tab stats & Recent Decoded Quotes Preview List
       function renderSourcesTab() {
-        var personalQuotes = state.quotes.filter(function(q) { return q.sourceType === 'personal'; });
-        var personalCount = personalQuotes.length;
-        var bookCount = state.quotes.length - personalCount;
-        document.getElementById('sourceStatsText').textContent =
-          '目前題庫共 ' + state.quotes.length + ' 則不重複語錄（個人上傳：' + personalCount + ' 則｜書籍與網路：' + bookCount + ' 則）';
+        var ytCount = state.quotes.filter(function(q) {
+          return (q.sourceUrl && q.sourceUrl.indexOf('youtube.com') !== -1) || (q.sourceLabel && q.sourceLabel.indexOf('YouTube') !== -1) || String(q.id || '').indexOf('q_yt_') === 0;
+        }).length;
+        var mp3Count = state.quotes.filter(function(q) {
+          return (q.sourceLabel && /MP3|Podcast|音頻|音檔/.test(q.sourceLabel)) || String(q.id || '').indexOf('q_mp3') === 0;
+        }).length;
+        var statsEl = document.getElementById('sourceStatsText');
+        if (statsEl) {
+          statsEl.textContent = '目前題庫共 ' + state.quotes.length + ' 則不重複語錄（含 YouTube 解讀 ' + ytCount + ' 則｜MP3/Podcast 解讀 ' + mp3Count + ' 則）';
+        }
 
-        var listEl = document.getElementById('personalUploadedList');
+        var listEl = document.getElementById('recentDecodedQuotesList');
         if (!listEl) return;
         listEl.innerHTML = '';
-        if (personalQuotes.length === 0) {
-          listEl.innerHTML = '<div class="p-3 rounded-xl bg-[#F7F4ED] text-stone-400 text-xs text-center">尚無個人上傳語錄，可從左側表單或批次貼上新增。</div>';
-          return;
-        }
-        personalQuotes.forEach(function(pq) {
+        var previewQuotes = state.quotes.slice(0, 8);
+        previewQuotes.forEach(function(pq) {
           var row = document.createElement('div');
           row.className = 'p-3 rounded-2xl bg-[#F7F4ED] border border-stone-200/80 space-y-1.5 text-xs';
           var topRow = document.createElement('div');
           topRow.className = 'flex items-center justify-between gap-2';
-          topRow.innerHTML = '<span class="font-semibold text-[#829582]">📝 個人上傳｜' + pq.book + '（' + pq.category + '）</span>';
+          topRow.innerHTML = '<span class="font-semibold text-[#829582]">【自動歸類：' + pq.category + '】' + pq.book + '</span>';
+
+          var actionGroup = document.createElement('div');
+          actionGroup.className = 'flex items-center gap-2 shrink-0';
+
+          var btnViewP = document.createElement('button');
+          btnViewP.type = 'button';
+          btnViewP.className = 'text-[#5E715E] hover:underline text-[11px] font-medium';
+          btnViewP.textContent = '進入練習';
+          btnViewP.addEventListener('click', function() {
+            viewQuoteDetail(pq.id);
+          });
 
           var btnDelP = document.createElement('button');
           btnDelP.type = 'button';
-          btnDelP.className = 'text-rose-600 hover:underline text-[11px] shrink-0';
-          btnDelP.textContent = '移除';
+          btnDelP.className = 'text-stone-400 hover:text-rose-600 text-[11px]';
+          btnDelP.textContent = '略過';
           btnDelP.addEventListener('click', function() {
             state.quotes = state.quotes.filter(function(item) { return item.id !== pq.id; });
             if (state.quotes.length === 0) state.quotes = DEFAULT_QUOTES.slice();
@@ -3336,9 +3241,12 @@
             safeSetStorage('tol_quotes_v2', state.quotes);
             renderDailyAndHeader();
             renderSourcesTab();
-            showToast('已移除該筆個人上傳語錄');
+            showToast('已從本機清單略過該筆語錄');
           });
-          topRow.appendChild(btnDelP);
+
+          actionGroup.appendChild(btnViewP);
+          actionGroup.appendChild(btnDelP);
+          topRow.appendChild(actionGroup);
           row.appendChild(topRow);
 
           var txtP = document.createElement('p');
@@ -3688,9 +3596,7 @@
           state.sourceFilter = e.target.value;
           renderExploreTab();
         });
-        document.getElementById('btnGoToUploadFromExplore').addEventListener('click', function() {
-          switchTab('sources');
-        });
+
 
         // Widgets Tab Events
         document.querySelectorAll('.widget-theme-btn').forEach(function(btn) {
@@ -3828,13 +3734,7 @@
           showToast('⬇ 已匯出我的收藏語錄 (.json)');
         });
 
-        // Automatically lock sourceType to 'personal' when '靈光乍現' is selected
-        document.getElementById('selectNewQuoteCategory').addEventListener('change', function(e) {
-          var srcSel = document.getElementById('selectNewQuoteSourceType');
-          if (e.target.value === '靈光乍現') {
-            srcSel.value = 'personal';
-          }
-        });
+
 
         // Quick Epiphany Save Handler in Explore Tab
         document.getElementById('btnSaveQuickEpiphany').addEventListener('click', function() {
@@ -3873,181 +3773,6 @@
           renderDailyAndHeader();
           renderExploreTab();
           showToast('💫 已記錄至「靈光乍現」個人靈感專區！');
-        });
-
-        // Sources & Custom Quote Upload Form (Strict Duplicate Check!)
-        document.getElementById('formAddQuote').addEventListener('submit', function(e) {
-          e.preventDefault();
-          var text = document.getElementById('inputNewQuoteText').value.trim();
-          var book = document.getElementById('inputNewQuoteBook').value.trim();
-          var cat = document.getElementById('selectNewQuoteCategory').value;
-          var srcType = cat === '靈光乍現' ? 'personal' : document.getElementById('selectNewQuoteSourceType').value;
-          var meaning = document.getElementById('inputNewQuoteMeaning').value.trim();
-          var practice = document.getElementById('inputNewQuotePractice').value.trim();
-          if (!text || !book) return;
-
-          if (isQuoteDuplicate(text)) {
-            showToast('⚠️ 此語錄已存在於現有語錄庫中，不能重複新增！');
-            return;
-          }
-
-          var newQ = {
-            id: 'q_custom_' + Date.now(),
-            text: text,
-            book: book,
-            category: cat,
-            sourceType: srcType,
-            sourceLabel: srcType === 'personal' ? '個人上傳' : '網路 / 書籍摘錄',
-            sourceUrl: 'https://totality-of-life.com/',
-            meaning: meaning || '透過這句話提醒自己回到當下，鬆開頭腦的分析，安住在一體與臣服中。',
-            practiceTitle: '今日生活靜心練習',
-            practiceGuide: practice || '在生活中遇到變化時，先深呼吸三次，在心裡輕聲說「好、是、OK」。',
-            practiceSteps: [
-              '1. 體會當下的念頭與身體反應。',
-              '2. 默念此語句，將注意力帶回鼻尖的呼吸。',
-              '3. 帶著感恩與輕鬆的態度面對眼前的一切。'
-            ]
-          };
-          state.quotes.unshift(newQ);
-          state.currentQuoteIndex = 0;
-          safeSetStorage('tol_quotes_v2', state.quotes);
-          document.getElementById('formAddQuote').reset();
-          renderDailyAndHeader();
-          renderSourcesTab();
-          showToast('✨ 已新增個人語錄並設為當前每日一句！');
-        });
-
-        // Batch Paste Import (Strict Duplicate Check!)
-        document.getElementById('btnBatchPasteImport').addEventListener('click', function() {
-          var raw = document.getElementById('textareaBatchPaste').value.trim();
-          if (!raw) {
-            showToast('請先在文字框貼上至少一行語句');
-            return;
-          }
-          var lines = raw.split(/\r?\n/).map(function(l) { return l.trim(); }).filter(Boolean);
-          var added = 0;
-          var skipped = 0;
-          lines.forEach(function(line, idx) {
-            var parts = line.split(/[|｜]/);
-            var qText = (parts[0] || '').trim();
-            var qBook = (parts[1] || '個人上傳筆記').trim();
-            var qCat = (parts[2] || '臣服與參').trim();
-            if (!qText) return;
-            if (isQuoteDuplicate(qText)) {
-              skipped++;
-              return;
-            }
-            state.quotes.unshift({
-              id: 'q_batch_' + Date.now() + '_' + idx,
-              text: qText,
-              book: qBook,
-              category: qCat,
-              sourceType: 'personal',
-              sourceLabel: '個人上傳',
-              sourceUrl: 'https://totality-of-life.com/',
-              meaning: '來自您親自整理上傳的《全部生命》共修筆記。',
-              practiceTitle: '當下呼吸與接納練習',
-              practiceGuide: '將這句話帶入今天的每一次深呼吸中，體會內在的平安。',
-              practiceSteps: [
-                '1. 輕輕鬆開肩膀與眉心。',
-                '2. 在心裡默念這句話，感受它帶來的空間感。',
-                '3. 對眼前的瞬間說「好、是、OK」。'
-              ]
-            });
-            added++;
-          });
-          if (added > 0) {
-            state.currentQuoteIndex = 0;
-            safeSetStorage('tol_quotes_v2', state.quotes);
-            document.getElementById('textareaBatchPaste').value = '';
-            renderDailyAndHeader();
-            renderSourcesTab();
-            showToast('📥 成功匯入 ' + added + ' 則新語錄' + (skipped > 0 ? '（已自動略過 ' + skipped + ' 則重複語錄）' : '！'));
-          } else {
-            showToast('⚠️ 貼上的語句皆已存在於現有語錄庫中（已略過 ' + skipped + ' 則重複語錄）');
-          }
-        });
-
-        // File Upload (.json / .csv / .txt) with Strict Duplicate Check
-        document.getElementById('inputFileUploadQuotes').addEventListener('change', function(e) {
-          var file = e.target.files && e.target.files[0];
-          if (!file) return;
-          var reader = new FileReader();
-          reader.onload = function(evt) {
-            var content = evt.target.result || '';
-            var addedCount = 0;
-            var skippedCount = 0;
-            try {
-              if (file.name.endsWith('.json')) {
-                var parsed = JSON.parse(content);
-                if (Array.isArray(parsed)) {
-                  parsed.forEach(function(item, idx) {
-                    if (item && item.text) {
-                      if (isQuoteDuplicate(item.text)) {
-                        skippedCount++;
-                        return;
-                      }
-                      state.quotes.unshift({
-                        id: item.id || ('q_file_' + Date.now() + '_' + idx),
-                        text: item.text.trim(),
-                        book: item.book || '檔案匯入語錄',
-                        category: item.category || '臣服與參',
-                        sourceType: 'personal',
-                        sourceLabel: '檔案上傳 (.json)',
-                        sourceUrl: item.sourceUrl || 'https://totality-of-life.com/',
-                        meaning: item.meaning || '來自您上傳的語錄檔案。',
-                        practiceTitle: item.practiceTitle || '生活靜心練習',
-                        practiceGuide: item.practiceGuide || '安住當下，把注意力放回呼吸。',
-                        practiceSteps: item.practiceSteps || ['1. 專注呼吸', '2. 接納當下', '3. 活出感恩']
-                      });
-                      addedCount++;
-                    }
-                  });
-                }
-              } else {
-                var lines = content.split(/\r?\n/).map(function(l) { return l.trim(); }).filter(Boolean);
-                lines.forEach(function(line, idx) {
-                  var parts = line.split(/[,|｜]/);
-                  var txt = (parts[0] || '').replace(/^["']|["']$/g, '').trim();
-                  var bk = (parts[1] || '檔案上傳筆記').replace(/^["']|["']$/g, '').trim();
-                  if (txt && txt !== '語句' && txt !== 'text') {
-                    if (isQuoteDuplicate(txt)) {
-                      skippedCount++;
-                      return;
-                    }
-                    state.quotes.unshift({
-                      id: 'q_txt_' + Date.now() + '_' + idx,
-                      text: txt,
-                      book: bk,
-                      category: '臣服與參',
-                      sourceType: 'personal',
-                      sourceLabel: '檔案上傳 (' + file.name + ')',
-                      sourceUrl: 'https://totality-of-life.com/',
-                      meaning: '來自您上傳的語錄檔案。',
-                      practiceTitle: '生活靜心練習',
-                      practiceGuide: '安住當下，把注意力放回呼吸。',
-                      practiceSteps: ['1. 專注呼吸', '2. 接納當下', '3. 活出感恩']
-                    });
-                    addedCount++;
-                  }
-                });
-              }
-              if (addedCount > 0) {
-                state.currentQuoteIndex = 0;
-                safeSetStorage('tol_quotes_v2', state.quotes);
-                renderDailyAndHeader();
-                renderSourcesTab();
-                showToast('📂 已匯入 ' + addedCount + ' 則新語錄' + (skippedCount > 0 ? '（略過 ' + skippedCount + ' 則重複語錄）' : '！'));
-              } else if (skippedCount > 0) {
-                showToast('⚠️ 檔案中的 ' + skippedCount + ' 則語錄皆已存在，未重複匯入');
-              } else {
-                showToast('檔案中未偵測到有效語句');
-              }
-            } catch (err) {
-              showToast('檔案解析失敗，請確認格式為 JSON、CSV 或純文字');
-            }
-          };
-          reader.readAsText(file);
         });
 
         // Complete List of Dr. Yang Ding-yi's 31 Totality of Life Books for Book-Title Search
@@ -4283,58 +4008,11 @@
           return count;
         }
 
-        // Admin Mode State & Protection Helpers
-        var isAdminUnlocked = safeGetStorage('tol_admin_unlocked_v1', true);
-        var adminPinCode = safeGetStorage('tol_admin_pin_v1', '8888');
-
-        function applyAdminModeUI() {
-          var statusText = document.getElementById('adminModeStatusText');
-          var bannerBadge = document.getElementById('adminBannerBadge');
-          var lockBtn = document.getElementById('btnLockToVisitorView');
-          var lockedOverlay = document.getElementById('adminLockedOverlay');
-          var contentGrid = document.getElementById('adminSourcesContentGrid');
-
-          if (statusText) {
-            statusText.textContent = isAdminUnlocked ? '🔓 管理者模式' : '🔒 訪客模式';
-          }
-          if (bannerBadge) {
-            bannerBadge.textContent = isAdminUnlocked ? '🔓 管理者專屬功能（已解鎖）' : '🔒 目前為訪客瀏覽模式（管理功能已鎖定）';
-            bannerBadge.className = isAdminUnlocked
-              ? 'px-2.5 py-0.5 rounded-full bg-[#829582] text-white text-xs font-semibold'
-              : 'px-2.5 py-0.5 rounded-full bg-[#F5ECE0] text-[#7A5826] text-xs font-semibold';
-          }
-          if (lockBtn) {
-            lockBtn.textContent = isAdminUnlocked ? '🔒 鎖定為「訪客瀏覽模式」（隱藏管理按鈕）' : '🔓 點擊輸入密碼解鎖「管理者模式」';
-          }
-          if (lockedOverlay && contentGrid) {
-            lockedOverlay.classList.toggle('hidden', isAdminUnlocked);
-            contentGrid.classList.toggle('hidden', !isAdminUnlocked);
-          }
-
-          // Show or hide all One-Click Load buttons across Header, Daily, and Explore tabs
-          ['btnHeaderOneClickLoad', 'btnDailyOneClickLoad', 'btnExploreOneClickLoad'].forEach(function(btnId) {
-            var el = document.getElementById(btnId);
-            if (el) {
-              el.classList.toggle('hidden', !isAdminUnlocked);
-            }
-          });
-        }
-
-        function requireAdminPermission() {
-          if (isAdminUnlocked) return true;
-          switchTab('sources');
-          showToast('🔒「一鍵載入新增語錄」與「資料來源與上傳」為管理者專屬功能，請先解鎖！');
-          var pinInput = document.getElementById('inputAdminPinUnlock');
-          if (pinInput) pinInput.focus();
-          return false;
-        }
-
         var isSearchingWeb = false;
         // Two-Stage Pipeline:
         // Stage 1: Search by Dr. Yang Ding-yi's 31 Book Titles (or YouTube/MP3) to FIND quotes first (NEVER search by category name!)
         // Stage 2: Automatically CLASSIFY each found quote into the 7 public categories based on semantic meaning!
         function oneClickLoadQuotes(batchSize, bookTitleFilter, customKeyword) {
-          if (!requireAdminPermission()) return;
           if (isSearchingWeb) {
             showToast('🔍 正在依《全部生命系列》31 本書名搜尋語錄中，請稍候...');
             return;
@@ -4878,61 +4556,6 @@
           oneClickLoadQuotes(5, 'all');
         });
 
-        // Admin Mode Toggle & Unlock Listeners
-        document.getElementById('btnToggleAdminMode').addEventListener('click', function() {
-          if (isAdminUnlocked) {
-            isAdminUnlocked = false;
-            safeSetStorage('tol_admin_unlocked_v1', false);
-            applyAdminModeUI();
-            showToast('🔒 已切換為「訪客瀏覽模式」：已隱藏一鍵載入新增語錄與上傳後台');
-          } else {
-            switchTab('sources');
-            var pinEl = document.getElementById('inputAdminPinUnlock');
-            if (pinEl) pinEl.focus();
-            showToast('🔑 請輸入管理者通行碼（預設 8888）以解鎖管理者模式');
-          }
-        });
-
-        document.getElementById('btnLockToVisitorView').addEventListener('click', function() {
-          if (isAdminUnlocked) {
-            isAdminUnlocked = false;
-            safeSetStorage('tol_admin_unlocked_v1', false);
-            applyAdminModeUI();
-            showToast('🔒 已鎖定為「訪客瀏覽模式」（一般訪客將無法操作一鍵載入與上傳區）');
-          } else {
-            var pinEl = document.getElementById('inputAdminPinUnlock');
-            if (pinEl) pinEl.focus();
-          }
-        });
-
-        document.getElementById('btnSubmitAdminUnlock').addEventListener('click', function() {
-          var pinEl = document.getElementById('inputAdminPinUnlock');
-          var val = pinEl ? pinEl.value.trim() : '';
-          if (val === adminPinCode || val === '8888') {
-            isAdminUnlocked = true;
-            safeSetStorage('tol_admin_unlocked_v1', true);
-            if (pinEl) pinEl.value = '';
-            applyAdminModeUI();
-            showToast('🔓 歡迎管理者！已解鎖「一鍵載入新增語錄」與「資料來源與上傳」全部功能');
-          } else {
-            showToast('⚠️ 管理者密碼不正確（預設密碼為 8888）');
-          }
-        });
-
-        document.getElementById('btnChangeAdminPin').addEventListener('click', function() {
-          var newPinEl = document.getElementById('inputNewAdminPin');
-          var newPin = newPinEl ? newPinEl.value.trim() : '';
-          if (newPin) {
-            adminPinCode = newPin;
-            safeSetStorage('tol_admin_pin_v1', adminPinCode);
-            newPinEl.value = '';
-            showToast('🔑 已更新管理者通行碼！');
-          } else {
-            showToast('請先在左側密碼框輸入新的管理者通行碼');
-          }
-        });
-
-        applyAdminModeUI();
         updateWebPoolBadge();
 
         document.getElementById('btnExportAllQuotesJson').addEventListener('click', function() {
