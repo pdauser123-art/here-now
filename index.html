@@ -331,7 +331,6 @@
                   <input id="chkTimerBowlSound" type="checkbox" checked class="rounded text-[#829582] focus:ring-[#829582]" />
                   <span>🌿 練習引導音效（大自然夜晚蟲鳴・38:00起）</span>
                 </label>
-                <button id="btnPreviewNightCrickets" type="button" class="px-2 py-1 rounded-full bg-[#F7F4ED] border border-[#E9DDCE] hover:bg-[#EEF2EE] text-[11px] text-[#5E715E] transition" title="試聽來自大自然的夜晚蟲鳴引導音效（同步啟動第38分鐘大自然原音）">🌿 試聽大自然蟲鳴</button>
                 <label class="inline-flex items-center gap-1.5 text-xs text-[#5E715E] font-medium cursor-pointer bg-[#EEF2EE] px-2.5 py-1 rounded-full border border-[#829582]/30" title="開啟後，手機進入螢幕鎖屏或切換背景時，仍會持續背景播放呼吸與蟲鳴音效">
                   <input id="chkTimerBgLockPlay" type="checkbox" checked class="rounded text-[#829582] focus:ring-[#829582]" />
                   <span>🌙 螢幕鎖屏背景播放</span>
@@ -365,13 +364,9 @@
                 <input id="inputTimerMinutesNum" type="number" min="1" max="15" value="1" class="w-14 px-2 py-1 rounded-xl border border-[#E9DDCE] bg-white text-center text-xs font-semibold text-[#303833] focus:outline-none focus:border-[#829582]" aria-label="練習分鐘數" />
                 <span class="text-xs text-[#68726B]">分</span>
               </div>
-              <!-- Distinct Inhale / Exhale Zen Bell & Wooden Fish Preview Bar (Exclusive to 諧振呼吸 & Always On, Equalized Volume) -->
+              <!-- Distinct Inhale / Exhale Zen Bell & Wooden Fish Hint Bar (Exclusive to 諧振呼吸 & Always On, Equalized Volume, No Preview Buttons) -->
               <div id="breathSoundHintBar" class="hidden pt-1.5 border-t border-[#E9DDCE]/70 flex flex-wrap items-center justify-between gap-1.5 text-[11px] text-[#5E715E]">
-                <span class="font-semibold">🔒 諧振呼吸專屬・禪堂法器呼吸音（引罄與木魚音量已同步平衡・固定全程播放）：</span>
-                <div class="flex items-center gap-1.5">
-                  <button id="btnPreviewInhaleSound" type="button" class="px-2 py-0.5 rounded-lg bg-white border border-[#E9DDCE] hover:bg-[#EEF2EE] text-[#5E715E] font-medium transition">🔔 試聽吸氣引罄聲</button>
-                  <button id="btnPreviewExhaleSound" type="button" class="px-2 py-0.5 rounded-lg bg-white border border-[#E9DDCE] hover:bg-[#EEF2EE] text-[#8A6530] font-medium transition" title="音量已調降一階與引罄同步・單響敲1下・溫厚長尾音">🪵 試聽吐氣木魚聲</button>
-                </div>
+                <span class="font-semibold">🔒 諧振呼吸專屬・禪堂法器呼吸音（🔔 吸氣：引罄聲 ／ 🪵 吐氣：溫厚純木質木魚聲，練習時固定全程播放・不可取消）</span>
               </div>
               <!-- Nature Crickets Audio Source Bar (YouTube 5HB43YxzE6M starting at 38:00 + Organic Countryside Night Audio) -->
               <div id="ytNatureSourceBar" class="pt-1.5 border-t border-[#E9DDCE]/70 space-y-1.5 text-[11px] text-[#5E715E]">
@@ -3402,74 +3397,83 @@
         } catch (e) {}
       }
 
-      // 🪵 吐氣音：禪堂「木魚聲 (Zen Wooden Fish / Mokugyo)」
-      // 已將音量調降一階（masterGain 由 0.95 調降至 0.42），讓木魚與引罄兩個音量完全同步平衡！維持單響敲 1 下與 2.8 秒溫厚長尾音
+      // 🪵 吐氣音：禪堂「木魚聲 (Zen Wooden Fish / Mokugyo)」— 徹底移除金屬感泛音，純粹溫厚樟木空腔木質共鳴
+      // 移除舊版 triangle 三角波與 564Hz/920Hz 高頻正弦泛音，改用「240Hz 低通濾波木槌軟墊敲擊聲」＋「210Hz 樟木空腔基頻與 105Hz 沉穩木箱共鳴（經 330Hz 低通濾波器徹底濾除金屬高頻）」，音量與引罄同步平衡
       function playExhaleSound() {
         try {
           var ctx = getAudioContext();
           if (!ctx) return;
           var now = ctx.currentTime;
 
-          var oscFund = ctx.createOscillator();
-          var oscOct = ctx.createOscillator();
-          var oscClick = ctx.createOscillator();
-          var oscSub = ctx.createOscillator();
+          // Steep Low-Pass Filter at 330Hz to guarantee ZERO metallic high-frequency ringing
+          var woodLowpass = ctx.createBiquadFilter();
+          woodLowpass.type = 'lowpass';
+          woodLowpass.frequency.setValueAtTime(330, now);
+          woodLowpass.Q.setValueAtTime(0.8, now);
 
-          var gFund = ctx.createGain();
-          var gOct = ctx.createGain();
-          var gClick = ctx.createGain();
-          var gSub = ctx.createGain();
           var masterGain = ctx.createGain();
-
-          // Stepped down by one tier (0.42) so Wooden Fish loudness matches the Zen Bell (引罄)
-          masterGain.gain.setValueAtTime(0.42, now);
+          masterGain.gain.setValueAtTime(0.46, now);
+          woodLowpass.connect(masterGain);
           masterGain.connect(ctx.destination);
 
-          // Fundamental hollow hardwood resonance (355Hz -> 282Hz with 2.8s long warm tail)
-          oscFund.type = 'triangle';
-          oscFund.frequency.setValueAtTime(355, now);
-          oscFund.frequency.exponentialRampToValueAtTime(282, now + 0.045);
-          oscFund.frequency.exponentialRampToValueAtTime(276, now + 2.75);
-          gFund.gain.setValueAtTime(0.0001, now);
-          gFund.gain.linearRampToValueAtTime(0.50, now + 0.005);
-          gFund.gain.exponentialRampToValueAtTime(0.18, now + 0.22);
-          gFund.gain.exponentialRampToValueAtTime(0.0001, now + 2.80);
+          // 1) Organic Padded-Mallet Wood Thud (Bandpass-filtered noise burst at 245Hz, 32ms — no metallic sine click!)
+          var thudSamples = Math.floor(ctx.sampleRate * 0.045);
+          var thudBuf = ctx.createBuffer(1, thudSamples, ctx.sampleRate);
+          var thudData = thudBuf.getChannelData(0);
+          for (var i = 0; i < thudSamples; i++) {
+            var env = Math.exp(-i / (ctx.sampleRate * 0.008));
+            thudData[i] = (Math.random() * 2 - 1) * env * 0.65;
+          }
+          var thudSrc = ctx.createBufferSource();
+          thudSrc.buffer = thudBuf;
+          var thudBand = ctx.createBiquadFilter();
+          thudBand.type = 'bandpass';
+          thudBand.frequency.setValueAtTime(245, now);
+          thudBand.Q.setValueAtTime(2.8, now);
+          thudSrc.connect(thudBand);
+          thudBand.connect(woodLowpass);
+          thudSrc.start(now);
+          thudSrc.stop(now + 0.048);
 
-          // Second harmonic woody projection
-          oscOct.type = 'sine';
-          oscOct.frequency.setValueAtTime(710, now);
-          oscOct.frequency.exponentialRampToValueAtTime(564, now + 0.045);
-          oscOct.frequency.exponentialRampToValueAtTime(552, now + 2.40);
-          gOct.gain.setValueAtTime(0.0001, now);
-          gOct.gain.linearRampToValueAtTime(0.28, now + 0.004);
-          gOct.gain.exponentialRampToValueAtTime(0.09, now + 0.20);
-          gOct.gain.exponentialRampToValueAtTime(0.0001, now + 2.45);
+          // 2) Hollow Camphor-Wood Cavity Fundamental (Pure sine 248Hz -> 208Hz, warm woody body + soft hall tail)
+          var oscCavity = ctx.createOscillator();
+          var gCavity = ctx.createGain();
+          oscCavity.type = 'sine';
+          oscCavity.frequency.setValueAtTime(248, now);
+          oscCavity.frequency.exponentialRampToValueAtTime(208, now + 0.032);
+          oscCavity.frequency.exponentialRampToValueAtTime(202, now + 1.85);
+          gCavity.gain.setValueAtTime(0.0001, now);
+          gCavity.gain.linearRampToValueAtTime(0.62, now + 0.005);
+          gCavity.gain.exponentialRampToValueAtTime(0.16, now + 0.14);
+          gCavity.gain.exponentialRampToValueAtTime(0.0001, now + 1.90);
 
-          // Gentle mallet impact transient ("叩")
-          oscClick.type = 'sine';
-          oscClick.frequency.setValueAtTime(920, now);
-          oscClick.frequency.exponentialRampToValueAtTime(410, now + 0.035);
-          gClick.gain.setValueAtTime(0.0001, now);
-          gClick.gain.linearRampToValueAtTime(0.20, now + 0.002);
-          gClick.gain.exponentialRampToValueAtTime(0.0001, now + 0.085);
+          // 3) Brief Carved-Wood Shell Knock Mode (325Hz -> 285Hz, decays in 0.11s so it never rings like metal)
+          var oscShell = ctx.createOscillator();
+          var gShell = ctx.createGain();
+          oscShell.type = 'sine';
+          oscShell.frequency.setValueAtTime(325, now);
+          oscShell.frequency.exponentialRampToValueAtTime(285, now + 0.03);
+          gShell.gain.setValueAtTime(0.0001, now);
+          gShell.gain.linearRampToValueAtTime(0.32, now + 0.003);
+          gShell.gain.exponentialRampToValueAtTime(0.0001, now + 0.11);
 
-          // Warm temple chamber low resonance (141Hz long tail)
+          // 4) Deep Temple-Hall Wood Sub-Resonance (104Hz pure sine warm lingering foundation)
+          var oscSub = ctx.createOscillator();
+          var gSub = ctx.createGain();
           oscSub.type = 'sine';
-          oscSub.frequency.setValueAtTime(145, now);
-          oscSub.frequency.exponentialRampToValueAtTime(141, now + 2.60);
+          oscSub.frequency.setValueAtTime(108, now);
+          oscSub.frequency.exponentialRampToValueAtTime(104, now + 1.95);
           gSub.gain.setValueAtTime(0.0001, now);
-          gSub.gain.linearRampToValueAtTime(0.22, now + 0.010);
-          gSub.gain.exponentialRampToValueAtTime(0.0001, now + 2.70);
+          gSub.gain.linearRampToValueAtTime(0.34, now + 0.008);
+          gSub.gain.exponentialRampToValueAtTime(0.0001, now + 2.00);
 
-          oscFund.connect(gFund); gFund.connect(masterGain);
-          oscOct.connect(gOct);   gOct.connect(masterGain);
-          oscClick.connect(gClick); gClick.connect(masterGain);
-          oscSub.connect(gSub);   gSub.connect(masterGain);
+          oscCavity.connect(gCavity); gCavity.connect(woodLowpass);
+          oscShell.connect(gShell);   gShell.connect(woodLowpass);
+          oscSub.connect(gSub);       gSub.connect(woodLowpass);
 
-          oscFund.start(now); oscFund.stop(now + 2.85);
-          oscOct.start(now);  oscOct.stop(now + 2.50);
-          oscClick.start(now); oscClick.stop(now + 0.10);
-          oscSub.start(now);  oscSub.stop(now + 2.75);
+          oscCavity.start(now); oscCavity.stop(now + 1.95);
+          oscShell.start(now);  oscShell.stop(now + 0.12);
+          oscSub.start(now);    oscSub.stop(now + 2.05);
         } catch (e) {}
       }
 
@@ -4557,7 +4561,7 @@
       //    If cricketSoundOn is true, plays soothing Night Crickets (夜晚蟲鳴聲) loop.
       function getOrBuildBackgroundLoopWavUrl(mode, cricketSoundOn) {
         var isBreath = (mode === 'breath');
-        var key = (isBreath ? 'breath' : 'other') + '_' + (cricketSoundOn ? 'crickets_on' : 'crickets_off') + '_v3';
+        var key = (isBreath ? 'breath' : 'other') + '_' + (cricketSoundOn ? 'crickets_on' : 'crickets_off') + '_v4';
         if (cachedBgWavUrls[key]) return cachedBgWavUrls[key];
 
         var sampleRate = 16000;
@@ -4621,24 +4625,21 @@
                           0.15 * Math.sin(twoPi * 2726 * t) * Math.exp(-t * 3.5);
               sample += 0.48 * bEnv * bWave;
             }
-            // 5.0s ~ 7.85s: 🪵 吐氣音：禪堂木魚聲（音量調降一階與引罄同步 Peak ~0.46 ＋ 單響敲 1 下 ＋ 2.8 秒溫厚長尾音）
-            if (t >= 5.0 && t < 7.85) {
+            // 5.0s ~ 7.05s: 🪵 吐氣音：純木質無金屬感禪堂木魚聲（208Hz 樟木空腔 ＋ 104Hz 沉穩木箱 ＋ 0.10秒木殼敲擊，無任何高頻金屬泛音，音量與引罄同步）
+            if (t >= 5.0 && t < 7.05) {
               var dt = t - 5.0;
-              var attack = Math.min(1, dt / 0.004);
-              var punchEnv = attack * Math.exp(-dt * 9.5);
-              var longTailEnv = attack * Math.exp(-dt * 1.38);
-              var fWood = 282 + 72 * Math.exp(-dt * 42.0);
-              var woodFundamental = Math.sin(twoPi * fWood * dt);
-              var woodOctave = Math.sin(twoPi * (fWood * 2.0) * dt);
-              var woodClick = Math.sin(twoPi * (410 + 480 * Math.exp(-dt * 55.0)) * dt) * Math.exp(-dt * 28.0);
-              var woodSub = Math.sin(twoPi * 141 * dt) * longTailEnv;
+              var attack = Math.min(1, dt / 0.005);
+              var woodKnockEnv = attack * Math.exp(-dt * 14.0);
+              var woodTailEnv = attack * Math.exp(-dt * 2.35);
+              var fCavity = 208 + 40 * Math.exp(-dt * 45.0);
+              var woodCavity = Math.sin(twoPi * fCavity * dt);
+              var woodShell = Math.sin(twoPi * (295 + 30 * Math.exp(-dt * 50.0)) * dt) * Math.exp(-dt * 28.0);
+              var woodSub = Math.sin(twoPi * 104 * dt) * woodTailEnv;
 
-              var woodSignal = (0.50 * punchEnv + 0.45 * longTailEnv) * woodFundamental +
-                               (0.28 * punchEnv + 0.18 * longTailEnv) * woodOctave +
-                               0.20 * punchEnv * woodClick +
-                               0.22 * woodSub;
-              // Lowered from 0.88 down to 0.45 so Wooden Fish and Zen Bell have equal loudness!
-              sample += 0.45 * woodSignal;
+              var woodSignal = (0.58 * woodKnockEnv + 0.36 * woodTailEnv) * woodCavity +
+                               0.26 * woodShell +
+                               0.32 * woodSub;
+              sample += 0.46 * woodSignal;
             }
           }
 
@@ -5035,24 +5036,7 @@
           var curMin = Math.round(state.timerSec / 60);
           setCustomTimerMinutes(curMin + 1);
         });
-        document.getElementById('btnPreviewInhaleSound').addEventListener('click', function() {
-          playInhaleSound();
-          showToast('🔔 諧振呼吸專屬・吸氣引罄聲：禪堂清亮銅磬音（吸氣 5 秒時固定響起）');
-        });
-        document.getElementById('btnPreviewExhaleSound').addEventListener('click', function() {
-          playExhaleSound();
-          showToast('🪵 諧振呼吸專屬・吐氣木魚聲：音量已調降一階與引罄同步平衡（單響敲 1 下＋2.8秒長尾音）');
-        });
-        var btnPrevCrickets = document.getElementById('btnPreviewNightCrickets');
-        if (btnPrevCrickets) {
-          btnPrevCrickets.addEventListener('click', function() {
-            var startedYt = startYoutubeNatureAt38Min(true);
-            playNightCricketsBurst(true);
-            showToast(startedYt
-              ? '🌿 正在試聽「田舎の夜・大自然蟲鳴（第 38:00 起）」原音與溫潤夜風蟋蟀聲！'
-              : '🌿 正在試聽無金屬感「田舎の夜・大自然夜晚蟲鳴與夜風聲」（並連線載入 38:00 原音）');
-          });
-        }
+        // Preview buttons removed per user request for a cleaner mindfulness timer interface
         var btnToggleYtCollapse = document.getElementById('btnToggleYtNatureVideo');
         if (btnToggleYtCollapse) {
           btnToggleYtCollapse.addEventListener('click', function() {
@@ -5197,15 +5181,15 @@
             );
           });
 
-          var woodWavUri = buildPcmWavDataUri(2.6, function(t) {
-            var attack = Math.min(1, t / 0.004);
-            var punchEnv = attack * Math.exp(-t * 9.5);
-            var longTailEnv = attack * Math.exp(-t * 1.42);
-            var freq = 282 + 72 * Math.exp(-t * 42);
-            var sig = (0.50 * punchEnv + 0.45 * longTailEnv) * Math.sin(2 * Math.PI * freq * t) +
-                      (0.28 * punchEnv + 0.18 * longTailEnv) * Math.sin(2 * Math.PI * (freq * 2) * t) +
-                      0.22 * longTailEnv * Math.sin(2 * Math.PI * 141 * t);
-            return 0.45 * sig;
+          var woodWavUri = buildPcmWavDataUri(2.0, function(t) {
+            var attack = Math.min(1, t / 0.005);
+            var knockEnv = attack * Math.exp(-t * 14.0);
+            var tailEnv = attack * Math.exp(-t * 2.35);
+            var freq = 208 + 40 * Math.exp(-t * 45);
+            var sig = (0.58 * knockEnv + 0.36 * tailEnv) * Math.sin(2 * Math.PI * freq * t) +
+                      0.26 * Math.exp(-t * 28.0) * Math.sin(2 * Math.PI * 295 * t) +
+                      0.32 * tailEnv * Math.sin(2 * Math.PI * 104 * t);
+            return 0.46 * sig;
           });
 
           var htaTag = isWindowsHta
@@ -5247,7 +5231,7 @@
             '  <div id="wQuote" class="quote-text"></div>\n' +
             '  <div id="wBook" class="book-text"></div>\n' +
             '  <div class="breath-box">\n' +
-            '    <div><strong id="bLabel">🧘 1分鐘禪堂呼吸練習</strong><div id="bPhase" style="font-size:11px;opacity:0.85;margin-top:2px;"><span onclick="playZenBellInhale()" style="cursor:pointer;text-decoration:underline;margin-right:6px;">🔔 試聽引罄</span><span onclick="playWoodenFishExhale()" style="cursor:pointer;text-decoration:underline;">🪵 試聽木魚</span></div></div>\n' +
+            '    <div><strong id="bLabel">🧘 1分鐘禪堂呼吸練習</strong><div id="bPhase" style="font-size:11px;opacity:0.85;margin-top:2px;">🔔 吸氣引罄聲・🪵 吐氣純木質木魚聲</div></div>\n' +
             '    <div style="display:flex;align-items:center;gap:6px;"><span id="bTime" class="clock">01:00</span><button id="btnBStart" class="btn-primary" onclick="toggleBreath()">開始</button></div>\n' +
             '  </div>\n' +
             '  <div class="btn-row">\n' +
@@ -5299,11 +5283,13 @@
             '    if (!ctx) { playWavFallback(WOOD_WAV); return; }\n' +
             '    try {\n' +
             '      var now = ctx.currentTime;\n' +
-            '      var o1 = ctx.createOscillator(), o2 = ctx.createOscillator(), g = ctx.createGain();\n' +
-            '      o1.type = "triangle"; o1.frequency.setValueAtTime(355, now); o1.frequency.exponentialRampToValueAtTime(282, now + 0.045); o1.frequency.exponentialRampToValueAtTime(276, now + 2.6);\n' +
-            '      o2.type = "sine"; o2.frequency.setValueAtTime(710, now); o2.frequency.exponentialRampToValueAtTime(564, now + 0.045);\n' +
-            '      g.gain.setValueAtTime(0.0001, now); g.gain.linearRampToValueAtTime(0.42, now + 0.005); g.gain.exponentialRampToValueAtTime(0.16, now + 0.22); g.gain.exponentialRampToValueAtTime(0.0001, now + 2.65);\n' +
-            '      o1.connect(g); o2.connect(g); g.connect(ctx.destination); o1.start(now); o2.start(now); o1.stop(now + 2.7); o2.stop(now + 2.7);\n' +
+            '      var lp = ctx.createBiquadFilter(); lp.type = "lowpass"; lp.frequency.setValueAtTime(330, now); lp.connect(ctx.destination);\n' +
+            '      var o1 = ctx.createOscillator(), o2 = ctx.createOscillator(), g1 = ctx.createGain(), g2 = ctx.createGain();\n' +
+            '      o1.type = "sine"; o1.frequency.setValueAtTime(248, now); o1.frequency.exponentialRampToValueAtTime(208, now + 0.032); o1.frequency.exponentialRampToValueAtTime(202, now + 1.85);\n' +
+            '      o2.type = "sine"; o2.frequency.setValueAtTime(108, now); o2.frequency.exponentialRampToValueAtTime(104, now + 1.9);\n' +
+            '      g1.gain.setValueAtTime(0.0001, now); g1.gain.linearRampToValueAtTime(0.32, now + 0.005); g1.gain.exponentialRampToValueAtTime(0.08, now + 0.14); g1.gain.exponentialRampToValueAtTime(0.0001, now + 1.9);\n' +
+            '      g2.gain.setValueAtTime(0.0001, now); g2.gain.linearRampToValueAtTime(0.18, now + 0.008); g2.gain.exponentialRampToValueAtTime(0.0001, now + 1.95);\n' +
+            '      o1.connect(g1); g1.connect(lp); o2.connect(g2); g2.connect(lp); o1.start(now); o2.start(now); o1.stop(now + 1.95); o2.stop(now + 2.0);\n' +
             '    } catch(e){ playWavFallback(WOOD_WAV); }\n' +
             '  }\n' +
             '  function popOutMiniWin() {\n' +
