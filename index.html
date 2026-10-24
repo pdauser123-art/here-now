@@ -1,7 +1,4 @@
-<!DOCTYP
-          <button id="btnOpenEpiphanyManager" type="button" class="px-3.5 py-2.5 rounded-2xl bg-[#FDF6EC] hover:bg-[#F5E8D3] text-[#8A6530] border border-[#B79B68]/40 text-xs sm:text-sm font-semibold transition flex items-center gap-1.5 shrink-0">
-            <span>💫 靈光乍現（上傳／修改／刪除）</span>
-          </button>E html>
+<!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
@@ -329,12 +326,13 @@
                 <span class="text-xs font-semibold uppercase tracking-wider text-[#8A6530]">MINDFULNESS TIMER</span>
                 <h2 class="text-xl font-bold font-serif-tc text-[#303833] mt-0.5">互動式呼吸與靜坐練習</h2>
               </div>
-              <div class="flex flex-wrap items-center gap-2.5">
-                <label class="inline-flex items-center gap-1.5 text-xs text-stone-600 cursor-pointer">
+              <div class="flex flex-wrap items-center gap-2">
+                <label class="inline-flex items-center gap-1.5 text-xs text-[#303833] font-medium cursor-pointer bg-[#F7F4ED] px-2.5 py-1 rounded-full border border-[#E9DDCE]" title="三種呼吸與靜坐練習皆可自由勾選是否播放「夜晚蟲鳴聲」背景引導音效">
                   <input id="chkTimerBowlSound" type="checkbox" checked class="rounded text-[#829582] focus:ring-[#829582]" />
-                  <span>練習引導音效</span>
+                  <span>🦗 練習引導音效（夜晚蟲鳴聲）</span>
                 </label>
-                <label class="inline-flex items-center gap-1.5 text-xs text-[#5E715E] font-medium cursor-pointer bg-[#EEF2EE] px-2.5 py-1 rounded-full border border-[#829582]/30" title="開啟後，手機進入螢幕鎖屏或切換背景時，仍會透過背景音軌持續播放引罄吸氣音與木魚吐氣音">
+                <button id="btnPreviewNightCrickets" type="button" class="px-2 py-1 rounded-full bg-[#F7F4ED] border border-[#E9DDCE] hover:bg-[#EEF2EE] text-[11px] text-[#5E715E] transition" title="試聽夜晚蟲鳴引導音效">🦗 試聽蟲鳴</button>
+                <label class="inline-flex items-center gap-1.5 text-xs text-[#5E715E] font-medium cursor-pointer bg-[#EEF2EE] px-2.5 py-1 rounded-full border border-[#829582]/30" title="開啟後，手機進入螢幕鎖屏或切換背景時，仍會持續背景播放呼吸與蟲鳴音效">
                   <input id="chkTimerBgLockPlay" type="checkbox" checked class="rounded text-[#829582] focus:ring-[#829582]" />
                   <span>🌙 螢幕鎖屏背景播放</span>
                 </label>
@@ -367,12 +365,12 @@
                 <input id="inputTimerMinutesNum" type="number" min="1" max="15" value="1" class="w-14 px-2 py-1 rounded-xl border border-[#E9DDCE] bg-white text-center text-xs font-semibold text-[#303833] focus:outline-none focus:border-[#829582]" aria-label="練習分鐘數" />
                 <span class="text-xs text-[#68726B]">分</span>
               </div>
-              <!-- Distinct Inhale / Exhale Zen Bell & Wooden Fish Preview Bar -->
-              <div id="breathSoundHintBar" class="pt-1.5 border-t border-[#E9DDCE]/70 flex flex-wrap items-center justify-between gap-1.5 text-[11px] text-[#68726B]">
-                <span>禪堂法器呼吸音（吸氣：引罄聲 ／ 吐氣：木魚聲）：</span>
+              <!-- Distinct Inhale / Exhale Zen Bell & Wooden Fish Preview Bar (Exclusive to 諧振呼吸 & Always On) -->
+              <div id="breathSoundHintBar" class="hidden pt-1.5 border-t border-[#E9DDCE]/70 flex flex-wrap items-center justify-between gap-1.5 text-[11px] text-[#5E715E]">
+                <span class="font-semibold">🔒 諧振呼吸專屬・禪堂法器呼吸音（練習時固定全程播放・不可取消）：</span>
                 <div class="flex items-center gap-1.5">
-                  <button id="btnPreviewInhaleSound" type="button" class="px-2 py-0.5 rounded-lg bg-white border border-[#E9DDCE] hover:bg-[#EEF2EE] text-[#5E715E] transition">🔔 試聽吸氣引罄聲</button>
-                  <button id="btnPreviewExhaleSound" type="button" class="px-2 py-0.5 rounded-lg bg-white border border-[#E9DDCE] hover:bg-[#EEF2EE] text-[#8A6530] transition">🪵 試聽吐氣木魚聲</button>
+                  <button id="btnPreviewInhaleSound" type="button" class="px-2 py-0.5 rounded-lg bg-white border border-[#E9DDCE] hover:bg-[#EEF2EE] text-[#5E715E] font-medium transition">🔔 試聽吸氣引罄聲</button>
+                  <button id="btnPreviewExhaleSound" type="button" class="px-2 py-0.5 rounded-lg bg-white border border-[#E9DDCE] hover:bg-[#EEF2EE] text-[#8A6530] font-medium transition" title="單響敲1下・溫厚長尾音">🪵 試聽吐氣木魚聲</button>
                 </div>
               </div>
               <!-- Lock-Screen Background Audio Status Indicator -->
@@ -434,6 +432,9 @@
               <option value="mp3">🎵 MP3 / Podcast 音頻解讀</option>
               <option value="personal">💫 靈光乍現（個人靈感）</option>
             </select>
+            <button id="btnOpenEpiphanyManager" type="button" class="px-3.5 py-2 rounded-2xl bg-[#FDF6EC] hover:bg-[#F5E8D3] text-[#8A6530] border border-[#B79B68]/40 text-xs sm:text-sm font-semibold transition flex items-center gap-1.5 shrink-0">
+              <span>💫 靈光乍現（上傳／修改／刪除）</span>
+            </button>
           </div>
         </div>
 
@@ -3389,50 +3390,121 @@
         } catch (e) {}
       }
 
-      // 🪵 吐氣音：禪堂「木魚聲 (Zen Wooden Fish / Mokugyo)」
-      // 溫厚沉穩的木質空腔共鳴聲（篤定雙擊「叩、叩」），引導妄念歇下、緩慢吐氣
+      // 🪵 吐氣音：禪堂「木魚聲 (Zen Wooden Fish / Mokugyo)」— 音量加強、單響敲 1 下、溫厚長尾音共鳴 (約 2.8 秒)
       function playExhaleSound() {
         try {
           var ctx = getAudioContext();
           if (!ctx) return;
           var now = ctx.currentTime;
 
-          function strikeWoodenFish(startTime, volumeScale) {
-            // Hollow carved hardwood cavity fundamental (315Hz -> 278Hz pitch drop on mallet impact)
-            var osc1 = ctx.createOscillator();
-            var osc2 = ctx.createOscillator();
-            var filter = ctx.createBiquadFilter();
-            var g = ctx.createGain();
+          // 1) Crisp, loud wooden mallet strike & hollow temple cavity body
+          var oscFund = ctx.createOscillator();
+          var oscOct = ctx.createOscillator();
+          var oscClick = ctx.createOscillator();
+          var oscSub = ctx.createOscillator();
 
-            osc1.type = 'triangle';
-            osc2.type = 'sine';
-            osc1.frequency.setValueAtTime(340, startTime);
-            osc1.frequency.exponentialRampToValueAtTime(272, startTime + 0.045);
-            osc2.frequency.setValueAtTime(680, startTime);
-            osc2.frequency.exponentialRampToValueAtTime(544, startTime + 0.045);
+          var gFund = ctx.createGain();
+          var gOct = ctx.createGain();
+          var gClick = ctx.createGain();
+          var gSub = ctx.createGain();
+          var masterGain = ctx.createGain();
 
-            filter.type = 'bandpass';
-            filter.frequency.setValueAtTime(310, startTime);
-            filter.Q.setValueAtTime(3.2, startTime);
+          masterGain.gain.setValueAtTime(0.95, now);
+          masterGain.connect(ctx.destination);
 
-            g.gain.setValueAtTime(0.0001, startTime);
-            g.gain.linearRampToValueAtTime(0.32 * volumeScale, startTime + 0.005);
-            g.gain.exponentialRampToValueAtTime(0.0001, startTime + 0.19);
+          // Fundamental hollow hardwood resonance (345Hz -> 282Hz with 2.8s long warm tail)
+          oscFund.type = 'triangle';
+          oscFund.frequency.setValueAtTime(355, now);
+          oscFund.frequency.exponentialRampToValueAtTime(282, now + 0.045);
+          oscFund.frequency.exponentialRampToValueAtTime(276, now + 2.75);
+          gFund.gain.setValueAtTime(0.0001, now);
+          gFund.gain.linearRampToValueAtTime(0.78, now + 0.005);
+          gFund.gain.exponentialRampToValueAtTime(0.28, now + 0.22);
+          gFund.gain.exponentialRampToValueAtTime(0.0001, now + 2.80);
 
-            osc1.connect(filter);
-            osc2.connect(filter);
-            filter.connect(g);
-            g.connect(ctx.destination);
+          // Second harmonic woody projection (so phone/laptop speakers project clearly)
+          oscOct.type = 'sine';
+          oscOct.frequency.setValueAtTime(710, now);
+          oscOct.frequency.exponentialRampToValueAtTime(564, now + 0.045);
+          oscOct.frequency.exponentialRampToValueAtTime(552, now + 2.40);
+          gOct.gain.setValueAtTime(0.0001, now);
+          gOct.gain.linearRampToValueAtTime(0.52, now + 0.004);
+          gOct.gain.exponentialRampToValueAtTime(0.16, now + 0.20);
+          gOct.gain.exponentialRampToValueAtTime(0.0001, now + 2.45);
 
-            osc1.start(startTime);
-            osc2.start(startTime);
-            osc1.stop(startTime + 0.21);
-            osc2.stop(startTime + 0.21);
+          // Mallet impact transient ("叩" attack clarity at 920Hz -> 420Hz)
+          oscClick.type = 'sine';
+          oscClick.frequency.setValueAtTime(960, now);
+          oscClick.frequency.exponentialRampToValueAtTime(420, now + 0.035);
+          gClick.gain.setValueAtTime(0.0001, now);
+          gClick.gain.linearRampToValueAtTime(0.45, now + 0.002);
+          gClick.gain.exponentialRampToValueAtTime(0.0001, now + 0.09);
+
+          // Warm temple chamber low resonance (141Hz long tail)
+          oscSub.type = 'sine';
+          oscSub.frequency.setValueAtTime(145, now);
+          oscSub.frequency.exponentialRampToValueAtTime(141, now + 2.60);
+          gSub.gain.setValueAtTime(0.0001, now);
+          gSub.gain.linearRampToValueAtTime(0.38, now + 0.010);
+          gSub.gain.exponentialRampToValueAtTime(0.0001, now + 2.70);
+
+          oscFund.connect(gFund); gFund.connect(masterGain);
+          oscOct.connect(gOct);   gOct.connect(masterGain);
+          oscClick.connect(gClick); gClick.connect(masterGain);
+          oscSub.connect(gSub);   gSub.connect(masterGain);
+
+          oscFund.start(now); oscFund.stop(now + 2.85);
+          oscOct.start(now);  oscOct.stop(now + 2.50);
+          oscClick.start(now); oscClick.stop(now + 0.10);
+          oscSub.start(now);  oscSub.stop(now + 2.75);
+        } catch (e) {}
+      }
+
+      // 🦗 練習引導音效：寧靜「夜晚蟲鳴聲 (Night Cricket / Autumn Insect Nature Ambience)」
+      // 模擬秋夜山林間清亮溫潤的鈴蟲與蟋蟀鳴叫聲，三個呼吸法皆可自由勾選是否播放
+      function playNightCricketsBurst() {
+        try {
+          var ctx = getAudioContext();
+          if (!ctx) return;
+          var now = ctx.currentTime;
+
+          // Helper to schedule one realistic cricket trill (carrier ~3950Hz or ~4380Hz modulated by 30Hz syllable pulses)
+          function scheduleCricketTrill(startOffset, carrierFreq, duration, peakGain) {
+            var t0 = now + startOffset;
+            var osc = ctx.createOscillator();
+            var modOsc = ctx.createOscillator();
+            var modGain = ctx.createGain();
+            var envGain = ctx.createGain();
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(carrierFreq, t0);
+
+            // 30Hz pulse modulation for authentic cricket wing-rubbing syllables ("唧-唧-唧-唧")
+            modOsc.type = 'sine';
+            modOsc.frequency.setValueAtTime(30, t0);
+            modGain.gain.setValueAtTime(peakGain * 0.5, t0);
+
+            envGain.gain.setValueAtTime(0.0001, t0);
+            envGain.gain.linearRampToValueAtTime(peakGain, t0 + 0.04);
+            envGain.gain.setValueAtTime(peakGain, t0 + duration - 0.06);
+            envGain.gain.exponentialRampToValueAtTime(0.0001, t0 + duration);
+
+            modOsc.connect(modGain);
+            modGain.connect(envGain.gain);
+            osc.connect(envGain);
+            envGain.connect(ctx.destination);
+
+            osc.start(t0);
+            modOsc.start(t0);
+            osc.stop(t0 + duration + 0.02);
+            modOsc.stop(t0 + duration + 0.02);
           }
 
-          // Two calm, grounded Zen wooden fish knocks ("叩 — 叩")
-          strikeWoodenFish(now, 1.0);
-          strikeWoodenFish(now + 0.42, 0.82);
+          // Primary near cricket + secondary distant cricket answer
+          scheduleCricketTrill(0.02, 3960, 0.42, 0.09);
+          scheduleCricketTrill(0.58, 3980, 0.45, 0.085);
+          scheduleCricketTrill(1.25, 4420, 0.38, 0.055);
+          scheduleCricketTrill(1.80, 3960, 0.44, 0.08);
         } catch (e) {}
       }
 
@@ -4317,11 +4389,13 @@
       var activeWakeLock = null;
 
       // Synthesize a 10-second 16-bit PCM WAV loop in memory:
-      // - For 'breath' mode: 0.0s plays Zen Inhale Bell (引罄聲), 5.0s plays Zen Exhale Wooden Fish (木魚雙擊聲),
-      //   plus a continuous ultra-gentle 432Hz warm singing-bowl pad so iOS/Android lock screen never suspends the audio stream!
-      // - For 'surrender' / 'meditate' modes: continuous gentle 432Hz singing-bowl resonance with soft bell overtones.
-      function getOrBuildBackgroundLoopWavUrl(mode) {
-        var key = (mode === 'breath') ? 'breath_10s' : 'meditate_10s';
+      // 1) 'breath' (諧振呼吸): ALWAYS includes mandatory Zen Inhale Bell (0.0s) + Boosted Single-Strike Long-Tail Zen Wooden Fish (5.0s ~ 7.8s).
+      //    If cricketSoundOn is true, also layers soothing Night Crickets (夜晚蟲鳴聲).
+      // 2) 'surrender' / 'meditate': NEVER includes Zen Bell or Wooden Fish.
+      //    If cricketSoundOn is true, plays soothing Night Crickets (夜晚蟲鳴聲) loop.
+      function getOrBuildBackgroundLoopWavUrl(mode, cricketSoundOn) {
+        var isBreath = (mode === 'breath');
+        var key = (isBreath ? 'breath' : 'other') + '_' + (cricketSoundOn ? 'crickets_on' : 'crickets_off') + '_v2';
         if (cachedBgWavUrls[key]) return cachedBgWavUrls[key];
 
         var sampleRate = 16000;
@@ -4349,42 +4423,68 @@
         writeStr(36, 'data');
         view.setUint32(40, numSamples * 2, true);
 
+        // Pre-defined natural night cricket chirp windows across the 10-second cycle
+        var cricketWindows = [
+          { start: 0.55, dur: 0.42, freq: 3960, amp: 0.085 },
+          { start: 1.15, dur: 0.44, freq: 3980, amp: 0.080 },
+          { start: 2.10, dur: 0.38, freq: 4380, amp: 0.055 },
+          { start: 3.15, dur: 0.45, freq: 3960, amp: 0.085 },
+          { start: 3.75, dur: 0.40, freq: 3960, amp: 0.075 },
+          { start: 5.65, dur: 0.42, freq: 4360, amp: 0.060 },
+          { start: 6.80, dur: 0.44, freq: 3960, amp: 0.085 },
+          { start: 7.40, dur: 0.42, freq: 3980, amp: 0.080 },
+          { start: 8.65, dur: 0.46, freq: 3960, amp: 0.085 },
+          { start: 9.25, dur: 0.38, freq: 4380, amp: 0.055 }
+        ];
+
         var twoPi = 2 * Math.PI;
         for (var i = 0; i < numSamples; i++) {
           var t = i / sampleRate;
-          // Continuous ultra-gentle 432Hz harmonic pad (ensures OS lock screen keeps audio session alive)
-          var padEnv = 0.5 + 0.5 * Math.sin(twoPi * 0.1 * t);
-          var sample = 0.012 * padEnv * (Math.sin(twoPi * 432 * t) + 0.35 * Math.sin(twoPi * 216 * t));
+          // Ultra-subtle night air floor (0.004) so mobile OS never treats audio track as digital zero silence during lock screen
+          var sample = 0.004 * Math.sin(twoPi * 216 * t);
 
-          if (mode === 'breath') {
-            // 0.0s ~ 2.6s: 🔔 吸氣音：禪堂引罄聲 (1056Hz + 2798Hz + 4580Hz clear metallic bell)
+          // 1) Mandatory Zen Bell & Boosted Single-Strike Long-Tail Wooden Fish for 'breath' (諧振呼吸) ONLY
+          if (isBreath) {
+            // 0.0s ~ 2.6s: 🔔 吸氣音：禪堂引罄聲
             if (t < 2.6) {
-              var bEnv = Math.min(1, t / 0.008) * Math.exp(-t * 1.85);
-              var bWave = 0.55 * Math.sin(twoPi * 1056 * t) +
-                          0.28 * Math.sin(twoPi * 2798 * t) * Math.exp(-t * 2.5) +
-                          0.14 * Math.sin(twoPi * 4580 * t) * Math.exp(-t * 4.2);
-              sample += 0.42 * bEnv * bWave;
+              var bEnv = Math.min(1, t / 0.008) * Math.exp(-t * 1.75);
+              var bWave = 0.55 * Math.sin(twoPi * 988 * t) +
+                          0.28 * Math.sin(twoPi * 1976 * t) * Math.exp(-t * 2.2) +
+                          0.15 * Math.sin(twoPi * 2726 * t) * Math.exp(-t * 3.5);
+              sample += 0.46 * bEnv * bWave;
             }
-            // 5.0s ~ 6.2s: 🪵 吐氣音：禪堂木魚聲 (196Hz + 392Hz warm hollow wood block double tap)
-            if (t >= 5.0 && t < 6.4) {
-              var dt1 = t - 5.0;
-              if (dt1 >= 0 && dt1 < 0.45) {
-                var wEnv1 = Math.min(1, dt1 / 0.004) * Math.exp(-dt1 * 16.0);
-                var f1 = 196 + 90 * Math.exp(-dt1 * 45.0);
-                sample += 0.52 * wEnv1 * (0.75 * Math.sin(twoPi * f1 * dt1) + 0.25 * Math.sin(twoPi * (f1 * 1.98) * dt1) * Math.exp(-dt1 * 24.0));
-              }
-              var dt2 = t - 5.42;
-              if (dt2 >= 0 && dt2 < 0.45) {
-                var wEnv2 = Math.min(1, dt2 / 0.004) * Math.exp(-dt2 * 17.5);
-                var f2 = 188 + 80 * Math.exp(-dt2 * 45.0);
-                sample += 0.36 * wEnv2 * (0.75 * Math.sin(twoPi * f2 * dt2) + 0.25 * Math.sin(twoPi * (f2 * 1.98) * dt2) * Math.exp(-dt2 * 24.0));
-              }
+            // 5.0s ~ 7.85s: 🪵 吐氣音：禪堂木魚聲（音量大幅加強 ＋ 單響敲 1 下 ＋ 2.8 秒溫厚長尾音共鳴）
+            if (t >= 5.0 && t < 7.85) {
+              var dt = t - 5.0;
+              var attack = Math.min(1, dt / 0.004);
+              // Strong initial body + lingering 2.8s hollow wood-cavity resonance tail
+              var punchEnv = attack * Math.exp(-dt * 9.5);
+              var longTailEnv = attack * Math.exp(-dt * 1.38);
+              var fWood = 282 + 72 * Math.exp(-dt * 42.0);
+              var woodFundamental = Math.sin(twoPi * fWood * dt);
+              var woodOctave = Math.sin(twoPi * (fWood * 2.0) * dt);
+              var woodClick = Math.sin(twoPi * (420 + 520 * Math.exp(-dt * 55.0)) * dt) * Math.exp(-dt * 28.0);
+              var woodSub = Math.sin(twoPi * 141 * dt) * longTailEnv;
+
+              var woodSignal = (0.50 * punchEnv + 0.45 * longTailEnv) * woodFundamental +
+                               (0.32 * punchEnv + 0.22 * longTailEnv) * woodOctave +
+                               0.28 * punchEnv * woodClick +
+                               0.24 * woodSub;
+              sample += 0.88 * woodSignal;
             }
-          } else {
-            // Gentle singing bowl chime at t = 0.0s for meditation/surrender loop
-            if (t < 3.2) {
-              var mEnv = Math.min(1, t / 0.015) * Math.exp(-t * 1.25);
-              sample += 0.22 * mEnv * (0.7 * Math.sin(twoPi * 528 * t) + 0.3 * Math.sin(twoPi * 1056 * t));
+          }
+
+          // 2) Optional Night Crickets Ambience (練習引導音效：夜晚蟲鳴聲) for ALL 3 modes when checked
+          if (cricketSoundOn) {
+            for (var cw = 0; cw < cricketWindows.length; cw++) {
+              var w = cricketWindows[cw];
+              if (t >= w.start && t < w.start + w.dur) {
+                var lt = t - w.start;
+                var winEnv = Math.sin(Math.PI * (lt / w.dur));
+                // 30Hz syllable pulse modulation ("唧-唧-唧-唧")
+                var pulseMod = 0.55 + 0.45 * Math.sin(twoPi * 30.0 * lt);
+                sample += w.amp * winEnv * pulseMod * Math.sin(twoPi * w.freq * lt);
+              }
             }
           }
 
@@ -4435,16 +4535,21 @@
       function updateMediaSessionMetadata() {
         try {
           if ('mediaSession' in navigator && navigator.mediaSession) {
+            var soundOnEl = document.getElementById('chkTimerBowlSound');
+            var cricketOn = soundOnEl ? soundOnEl.checked : true;
             var modeNames = {
               surrender: '瞬間臣服練習',
               breath: '諧振呼吸（🔔吸氣引罄・🪵吐氣木魚）',
               meditate: '靜坐三原則練習'
             };
+            var artistDesc = state.timerMode === 'breath'
+              ? ('🔔 吸氣引罄・🪵 吐氣木魚（固定播放）' + (cricketOn ? ' ＋ 🦗 夜晚蟲鳴聲' : ''))
+              : (cricketOn ? '🦗 練習引導音效：夜晚蟲鳴聲' : '靜心安住練習');
             var q = getCurrentQuote();
             if (typeof MediaMetadata !== 'undefined') {
               navigator.mediaSession.metadata = new MediaMetadata({
                 title: '全部生命・' + (modeNames[state.timerMode] || '靜心呼吸練習'),
-                artist: '🔔 吸氣 5 秒（引罄聲）・🪵 吐氣 5 秒（木魚聲）',
+                artist: artistDesc,
                 album: q ? ('每日一句：' + q.text.slice(0, 26) + '...') : '楊定一博士《全部生命系列》靜心語錄'
               });
             }
@@ -4465,25 +4570,40 @@
       function startBackgroundBreathAudio() {
         var soundOnEl = document.getElementById('chkTimerBowlSound');
         var bgLockEl = document.getElementById('chkTimerBgLockPlay');
-        var soundOn = soundOnEl ? soundOnEl.checked : true;
+        var cricketOn = soundOnEl ? soundOnEl.checked : true;
         var bgOn = bgLockEl ? bgLockEl.checked : true;
+        var isBreath = (state.timerMode === 'breath');
         var statusTextEl = document.getElementById('bgPlayStatusText');
 
         requestScreenWakeLock();
 
-        if (!soundOn || !bgOn) {
+        // In 'surrender' and 'meditate', if cricketOn is unchecked, no audio is needed at all
+        if (!isBreath && !cricketOn) {
           if (bgBreathAudioEl) {
             try { bgBreathAudioEl.pause(); } catch (e) {}
           }
           if (statusTextEl) {
-            statusTextEl.textContent = '🌙 螢幕鎖屏背景播放已關閉（僅於畫面開啟時提示）';
+            statusTextEl.textContent = '🌙 目前為靜音練習（若需「🦗 夜晚蟲鳴聲」請勾選上方練習引導音效）';
+          }
+          return false;
+        }
+
+        // If user turned off bgOn, we pause the looping HTML5 <audio> element and let tickTimerByWallClock trigger WebAudio in foreground
+        if (!bgOn) {
+          if (bgBreathAudioEl) {
+            try { bgBreathAudioEl.pause(); } catch (e) {}
+          }
+          if (statusTextEl) {
+            statusTextEl.textContent = isBreath
+              ? '🔔 諧振呼吸進行中（禪堂引罄與木魚固定播放' + (cricketOn ? '＋夜晚蟲鳴' : '') + '｜鎖屏背景播放已關閉）'
+              : '🦗 夜晚蟲鳴引導進行中（鎖屏背景播放已關閉）';
           }
           return false;
         }
 
         try {
           var audioEl = ensureBgAudioElement();
-          var wavUrl = getOrBuildBackgroundLoopWavUrl(state.timerMode);
+          var wavUrl = getOrBuildBackgroundLoopWavUrl(state.timerMode, cricketOn);
           if (audioEl.src !== wavUrl) {
             audioEl.src = wavUrl;
           }
@@ -4496,7 +4616,9 @@
           }
           updateMediaSessionMetadata();
           if (statusTextEl) {
-            statusTextEl.textContent = '🔊 背景播放進行中：即使手機進入螢幕鎖屏，引罄吸氣音與木魚吐氣音仍會持續引導';
+            statusTextEl.textContent = isBreath
+              ? ('🔊 諧振呼吸播放中：禪堂引罄＆木魚固定全程播放' + (cricketOn ? ' ＋ 🦗 夜晚蟲鳴聲' : '') + '（支援螢幕鎖屏背景播放）')
+              : '🔊 練習引導播放中：🦗 夜晚蟲鳴聲持續引導（支援螢幕鎖屏背景播放）';
           }
           return true;
         } catch (e) {
@@ -4518,7 +4640,9 @@
         } catch (e) {}
         var statusTextEl = document.getElementById('bgPlayStatusText');
         if (statusTextEl) {
-          statusTextEl.textContent = '🌙 螢幕鎖屏背景播放已就緒：長時間呼吸練習中即使關閉螢幕，引罄與木魚聲仍會持續引導並支援鎖屏控制';
+          statusTextEl.textContent = state.timerMode === 'breath'
+            ? '🔒 諧振呼吸專屬：練習時「禪堂引罄吸氣／木魚吐氣」固定全程播放，並可搭配「🦗 夜晚蟲鳴聲」與鎖屏背景播放'
+            : '🌙 練習引導音效（🦗 夜晚蟲鳴聲）已就緒：可自由勾選是否播放，並支援螢幕鎖屏背景播放';
         }
       }
 
@@ -4542,17 +4666,22 @@
           var prevRem = state.timerRemaining;
           state.timerRemaining = remSec;
           var elapsedNow = state.timerSec - state.timerRemaining;
-          var soundOn = document.getElementById('chkTimerBowlSound').checked;
-          var bgOnEl = document.getElementById('chkTimerBgLockPlay');
-          var bgOn = bgOnEl ? bgOnEl.checked : true;
+          var cricketOn = document.getElementById('chkTimerBowlSound').checked;
           var bgAudioPlaying = bgBreathAudioEl && !bgBreathAudioEl.paused;
 
-          // If background HTML5 audio loop is NOT active, trigger WebAudio chimes on 5s transitions
-          if (soundOn && !bgAudioPlaying && prevRem !== remSec && state.timerMode === 'breath') {
-            if (elapsedNow % 10 === 0) {
-              playInhaleSound();
-            } else if (elapsedNow % 10 === 5) {
-              playExhaleSound();
+          // If background HTML5 audio loop is NOT active, trigger foreground WebAudio sounds:
+          if (!bgAudioPlaying && prevRem !== remSec) {
+            // 1) In 'breath' mode, 禪堂法器呼吸音 (引罄/木魚) is MANDATORY and ALWAYS plays!
+            if (state.timerMode === 'breath') {
+              if (elapsedNow % 10 === 0) {
+                playInhaleSound();
+              } else if (elapsedNow % 10 === 5) {
+                playExhaleSound();
+              }
+            }
+            // 2) In ALL 3 modes, if '練習引導音效（夜晚蟲鳴聲）' is checked, play soothing night crickets every 3 seconds
+            if (cricketOn && (elapsedNow % 3 === 1)) {
+              playNightCricketsBurst();
             }
           }
           updateTimerUI();
@@ -4561,8 +4690,10 @@
           stopTimer();
           state.timerRemaining = state.timerSec;
           updateTimerUI();
-          if (document.getElementById('chkTimerBowlSound').checked) {
-            playCrystalBowlChime();
+          if (state.timerMode === 'breath') {
+            playInhaleSound();
+          } else if (document.getElementById('chkTimerBowlSound').checked) {
+            playNightCricketsBurst();
           }
           state.practiceCount += 1;
           safeSetStorage('tol_practice_count_v1', state.practiceCount);
@@ -4581,8 +4712,9 @@
         document.getElementById('btnTimerStartPause').textContent = '暫停練習';
 
         var bgStarted = startBackgroundBreathAudio();
-        var soundOn = document.getElementById('chkTimerBowlSound').checked;
-        if (soundOn && !bgStarted) {
+        var cricketOn = document.getElementById('chkTimerBowlSound').checked;
+        if (!bgStarted) {
+          // 1) In 'breath' mode, 禪堂法器呼吸音 ALWAYS plays unconditionally!
           if (state.timerMode === 'breath') {
             var initElapsed = state.timerSec - state.timerRemaining;
             if ((initElapsed % 10) < 5) {
@@ -4590,8 +4722,10 @@
             } else {
               playExhaleSound();
             }
-          } else {
-            playCrystalBowlChime();
+          }
+          // 2) In ALL 3 modes, if cricketOn is checked, play night crickets!
+          if (cricketOn) {
+            playNightCricketsBurst();
           }
         }
         updateTimerUI();
@@ -4684,12 +4818,20 @@
             });
             btn.className = 'practice-mode-btn px-2 py-2 rounded-xl text-xs font-medium bg-[#829582] text-white transition text-center';
             var subEl = document.getElementById('timerPromptSub');
+            var breathHintBar = document.getElementById('breathSoundHintBar');
+            var statusTextEl = document.getElementById('bgPlayStatusText');
             if (state.timerMode === 'surrender') {
-              subEl.textContent = '「對眼前的瞬間說：好、是、OK。把注意力輕輕放回鼻尖的呼吸。（可調 1～15 分鐘）」';
+              subEl.textContent = '「對眼前的瞬間說：好、是、OK。把注意力輕輕放回鼻尖的呼吸。（可調 1～15 分鐘｜可選配🦗夜晚蟲鳴聲）」';
+              if (breathHintBar) breathHintBar.classList.add('hidden');
+              if (statusTextEl) statusTextEl.textContent = '🌙 練習引導音效（🦗 夜晚蟲鳴聲）已就緒：可自由勾選是否播放，並支援螢幕鎖屏背景播放';
             } else if (state.timerMode === 'breath') {
-              subEl.textContent = '「5 秒輕柔吸氣（🔔 禪堂清亮引罄聲），5 秒徹底吐氣（🪵 禪堂溫厚木魚聲）。（可調 5～30 分鐘）」';
+              subEl.textContent = '「5 秒輕柔吸氣（🔔 禪堂清亮引罄聲），5 秒徹底吐氣（🪵 禪堂單響長尾音木魚聲，固定全程播放）。（可調 5～30 分鐘）」';
+              if (breathHintBar) breathHintBar.classList.remove('hidden');
+              if (statusTextEl) statusTextEl.textContent = '🔒 諧振呼吸專屬：練習時「禪堂引罄吸氣／木魚吐氣」固定全程播放，並可搭配「🦗 夜晚蟲鳴聲」與鎖屏背景播放';
             } else {
-              subEl.textContent = '「我什麼都沒有（I have nothing）、我什麼都不要（I need nothing）、我什麼都不是（I am nothing）。（可調 15～60 分鐘）」';
+              subEl.textContent = '「我什麼都沒有（I have nothing）、我什麼都不要（I need nothing）、我什麼都不是（I am nothing）。（可調 15～60 分鐘｜可選配🦗夜晚蟲鳴聲）」';
+              if (breathHintBar) breathHintBar.classList.add('hidden');
+              if (statusTextEl) statusTextEl.textContent = '🌙 練習引導音效（🦗 夜晚蟲鳴聲）已就緒：可自由勾選是否播放，並支援螢幕鎖屏背景播放';
             }
             setCustomTimerMinutes(defMin);
           });
@@ -4711,12 +4853,43 @@
         });
         document.getElementById('btnPreviewInhaleSound').addEventListener('click', function() {
           playInhaleSound();
-          showToast('🔔 吸氣引罄聲：禪堂清亮銅磬音（吸氣 5 秒時響起）');
+          showToast('🔔 諧振呼吸專屬・吸氣引罄聲：禪堂清亮銅磬音（吸氣 5 秒時固定響起）');
         });
         document.getElementById('btnPreviewExhaleSound').addEventListener('click', function() {
           playExhaleSound();
-          showToast('🪵 吐氣木魚聲：禪堂沉穩木魚音（吐氣 5 秒時響起）');
+          showToast('🪵 諧振呼吸專屬・吐氣木魚聲：音量已加強、單響敲 1 下並拉長溫厚尾音（吐氣 5 秒時固定響起）');
         });
+        var btnPrevCrickets = document.getElementById('btnPreviewNightCrickets');
+        if (btnPrevCrickets) {
+          btnPrevCrickets.addEventListener('click', function() {
+            playNightCricketsBurst();
+            showToast('🦗 練習引導音效：寧靜夜晚蟲鳴聲（三個呼吸法皆可自由勾選是否播放）');
+          });
+        }
+        var chkSoundEl = document.getElementById('chkTimerBowlSound');
+        if (chkSoundEl) {
+          chkSoundEl.addEventListener('change', function() {
+            if ( chkSoundEl.checked ) {
+              playNightCricketsBurst();
+              showToast('🦗 已開啟「練習引導音效（夜晚蟲鳴聲）」');
+            } else {
+              showToast(state.timerMode === 'breath'
+                ? '已關閉夜晚蟲鳴聲（諧振呼吸專屬「引罄／木魚呼吸音」仍會固定全程播放）'
+                : '已關閉「練習引導音效（夜晚蟲鳴聲）」');
+            }
+            if (state.timerRunning) {
+              startBackgroundBreathAudio();
+            }
+          });
+        }
+        var chkBgLockEl = document.getElementById('chkTimerBgLockPlay');
+        if (chkBgLockEl) {
+          chkBgLockEl.addEventListener('change', function() {
+            if (state.timerRunning) {
+              startBackgroundBreathAudio();
+            }
+          });
+        }
 
         document.getElementById('btnTimerStartPause').addEventListener('click', toggleTimer);
         document.getElementById('btnTimerReset').addEventListener('click', function() {
@@ -4819,14 +4992,15 @@
             );
           });
 
-          var woodWavUri = buildPcmWavDataUri(0.85, function(t) {
-            function oneKnock(dt, scale) {
-              if (dt < 0 || dt > 0.25) return 0;
-              var freq = 278 + 65 * Math.exp(-dt * 45);
-              var env = Math.exp(-dt * 22);
-              return scale * (0.65 * Math.sin(2 * Math.PI * freq * dt) + 0.25 * Math.sin(2 * Math.PI * freq * 2 * dt)) * env;
-            }
-            return oneKnock(t, 0.85) + oneKnock(t - 0.40, 0.70);
+          var woodWavUri = buildPcmWavDataUri(2.6, function(t) {
+            var attack = Math.min(1, t / 0.004);
+            var punchEnv = attack * Math.exp(-t * 9.5);
+            var longTailEnv = attack * Math.exp(-t * 1.42);
+            var freq = 282 + 72 * Math.exp(-t * 42);
+            var sig = (0.52 * punchEnv + 0.45 * longTailEnv) * Math.sin(2 * Math.PI * freq * t) +
+                      (0.32 * punchEnv + 0.22 * longTailEnv) * Math.sin(2 * Math.PI * (freq * 2) * t) +
+                      0.24 * longTailEnv * Math.sin(2 * Math.PI * 141 * t);
+            return 0.90 * sig;
           });
 
           var htaTag = isWindowsHta
@@ -4920,13 +5094,11 @@
             '    if (!ctx) { playWavFallback(WOOD_WAV); return; }\n' +
             '    try {\n' +
             '      var now = ctx.currentTime;\n' +
-            '      function knock(t, sc) {\n' +
-            '        var o = ctx.createOscillator(), g = ctx.createGain();\n' +
-            '        o.type = "triangle"; o.frequency.setValueAtTime(340, t); o.frequency.exponentialRampToValueAtTime(272, t + 0.045);\n' +
-            '        g.gain.setValueAtTime(0.0001, t); g.gain.linearRampToValueAtTime(0.28 * sc, t + 0.005); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.19);\n' +
-            '        o.connect(g); g.connect(ctx.destination); o.start(t); o.stop(t + 0.21);\n' +
-            '      }\n' +
-            '      knock(now, 1.0); knock(now + 0.42, 0.82);\n' +
+            '      var o1 = ctx.createOscillator(), o2 = ctx.createOscillator(), g = ctx.createGain();\n' +
+            '      o1.type = "triangle"; o1.frequency.setValueAtTime(355, now); o1.frequency.exponentialRampToValueAtTime(282, now + 0.045); o1.frequency.exponentialRampToValueAtTime(276, now + 2.6);\n' +
+            '      o2.type = "sine"; o2.frequency.setValueAtTime(710, now); o2.frequency.exponentialRampToValueAtTime(564, now + 0.045);\n' +
+            '      g.gain.setValueAtTime(0.0001, now); g.gain.linearRampToValueAtTime(0.85, now + 0.005); g.gain.exponentialRampToValueAtTime(0.28, now + 0.22); g.gain.exponentialRampToValueAtTime(0.0001, now + 2.65);\n' +
+            '      o1.connect(g); o2.connect(g); g.connect(ctx.destination); o1.start(now); o2.start(now); o1.stop(now + 2.7); o2.stop(now + 2.7);\n' +
             '    } catch(e){ playWavFallback(WOOD_WAV); }\n' +
             '  }\n' +
             '  function popOutMiniWin() {\n' +
