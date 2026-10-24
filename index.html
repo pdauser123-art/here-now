@@ -148,8 +148,7 @@
               <h1 class="text-base sm:text-xl font-semibold font-serif-tc tracking-wide text-[#303833] truncate">全部生命・靜心語錄</h1>
               <span class="hidden sm:inline-block text-[11px] px-2 py-0.5 rounded-full bg-[#E9DDCE] text-[#303833] font-medium shrink-0">楊定一博士系列</span>
             </div>
-            <p class="text-[11px] sm:text-xs text-[#68726B] truncate">每日靜心與生活練習</p>
-          </div>
+                      </div>
         </div>
 
         <!-- Right Controls on Row 1: Reading Size Switcher + Desktop Mini Window Button (Right next to 特大字 on Desktop!) -->
@@ -273,8 +272,7 @@
         <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-[#829582]/15 space-y-6">
           <div class="flex items-center justify-between border-b border-stone-100 pb-4">
             <div>
-              <span class="text-xs font-semibold uppercase tracking-wider text-[#829582]">QUOTE INSIGHT & PRACTICE</span>
-              <h2 class="text-xl font-bold font-serif-tc text-[#303833] mt-0.5">語句詳情與生活練習</h2>
+                            <h2 class="text-xl font-bold font-serif-tc text-[#303833] mt-0.5">語句詳情與生活練習</h2>
             </div>
             <button id="btnSpeakQuote" type="button" class="px-3 py-1.5 rounded-xl bg-[#EEF2EE] hover:bg-[#d3e4dc] text-[#829582] text-xs font-medium transition flex items-center gap-1.5">
               <span>🔊 語音朗讀</span>
@@ -309,8 +307,7 @@
               <div class="w-10 h-10 rounded-2xl bg-[#EEF2EE] text-[#829582] flex items-center justify-center font-bold text-sm" id="streakCountBox">0</div>
               <div>
                 <p class="text-xs font-semibold text-stone-800">已完成生活練習累積次數</p>
-                <p class="text-xs text-stone-500">每一次覺察與臣服，都是回到真實自己的練習</p>
-              </div>
+                              </div>
             </div>
             <button id="btnCompletePractice" type="button" class="px-5 py-2.5 rounded-2xl bg-[#829582] hover:bg-[#6e826e] text-white text-sm font-medium transition flex items-center gap-2 shadow-sm">
               <span>✓ 打卡完成今日練習</span>
@@ -318,72 +315,54 @@
           </div>
         </div>
 
-        <!-- Right 5 Cols: 互動式呼吸與靜坐練習計時器 (Customizable Duration & Distinct Inhale/Exhale Audio) -->
+        <!-- Right 5 Cols: 互動式呼吸與靜坐練習計時器 (Minimalist Intuitive UI) -->
         <div class="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-[#829582]/15 flex flex-col justify-between space-y-4">
           <div class="space-y-3">
-            <div class="flex items-center justify-between">
-              <div>
-                <span class="text-xs font-semibold uppercase tracking-wider text-[#8A6530]">MINDFULNESS TIMER</span>
-                <h2 class="text-xl font-bold font-serif-tc text-[#303833] mt-0.5">互動式呼吸與靜坐練習</h2>
-              </div>
-              <div class="flex flex-wrap items-center gap-2">
-                <label class="inline-flex items-center gap-1.5 text-xs text-[#303833] font-medium cursor-pointer bg-[#F7F4ED] px-2.5 py-1 rounded-full border border-[#E9DDCE]" title="三種呼吸與靜坐練習皆可自由勾選是否播放來自大自然的「田舎の夜・夜晚蟲鳴聲（第38分鐘起）」背景引導音效">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <h2 class="text-xl font-bold font-serif-tc text-[#303833]">呼吸與靜坐練習</h2>
+              <div class="flex flex-wrap items-center gap-1.5">
+                <label class="inline-flex items-center gap-1.5 text-xs text-[#303833] font-medium cursor-pointer bg-[#F7F4ED] px-2.5 py-1 rounded-full border border-[#E9DDCE]">
                   <input id="chkTimerBowlSound" type="checkbox" checked class="rounded text-[#829582] focus:ring-[#829582]" />
-                  <span>🌿 練習引導音效（大自然夜晚蟲鳴・38:00起）</span>
+                  <span>🌿 夜晚蟲鳴</span>
                 </label>
-                <label class="inline-flex items-center gap-1.5 text-xs text-[#5E715E] font-medium cursor-pointer bg-[#EEF2EE] px-2.5 py-1 rounded-full border border-[#829582]/30" title="開啟後，手機進入螢幕鎖屏或切換背景時，仍會持續背景播放呼吸與蟲鳴音效">
+                <label class="inline-flex items-center gap-1.5 text-xs text-[#5E715E] font-medium cursor-pointer bg-[#EEF2EE] px-2.5 py-1 rounded-full border border-[#829582]/30">
                   <input id="chkTimerBgLockPlay" type="checkbox" checked class="rounded text-[#829582] focus:ring-[#829582]" />
-                  <span>🌙 螢幕鎖屏背景播放</span>
+                  <span>🌙 鎖屏播放</span>
                 </label>
               </div>
             </div>
 
-            <!-- Mode Selector with Min/Max bounds -->
+            <!-- Mode Selector -->
             <div class="grid grid-cols-3 gap-2">
               <button type="button" data-p-mode="surrender" data-min="1" data-max="15" data-default="1" class="practice-mode-btn px-2 py-2 rounded-xl text-xs font-medium bg-[#829582] text-white transition text-center">
-                瞬間臣服<br><span class="text-[10px] opacity-85">(1～15分鐘)</span>
+                瞬間臣服<br><span class="text-[10px] opacity-85">1～15分</span>
               </button>
               <button type="button" data-p-mode="breath" data-min="5" data-max="30" data-default="5" class="practice-mode-btn px-2 py-2 rounded-xl text-xs font-medium bg-stone-100 text-stone-700 hover:bg-stone-200 transition text-center">
-                諧振呼吸<br><span class="text-[10px] opacity-85">(5～30分鐘)</span>
+                諧振呼吸<br><span class="text-[10px] opacity-85">5～30分</span>
               </button>
               <button type="button" data-p-mode="meditate" data-min="15" data-max="60" data-default="15" class="practice-mode-btn px-2 py-2 rounded-xl text-xs font-medium bg-stone-100 text-stone-700 hover:bg-stone-200 transition text-center">
-                靜坐三原則<br><span class="text-[10px] opacity-85">(15～60分鐘)</span>
+                靜坐三原則<br><span class="text-[10px] opacity-85">15～60分</span>
               </button>
             </div>
 
-            <!-- Manual Duration Adjuster (Slider + Minus/Plus + Direct Input) -->
-            <div class="bg-[#F7F4ED] p-3.5 rounded-2xl border border-[#E9DDCE] space-y-2">
+            <!-- Duration Adjuster -->
+            <div class="bg-[#F7F4ED] p-3 rounded-2xl border border-[#E9DDCE] space-y-2">
               <div class="flex items-center justify-between text-xs">
-                <span class="font-medium text-[#303833]">手動調整練習時間：<strong id="timerDurationLabel" class="text-[#5E715E]">1 分鐘</strong></span>
-                <span id="timerRangeHint" class="text-[11px] text-[#68726B]">可調範圍：1～15 分鐘</span>
+                <span class="font-medium text-[#303833]">練習時間：<strong id="timerDurationLabel" class="text-[#5E715E]">1 分鐘</strong></span>
+                <div class="flex items-center gap-1.5 text-[11px]">
+                  <button id="btnToggleYtNatureVideo" type="button" class="px-2 py-0.5 rounded-lg bg-white border border-[#E9DDCE] hover:bg-[#EEF2EE] text-[#5E715E] transition">📺 蟲鳴視窗</button>
+                  <a href="https://www.youtube.com/watch?v=5HB43YxzE6M&t=2280s" target="_blank" rel="noopener noreferrer" class="px-2 py-0.5 rounded-lg bg-white border border-[#E9DDCE] hover:bg-[#EEF2EE] text-[#8A6530] transition">↗ 音源</a>
+                </div>
               </div>
               <div class="flex items-center gap-2">
-                <button id="btnTimerMinusMin" type="button" class="w-8 h-8 rounded-xl bg-white border border-[#E9DDCE] hover:bg-[#E9DDCE]/50 text-[#303833] font-bold text-sm flex items-center justify-center transition" title="減少 1 分鐘">－</button>
+                <button id="btnTimerMinusMin" type="button" class="w-8 h-8 rounded-xl bg-white border border-[#E9DDCE] hover:bg-[#E9DDCE]/50 text-[#303833] font-bold text-sm flex items-center justify-center transition">－</button>
                 <input id="inputTimerMinutesRange" type="range" min="1" max="15" step="1" value="1" class="flex-1 accent-[#829582] cursor-pointer" />
-                <button id="btnTimerPlusMin" type="button" class="w-8 h-8 rounded-xl bg-white border border-[#E9DDCE] hover:bg-[#E9DDCE]/50 text-[#303833] font-bold text-sm flex items-center justify-center transition" title="增加 1 分鐘">＋</button>
+                <button id="btnTimerPlusMin" type="button" class="w-8 h-8 rounded-xl bg-white border border-[#E9DDCE] hover:bg-[#E9DDCE]/50 text-[#303833] font-bold text-sm flex items-center justify-center transition">＋</button>
                 <input id="inputTimerMinutesNum" type="number" min="1" max="15" value="1" class="w-14 px-2 py-1 rounded-xl border border-[#E9DDCE] bg-white text-center text-xs font-semibold text-[#303833] focus:outline-none focus:border-[#829582]" aria-label="練習分鐘數" />
                 <span class="text-xs text-[#68726B]">分</span>
               </div>
-              <!-- Distinct Inhale / Exhale Zen Bell & Wooden Fish Hint Bar (Exclusive to 諧振呼吸 & Always On, Equalized Volume, No Preview Buttons) -->
-              <div id="breathSoundHintBar" class="hidden pt-1.5 border-t border-[#E9DDCE]/70 flex flex-wrap items-center justify-between gap-1.5 text-[11px] text-[#5E715E]">
-                <span class="font-semibold">🔒 諧振呼吸專屬・禪堂法器呼吸音（🔔 吸氣：引罄聲 ／ 🪵 吐氣：溫厚純木質木魚聲，練習時固定全程播放・不可取消）</span>
-              </div>
-              <!-- Nature Crickets Audio Source Bar (YouTube 5HB43YxzE6M starting at 38:00 + Organic Countryside Night Audio) -->
-              <div id="ytNatureSourceBar" class="pt-1.5 border-t border-[#E9DDCE]/70 space-y-1.5 text-[11px] text-[#5E715E]">
-                <div class="flex flex-wrap items-center justify-between gap-1.5">
-                  <span id="ytNatureStatusLabel" class="font-medium">🌿 大自然蟲鳴音源：田舎の夜・自然音（已設定從第 38:00 開始播放）</span>
-                  <div class="flex items-center gap-1.5">
-                    <button id="btnToggleYtNatureVideo" type="button" class="px-2 py-0.5 rounded-lg bg-white border border-[#E9DDCE] hover:bg-[#EEF2EE] text-[#5E715E] transition">📺 展開/收合原音視窗</button>
-                    <a href="https://www.youtube.com/watch?v=5HB43YxzE6M&t=2280s" target="_blank" rel="noopener noreferrer" class="px-2 py-0.5 rounded-lg bg-white border border-[#E9DDCE] hover:bg-[#EEF2EE] text-[#8A6530] transition">↗ 38:00 原音連結</a>
-                  </div>
-                </div>
-                <div id="ytNaturePlayerCollapse" class="h-0 overflow-hidden opacity-0 pointer-events-none transition-all duration-300 rounded-xl bg-stone-900">
-                  <div id="ytNaturePlayerTarget" class="w-full h-36"></div>
-                </div>
-              </div>
-              <!-- Lock-Screen Background Audio Status Indicator -->
-              <div id="bgPlayStatusBadge" class="pt-1.5 border-t border-[#E9DDCE]/70 flex items-center justify-between gap-2 text-[11px] text-[#5E715E]">
-                <span id="bgPlayStatusText">🌙 螢幕鎖屏背景播放已就緒：長時間練習中即使關閉螢幕，大自然蟲鳴與呼吸音仍會持續引導</span>
+              <div id="ytNaturePlayerCollapse" class="h-0 overflow-hidden opacity-0 pointer-events-none transition-all duration-300 rounded-xl bg-stone-900">
+                <div id="ytNaturePlayerTarget" class="w-full h-36"></div>
               </div>
             </div>
           </div>
@@ -398,7 +377,7 @@
               </div>
             </div>
             <p id="timerPromptSub" class="text-xs text-center text-stone-600 mt-3 max-w-xs leading-relaxed">
-              「對眼前的瞬間說：好、是、OK。把注意力輕輕放回鼻尖的呼吸。」
+              「對眼前的瞬間說：好、是、OK。」
             </p>
           </div>
 
@@ -420,10 +399,8 @@
       <div class="bg-white rounded-3xl p-6 shadow-sm border border-[#829582]/15 space-y-5">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <span class="text-xs font-semibold uppercase tracking-wider text-[#829582]">TOPIC EXPLORER & SEARCH</span>
-            <h2 class="text-2xl font-bold font-serif-tc text-[#303833]">主題分類與語錄搜尋</h2>
-            <p class="text-xs text-stone-500 mt-0.5">探索《全部生命系列》核心主題，或搜尋特定關鍵字、書籍與生活練習</p>
-          </div>
+                        <h2 class="text-2xl font-bold font-serif-tc text-[#303833]">主題分類與語錄搜尋</h2>
+                      </div>
 
           <!-- Search & Source Filter -->
           <div class="flex flex-wrap items-center gap-2.5">
@@ -455,12 +432,9 @@
       <div id="epiphanyQuickBox" class="hidden bg-[#FFFEFA] rounded-3xl p-6 shadow-sm border border-[#B79B68]/40 space-y-4">
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div>
-            <span class="text-xs font-semibold uppercase tracking-wider text-[#B79B68]">PERSONAL INSPIRATION ZONE</span>
-            <h3 class="text-lg font-bold font-serif-tc text-[#303833] mt-0.5">💫 靈光乍現・個人靈感上傳與修改／刪除管理專區</h3>
-            <p class="text-xs text-[#68726B] mt-0.5">專門珍藏您在靜心、閱讀或生活中湧現的個人靈感與體悟，支援隨時新增、修改內容或刪除紀錄。</p>
-          </div>
-          <span class="px-3 py-1 rounded-full bg-[#E9DDCE]/70 text-[#303833] text-xs font-medium">📌 個人上傳・支援修改與刪除</span>
-        </div>
+                        <h3 class="text-lg font-bold font-serif-tc text-[#303833] mt-0.5">💫 靈光乍現・個人靈感上傳與修改／刪除管理專區</h3>
+                      </div>
+                  </div>
 
         <!-- Edit Mode Indicator Banner -->
         <div id="epiphanyEditModeBanner" class="hidden px-3.5 py-2 rounded-xl bg-[#FDF6EC] border border-[#C86D51]/40 flex items-center justify-between gap-2 text-xs text-[#8A6530]">
@@ -485,7 +459,7 @@
         <!-- Inline Quick Management List for Personal Uploads -->
         <div class="pt-3 border-t border-[#E9DDCE]/80 space-y-2">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-semibold text-[#5E715E]">📋 我的靈光乍現（個人上傳）清單 — 點擊即可直接修改或刪除：</span>
+            <span class="text-xs font-semibold text-[#5E715E]">📋 我的靈光乍現清單</span>
             <span id="epiphanyManageCountBadge" class="text-[11px] text-[#68726B]"></span>
           </div>
           <div id="epiphanyManageList" class="space-y-2 max-h-60 overflow-y-auto pr-1 custom-scrollbar"></div>
@@ -513,16 +487,14 @@
         <!-- Left 5 Cols: 新增心情手札表單 -->
         <div class="lg:col-span-5 bg-white rounded-3xl p-6 shadow-sm border border-[#829582]/15 space-y-5">
           <div>
-            <span class="text-xs font-semibold uppercase tracking-wider text-[#829582]">MINDFULNESS JOURNAL</span>
-            <h2 class="text-xl font-bold font-serif-tc text-[#303833] mt-0.5">撰寫心情手札與覺察紀錄</h2>
-            <p class="text-xs text-stone-500 mt-1">記錄當下的念頭、身體感受與練習體悟，不批判、只是如實地看見與接納。</p>
-          </div>
+                        <h2 class="text-xl font-bold font-serif-tc text-[#303833] mt-0.5">撰寫心情手札與覺察紀錄</h2>
+                      </div>
 
           <form id="formJournal" class="space-y-4">
             <input type="hidden" id="journalEditId" value="" />
             <div>
               <div class="flex items-center justify-between mb-1">
-                <label class="block text-xs font-semibold text-stone-700">搭配共修語句（自動導入當日「每日一句」）</label>
+                <label class="block text-xs font-semibold text-stone-700">搭配共修語句</label>
                 <span class="text-[11px] text-[#829582] font-medium">✦ 已自動同步</span>
               </div>
               <input type="hidden" id="selectJournalQuote" value="" />
@@ -545,7 +517,7 @@
             </div>
 
             <div>
-              <label class="block text-xs font-semibold text-stone-700 mb-1" for="inputJournalBodyNote">身體與呼吸覺察（例如：肩膀放鬆、接受身體痠痛並專注呼吸）</label>
+              <label class="block text-xs font-semibold text-stone-700 mb-1" for="inputJournalBodyNote">身體與呼吸覺察</label>
               <input id="inputJournalBodyNote" type="text" placeholder="例如：發現緊繃念頭，當下立刻接受並把注意力放回呼吸..." class="w-full px-3.5 py-2 rounded-xl border border-stone-200 bg-[#F7F4ED] text-sm focus:outline-none focus:border-[#829582]" />
             </div>
 
@@ -570,8 +542,7 @@
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-stone-100 pb-4">
             <div>
               <h3 class="text-lg font-bold font-serif-tc text-[#303833]">我的靜心手札時光軸</h3>
-              <p class="text-xs text-stone-500">您所有的覺察筆記皆安全儲存在本機瀏覽器中，支援隨時匯出備份</p>
-            </div>
+                          </div>
             <button id="btnExportJournal" type="button" class="px-3 py-1.5 rounded-xl border border-[#829582]/30 hover:bg-[#EEF2EE] text-[#829582] text-xs font-medium transition">
               ⬇ 匯出全部手札 (.txt)
             </button>
@@ -587,10 +558,8 @@
     <section id="tab-favorites" class="tab-panel hidden space-y-6">
       <div class="bg-white rounded-3xl p-6 shadow-sm border border-[#829582]/15 flex flex-wrap items-center justify-between gap-4">
         <div>
-          <span class="text-xs font-semibold uppercase tracking-wider text-rose-700">MY SACRED COLLECTION</span>
-          <h2 class="text-2xl font-bold font-serif-tc text-[#303833]">我的收藏語錄與分享字卡</h2>
-          <p class="text-xs text-stone-500 mt-0.5">將觸動內心的《全部生命系列》語句收藏起來，隨時複習或產生靜心語錄分享圖卡送給朋友</p>
-        </div>
+                    <h2 class="text-2xl font-bold font-serif-tc text-[#303833]">我的收藏語錄與分享字卡</h2>
+                  </div>
         <div class="flex items-center gap-2">
           <button id="btnExportFavorites" type="button" class="px-3.5 py-2 rounded-2xl border border-[#829582]/30 hover:bg-[#EEF2EE] text-[#829582] text-xs font-medium transition">
             ⬇ 匯出收藏清單 (.json)
@@ -607,10 +576,8 @@
       <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-[#829582]/15 space-y-6">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-stone-100 pb-5">
           <div>
-            <span class="text-xs font-semibold uppercase tracking-wider text-[#8A6530]">REDESIGNED MULTI-PLATFORM WIDGET STUDIO</span>
-            <h2 class="text-2xl font-bold font-serif-tc text-[#303833] mt-0.5">小工具（手機極簡桌面・電腦常駐置頂視窗・Windows 桌面工具）</h2>
-            <p class="text-xs sm:text-sm text-stone-600 mt-1">全新升級免寫程式、零門檻設計：手機可一鍵開啟全螢幕大字模式或下載鎖屏桌布；電腦支援離開網頁仍永遠置頂的子母視窗，以及 Windows 雙擊即用的獨立桌面小工具。</p>
-          </div>
+                        <h2 class="text-2xl font-bold font-serif-tc text-[#303833]">小工具</h2>
+                      </div>
 
           <!-- Global Widget Theme Customizer -->
           <div class="flex flex-wrap items-center gap-2 bg-[#F7F4ED] p-2.5 rounded-2xl border border-stone-200/80">
@@ -629,15 +596,13 @@
           <div class="bg-[#F7F4ED] rounded-3xl p-5 border border-[#829582]/30 flex flex-col justify-between space-y-5">
             <div class="space-y-2">
               <div class="flex items-center justify-between">
-                <span class="px-2.5 py-1 rounded-full bg-[#EEF2EE] text-[#5E715E] text-xs font-semibold">📱 1. 手機桌面與鎖屏 Widget（零門檻改良版）</span>
+                <span class="px-2.5 py-1 rounded-full bg-[#EEF2EE] text-[#5E715E] text-xs font-semibold">📱 1. 手機桌面與鎖屏小工具</span>
                 <div class="flex items-center gap-1">
                   <button type="button" data-m-size="small" class="mobile-size-btn px-2 py-0.5 rounded text-xs bg-[#829582] text-white">方卡</button>
                   <button type="button" data-m-size="medium" class="mobile-size-btn px-2 py-0.5 rounded text-xs bg-stone-200 text-stone-700">寬卡</button>
                 </div>
               </div>
-              <h3 class="text-base font-bold text-[#303833]">免裝複雜程式！一鍵全螢幕極簡卡 ＆ 手機鎖屏桌布</h3>
-              <p class="text-xs text-stone-600 leading-relaxed">不需設定複雜的 JSON 腳本，直接開啟「手機全螢幕極簡模式」加入主畫面，或一鍵儲存「今日手機鎖屏壁紙」，拿起手機一眼就能安住當下。</p>
-            </div>
+                                        </div>
 
             <!-- Simulated Phone Home Screen Frame (Interactive Preview: Click to Next Quote) -->
             <div class="bg-stone-900 rounded-[32px] p-4 shadow-inner border-4 border-stone-800 mx-auto w-full max-w-[290px]">
@@ -663,13 +628,13 @@
 
             <div class="space-y-2 pt-1">
               <button id="btnEnterMobileFullWidgetMode" type="button" class="w-full py-2.5 px-4 rounded-2xl bg-[#829582] hover:bg-[#6e826e] text-white text-xs font-semibold transition shadow-sm flex items-center justify-center gap-1.5">
-                <span>📱 方法A：鎖定「Android / iPhone 極簡桌面模式」（建立捷徑永不跳回完整版）</span>
+                <span>📱 開啟手機極簡桌面模式</span>
               </button>
               <button id="btnDownloadMobileWallpaperPng" type="button" class="w-full py-2.5 px-4 rounded-2xl bg-[#B79B68] hover:bg-[#a38856] text-white text-xs font-semibold transition shadow-sm flex items-center justify-center gap-1.5">
-                <span>📲 方法B：一鍵下載「今日手機鎖屏／桌面壁紙 (9:16 高畫質圖)」</span>
+                <span>📲 下載今日手機鎖屏桌布 (9:16)</span>
               </button>
               <button id="btnDownloadScriptableJson" type="button" class="w-full py-2 px-4 rounded-2xl border border-[#829582]/35 bg-white hover:bg-[#EEF2EE] text-[#5E715E] text-xs font-medium transition">
-                📋 方法C：一鍵複製 30 則語錄（直接貼入 iPhone/Android 內建備忘錄小工具）
+                📋 複製 30 則語錄（貼入備忘錄小工具）
               </button>
             </div>
           </div>
@@ -678,12 +643,9 @@
           <div class="bg-[#F7F4ED] rounded-3xl p-5 border border-[#B79B68]/40 flex flex-col justify-between space-y-5">
             <div class="space-y-2">
               <div class="flex items-center justify-between">
-                <span class="px-2.5 py-1 rounded-full bg-[#F5ECE0] text-[#8A6530] text-xs font-semibold">💻 2. 電腦桌面常駐小工具（Windows / Mac 改良版）</span>
-                <span class="text-[11px] text-[#8A6530] font-medium">離開網頁仍可用！</span>
-              </div>
-              <h3 class="text-base font-bold text-[#303833]">離開網頁依然置頂常駐 ＆ Windows 雙擊即用獨立工具</h3>
-              <p class="text-xs text-stone-600 leading-relaxed">已解決「離開網頁就消失」與「Windows 下載後無法互動」兩大問題：支援跨視窗永遠置頂（PiP / 獨立彈出窗），下載檔案更內建完整 96+ 則語錄庫與 1 分鐘呼吸計時器！</p>
-            </div>
+                <span class="px-2.5 py-1 rounded-full bg-[#F5ECE0] text-[#8A6530] text-xs font-semibold">💻 2. 電腦桌面常駐小工具</span>
+                              </div>
+                                        </div>
 
             <!-- Simulated Desktop Wallpaper + Widget -->
             <div class="bg-gradient-to-br from-stone-800 via-teal-950 to-stone-900 rounded-2xl p-4 shadow-inner min-h-[210px] flex items-center justify-center relative overflow-hidden">
@@ -708,17 +670,14 @@
 
             <div class="space-y-2 pt-1">
               <button id="btnLaunchFloatingDesktopNow" type="button" class="w-full py-2.5 px-4 rounded-2xl bg-[#829582] hover:bg-[#6e826e] text-white text-xs font-semibold transition shadow-sm flex items-center justify-center gap-1.5">
-                <span>🪟 啟動「離開網頁也常駐置頂」獨立桌面小視窗 (PiP / 獨立窗)</span>
+                <span>🪟 啟動獨立常駐置頂小視窗</span>
               </button>
               <button id="btnDownloadWindowsHtaWidget" type="button" class="w-full py-2.5 px-4 rounded-2xl bg-[#B79B68] hover:bg-[#a38856] text-white text-xs font-semibold transition shadow-sm flex items-center justify-center gap-1.5">
                 <span>🪟 下載 Windows 專用獨立桌面小工具 (.hta 免瀏覽器視窗版)</span>
               </button>
               <button id="btnDownloadStandaloneDesktopWidget" type="button" class="w-full py-2 px-4 rounded-2xl border border-[#829582]/35 bg-white hover:bg-[#EEF2EE] text-[#5E715E] text-xs font-medium transition">
-                ⬇ 下載跨平台電腦桌面小工具 (.html 免安全性攔截・雙擊即開版)
+                ⬇ 下載跨平台電腦桌面小工具 (.html)
               </button>
-              <p class="text-[11px] text-stone-500 leading-relaxed bg-white/80 p-2.5 rounded-xl border border-[#E9DDCE]">
-                💡 <strong>Windows 開啟 <code>.hta</code> 必看小技巧</strong>：Windows 10/11 下載 <code>.hta</code> 後若顯示「網際網路安全性設定導致無法開啟」，只需在「下載 (Downloads)」資料夾對該 <code>.hta</code> 檔案按<strong>滑鼠右鍵 ➔ 內容 (Properties) ➔ 勾選右下角「解除封鎖 (Unblock)」➔ 確定</strong>，即可直接以無瀏覽器邊框的獨立小視窗打開！或者直接下載下方 <code>.html</code> 版雙擊即開。
-              </p>
             </div>
           </div>
 
@@ -729,9 +688,7 @@
                 <span class="px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-800 text-xs font-semibold">🌐 3. 網頁頁首 Widget</span>
                 <span class="text-[11px] text-stone-500">內建多則輪播與換句鈕</span>
               </div>
-              <h3 class="text-base font-bold text-[#303833]">網站頁首每日一句橫幅 (Header Banner)</h3>
-              <p class="text-xs text-stone-600 leading-relaxed">可一鍵複製自帶多則語錄輪播的 HTML 嵌入碼，放進您的品牌官網、花藝網站或部落格頁首。</p>
-            </div>
+                                        </div>
 
             <!-- Live Mini Browser Header Preview -->
             <div class="bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-sm">
@@ -756,7 +713,7 @@
 
             <!-- Embed Code Box -->
             <div class="space-y-2 pt-1">
-              <label class="block text-[11px] font-medium text-stone-600" for="textareaEmbedCode">網頁頁首嵌入碼（點擊即可複製貼上至網站 `&lt;body&gt;` 頂端）：</label>
+              <label class="block text-[11px] font-medium text-stone-600" for="textareaEmbedCode">網頁頁首嵌入碼：</label>
               <textarea id="textareaEmbedCode" readonly rows="3" class="w-full p-2.5 rounded-xl bg-stone-900 text-emerald-300 font-mono text-[11px] focus:outline-none"></textarea>
               <button id="btnCopyWebEmbedCode" type="button" class="w-full py-2.5 px-4 rounded-2xl bg-[#829582] hover:bg-[#6e826e] text-white text-xs font-semibold transition shadow-sm">
                 📋 複製網頁頁首 Widget 嵌入程式碼
@@ -776,10 +733,8 @@
           <div class="space-y-4">
             <div class="flex items-center justify-between flex-wrap gap-2">
               <div>
-                <span class="text-xs font-semibold uppercase tracking-wider text-[#829582]">AUTO WEB SEARCH BY 31 BOOKS</span>
-                <h2 class="text-xl font-bold font-serif-tc text-[#303833] mt-0.5">⚡ 一鍵載入新增語錄（31 本書自動網路搜尋）</h2>
-                <p class="text-xs text-stone-500 mt-1">全部由 App 自動透過網路檢索楊定一博士 31 本著作，先找出原始語錄，再由系統依語意自動歸入七大主題（嚴格阻擋重複語錄）</p>
-              </div>
+                                <h2 class="text-xl font-bold font-serif-tc text-[#303833] mt-0.5">⚡ 一鍵載入新增語錄（31 本書自動網路搜尋）</h2>
+                              </div>
               <span id="webPoolStatusBadge" class="px-2.5 py-1 rounded-full bg-[#EEF2EE] text-[#829582] text-[11px] font-semibold">自動聯網搜尋就緒</span>
             </div>
 
@@ -787,8 +742,7 @@
               <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
                   <p class="font-semibold text-stone-800">🌐 自動上網搜尋《全部生命系列》31 本書與公開專欄</p>
-                  <p class="text-stone-500 mt-0.5">不依類別名稱找語錄，而是直接依 31 本書名先找出語錄，再自動完成分類與三步驟練習配對</p>
-                </div>
+                                  </div>
                 <div class="flex items-center gap-2 shrink-0">
                   <button id="btnImportMoreWebQuotes" type="button" class="px-3.5 py-2.5 rounded-xl bg-[#829582] hover:bg-[#6e826e] text-white font-semibold transition shadow-sm">
                     ⚡ 一鍵載入新增語錄 (＋5則)
@@ -847,7 +801,7 @@
               <!-- 即時網路搜尋與 YouTube / MP3 解讀狀態紀錄器 -->
               <div id="webSearchStatusPanel" class="bg-white rounded-xl p-3.5 border border-[#E9DDCE] space-y-1.5">
                 <div class="flex items-center justify-between text-[11px]">
-                  <span id="webSearchStatusTitle" class="font-semibold text-[#5E715E]">🔍 搜尋與解讀引擎狀態：待命（先依31本書找語錄 ➔ 再自動歸類）</span>
+                  <span id="webSearchStatusTitle" class="font-semibold text-[#5E715E]">🔍 搜尋與解讀狀態：待命</span>
                   <span id="webSearchSourceCount" class="text-[#B79B68]">31 本書＋YouTube＋Podcast</span>
                 </div>
                 <div id="webSearchLogList" class="text-[11px] text-[#68726B] space-y-1 max-h-44 overflow-y-auto custom-scrollbar">
@@ -869,17 +823,14 @@
         <div class="lg:col-span-6 space-y-6">
           <div class="bg-white rounded-3xl p-6 shadow-sm border border-[#829582]/15 space-y-5">
             <div>
-              <span class="text-xs font-semibold uppercase tracking-wider text-[#8A6530]">YOUTUBE, MP3 & PODCAST DECODER STUDIO</span>
-              <h2 class="text-xl font-bold font-serif-tc text-[#303833] mt-0.5">🎬 YouTube 影片 ＆ 🎵 MP3 / Podcast 音頻解讀工作台</h2>
-              <p class="text-xs text-stone-500 mt-1">透過「官方影片選單」、「貼上 YouTube 網址／字幕」、「上傳本機 MP3 音檔」或「連線 Podcast 音頻庫」自動解讀出語錄，先找語錄再自動歸類</p>
-            </div>
+                            <h2 class="text-xl font-bold font-serif-tc text-[#303833] mt-0.5">🎬 YouTube 影片 ＆ 🎵 MP3 / Podcast 音頻解讀工作台</h2>
+                          </div>
 
             <!-- 1. 🎬 解讀 YouTube 影片產生語錄 -->
             <div class="p-4 rounded-2xl bg-[#F7F4ED] border border-[#829582]/20 space-y-3 text-xs">
               <div class="flex items-center justify-between">
-                <p class="font-semibold text-[#303833]">🎬 方式一：解讀 YouTube 影片產生語錄（官方清單／自訂網址與 CC 字幕）</p>
-                <span class="text-[11px] text-[#829582]">自動斷句萃取＋自動歸類</span>
-              </div>
+                <p class="font-semibold text-[#303833]">🎬 YouTube 影片解讀</p>
+                              </div>
               <div class="flex flex-col sm:flex-row gap-2">
                 <select id="selectYoutubeTranscriptPreset" class="flex-1 px-2.5 py-2 rounded-xl border border-stone-200 bg-white text-xs text-stone-700 focus:outline-none focus:border-[#829582]">
                   <option value="all_yt">🌟 一鍵解讀全部 11 支楊定一博士 YouTube 共修影片精華逐字稿</option>
@@ -911,9 +862,8 @@
             <!-- 2. 🎵 解讀 MP3 音檔產生語錄 & 🎧 解讀線上 Podcast MP3 音頻庫 -->
             <div class="p-4 rounded-2xl bg-[#F7F4ED] border border-[#B79B68]/30 space-y-3 text-xs">
               <div class="flex items-center justify-between">
-                <p class="font-semibold text-[#303833]">🎵 方式二：解讀 MP3 音檔產生語錄 ＆ 🎧 解讀線上 Podcast MP3 音頻庫</p>
-                <span class="text-[11px] text-[#8A6530]">不佔空間・僅轉譯為純文字語錄</span>
-              </div>
+                <p class="font-semibold text-[#303833]">🎵 MP3 ＆ Podcast 音頻解讀</p>
+                              </div>
               <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                 <input id="inputMp3DecodeFile" type="file" accept=".mp3,.m4a,.wav,.ogg,audio/*" class="flex-1 text-xs text-stone-600 file:mr-2 file:py-1.5 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-white file:text-[#829582] hover:file:bg-[#EEF2EE] cursor-pointer bg-white/80 rounded-xl p-1 border border-stone-200" />
                 <button id="btnDecodeMp3Smart" type="button" class="px-3.5 py-2 rounded-xl bg-[#B79B68] hover:bg-[#a38856] text-white font-semibold transition shrink-0">
@@ -937,9 +887,8 @@
             <!-- 3. ✨ 最新影音解讀與自動檢索成果預覽清單（方便檢視剛剛解讀出的語錄與自動歸類結果） -->
             <div class="space-y-2 pt-2 border-t border-stone-100">
               <div class="flex items-center justify-between">
-                <p class="text-xs font-semibold text-[#303833]">✨ 最新從 31 本書／YouTube／MP3 自動解讀歸類的語錄預覽：</p>
-                <span class="text-[11px] text-stone-400">點擊可進入練習或移除單筆</span>
-              </div>
+                <p class="text-xs font-semibold text-[#303833]">✨ 最新解讀語錄：</p>
+                              </div>
               <div id="recentDecodedQuotesList" class="space-y-2 max-h-48 overflow-y-auto pr-1 custom-scrollbar"></div>
             </div>
           </div>
@@ -1028,8 +977,7 @@
           <div id="fullMobileBreathCircle" class="w-11 h-11 rounded-2xl bg-[#EEF2EE] text-[#5E715E] flex items-center justify-center font-mono font-bold text-sm">01:00</div>
           <div>
             <p id="fullMobileBreathStatus" class="text-xs sm:text-sm font-semibold text-[#303833]">1 分鐘・瞬間臣服呼吸</p>
-            <p class="text-[11px] text-[#68726B]">🔔 吸氣禪堂引罄聲・🪵 吐氣禪堂木魚聲</p>
-          </div>
+                      </div>
         </div>
         <button type="button" id="btnFullMobileToggleBreath" class="px-4 py-2 rounded-2xl bg-[#829582] text-white text-xs font-semibold shadow-sm">
           開始呼吸
@@ -1047,10 +995,7 @@
       </div>
     </div>
 
-    <!-- Bottom Tip -->
-    <p class="text-center text-[11px] text-[#68726B] max-w-md mx-auto">
-      💡 已自動為您鎖定極簡模式（記憶於本機與 #widget 網址）：現在於 Android / iPhone 點選「新增至主畫面／建立捷徑」，以後從手機桌面點開永遠直接進入此極簡畫面！（點右上角顯目的「← 返回完整模式」即可切回完整版）
-    </p>
+    <div></div>
   </div>
 
   <!-- Modal: 手機桌面 Widget 安裝教學 (Simplified Zero-Code Mobile Guide Modal) -->
@@ -3397,83 +3342,101 @@
         } catch (e) {}
       }
 
-      // 🪵 吐氣音：禪堂「木魚聲 (Zen Wooden Fish / Mokugyo)」— 徹底移除金屬感泛音，純粹溫厚樟木空腔木質共鳴
-      // 移除舊版 triangle 三角波與 564Hz/920Hz 高頻正弦泛音，改用「240Hz 低通濾波木槌軟墊敲擊聲」＋「210Hz 樟木空腔基頻與 105Hz 沉穩木箱共鳴（經 330Hz 低通濾波器徹底濾除金屬高頻）」，音量與引罄同步平衡
+      // 🔔 瞬間臣服 & 靜坐三原則：開始與結束內建簡單提示音 (Simple Gentle Start/End Cue Sound)
+      function playSimpleCueSound() {
+        try {
+          var ctx = getAudioContext();
+          if (!ctx) return;
+          var now = ctx.currentTime;
+          var tones = [
+            { freq: 528, gain: 0.24, decay: 1.05 },
+            { freq: 1056, gain: 0.08, decay: 0.65 }
+          ];
+          tones.forEach(function(t) {
+            var osc = ctx.createOscillator();
+            var g = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(t.freq, now);
+            g.gain.setValueAtTime(0.0001, now);
+            g.gain.linearRampToValueAtTime(t.gain, now + 0.01);
+            g.gain.exponentialRampToValueAtTime(0.0001, now + t.decay);
+            osc.connect(g);
+            g.connect(ctx.destination);
+            osc.start(now);
+            osc.stop(now + t.decay + 0.05);
+          });
+        } catch (e) {}
+      }
+
+      // 🪵 吐氣音：禪堂「木魚聲 (Zen Wooden Fish / Mokugyo)」— 純粹溫厚樟木空腔敲擊聲（無金屬感、無低頻嗡聲殘響）
       function playExhaleSound() {
         try {
           var ctx = getAudioContext();
           if (!ctx) return;
           var now = ctx.currentTime;
 
-          // Steep Low-Pass Filter at 330Hz to guarantee ZERO metallic high-frequency ringing
+          // Steep Low-Pass Filter at 320Hz + High-Pass Filter at 150Hz to guarantee ZERO metallic high-frequency ringing AND ZERO low-frequency hum ("嗡"聲)
+          var woodHighpass = ctx.createBiquadFilter();
+          woodHighpass.type = 'highpass';
+          woodHighpass.frequency.setValueAtTime(150, now);
+
           var woodLowpass = ctx.createBiquadFilter();
           woodLowpass.type = 'lowpass';
-          woodLowpass.frequency.setValueAtTime(330, now);
-          woodLowpass.Q.setValueAtTime(0.8, now);
+          woodLowpass.frequency.setValueAtTime(320, now);
+          woodLowpass.Q.setValueAtTime(0.7, now);
 
           var masterGain = ctx.createGain();
           masterGain.gain.setValueAtTime(0.46, now);
+          woodHighpass.connect(woodLowpass);
           woodLowpass.connect(masterGain);
           masterGain.connect(ctx.destination);
 
-          // 1) Organic Padded-Mallet Wood Thud (Bandpass-filtered noise burst at 245Hz, 32ms — no metallic sine click!)
-          var thudSamples = Math.floor(ctx.sampleRate * 0.045);
+          // 1) Organic Padded-Mallet Wood Thud (Bandpass-filtered noise burst at 240Hz, 35ms)
+          var thudSamples = Math.floor(ctx.sampleRate * 0.04);
           var thudBuf = ctx.createBuffer(1, thudSamples, ctx.sampleRate);
           var thudData = thudBuf.getChannelData(0);
           for (var i = 0; i < thudSamples; i++) {
-            var env = Math.exp(-i / (ctx.sampleRate * 0.008));
+            var env = Math.exp(-i / (ctx.sampleRate * 0.007));
             thudData[i] = (Math.random() * 2 - 1) * env * 0.65;
           }
           var thudSrc = ctx.createBufferSource();
           thudSrc.buffer = thudBuf;
           var thudBand = ctx.createBiquadFilter();
           thudBand.type = 'bandpass';
-          thudBand.frequency.setValueAtTime(245, now);
+          thudBand.frequency.setValueAtTime(240, now);
           thudBand.Q.setValueAtTime(2.8, now);
           thudSrc.connect(thudBand);
-          thudBand.connect(woodLowpass);
+          thudBand.connect(woodHighpass);
           thudSrc.start(now);
-          thudSrc.stop(now + 0.048);
+          thudSrc.stop(now + 0.045);
 
-          // 2) Hollow Camphor-Wood Cavity Fundamental (Pure sine 248Hz -> 208Hz, warm woody body + soft hall tail)
+          // 2) Hollow Camphor-Wood Cavity Fundamental (Pure sine 246Hz -> 208Hz, clean woody knock decaying in 0.45s with zero low hum)
           var oscCavity = ctx.createOscillator();
           var gCavity = ctx.createGain();
           oscCavity.type = 'sine';
-          oscCavity.frequency.setValueAtTime(248, now);
-          oscCavity.frequency.exponentialRampToValueAtTime(208, now + 0.032);
-          oscCavity.frequency.exponentialRampToValueAtTime(202, now + 1.85);
+          oscCavity.frequency.setValueAtTime(246, now);
+          oscCavity.frequency.exponentialRampToValueAtTime(208, now + 0.028);
+          oscCavity.frequency.exponentialRampToValueAtTime(205, now + 0.42);
           gCavity.gain.setValueAtTime(0.0001, now);
-          gCavity.gain.linearRampToValueAtTime(0.62, now + 0.005);
-          gCavity.gain.exponentialRampToValueAtTime(0.16, now + 0.14);
-          gCavity.gain.exponentialRampToValueAtTime(0.0001, now + 1.90);
+          gCavity.gain.linearRampToValueAtTime(0.68, now + 0.004);
+          gCavity.gain.exponentialRampToValueAtTime(0.14, now + 0.11);
+          gCavity.gain.exponentialRampToValueAtTime(0.0001, now + 0.45);
 
-          // 3) Brief Carved-Wood Shell Knock Mode (325Hz -> 285Hz, decays in 0.11s so it never rings like metal)
+          // 3) Brief Carved-Wood Shell Knock Mode (315Hz -> 280Hz, decays in 0.09s)
           var oscShell = ctx.createOscillator();
           var gShell = ctx.createGain();
           oscShell.type = 'sine';
-          oscShell.frequency.setValueAtTime(325, now);
-          oscShell.frequency.exponentialRampToValueAtTime(285, now + 0.03);
+          oscShell.frequency.setValueAtTime(315, now);
+          oscShell.frequency.exponentialRampToValueAtTime(280, now + 0.025);
           gShell.gain.setValueAtTime(0.0001, now);
-          gShell.gain.linearRampToValueAtTime(0.32, now + 0.003);
-          gShell.gain.exponentialRampToValueAtTime(0.0001, now + 0.11);
+          gShell.gain.linearRampToValueAtTime(0.30, now + 0.003);
+          gShell.gain.exponentialRampToValueAtTime(0.0001, now + 0.09);
 
-          // 4) Deep Temple-Hall Wood Sub-Resonance (104Hz pure sine warm lingering foundation)
-          var oscSub = ctx.createOscillator();
-          var gSub = ctx.createGain();
-          oscSub.type = 'sine';
-          oscSub.frequency.setValueAtTime(108, now);
-          oscSub.frequency.exponentialRampToValueAtTime(104, now + 1.95);
-          gSub.gain.setValueAtTime(0.0001, now);
-          gSub.gain.linearRampToValueAtTime(0.34, now + 0.008);
-          gSub.gain.exponentialRampToValueAtTime(0.0001, now + 2.00);
+          oscCavity.connect(gCavity); gCavity.connect(woodHighpass);
+          oscShell.connect(gShell);   gShell.connect(woodHighpass);
 
-          oscCavity.connect(gCavity); gCavity.connect(woodLowpass);
-          oscShell.connect(gShell);   gShell.connect(woodLowpass);
-          oscSub.connect(gSub);       gSub.connect(woodLowpass);
-
-          oscCavity.start(now); oscCavity.stop(now + 1.95);
-          oscShell.start(now);  oscShell.stop(now + 0.12);
-          oscSub.start(now);    oscSub.stop(now + 2.05);
+          oscCavity.start(now); oscCavity.stop(now + 0.48);
+          oscShell.start(now);  oscShell.stop(now + 0.10);
         } catch (e) {}
       }
 
@@ -3600,38 +3563,7 @@
           if (!ctx) return;
           var now = ctx.currentTime;
 
-          // 1) Warm Countryside Night Air & Soft Grass Breeze (Pink/Brown Noise Low-Pass Filtered at 380Hz)
-          var breezeDur = 2.9;
-          var breezeSamples = Math.floor(ctx.sampleRate * breezeDur);
-          var noiseBuf = ctx.createBuffer(1, breezeSamples, ctx.sampleRate);
-          var outData = noiseBuf.getChannelData(0);
-          var b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
-          for (var i = 0; i < breezeSamples; i++) {
-            var white = Math.random() * 2 - 1;
-            b0 = 0.99886 * b0 + white * 0.0555179;
-            b1 = 0.99332 * b1 + white * 0.0750759;
-            b2 = 0.96900 * b2 + white * 0.1538520;
-            b3 = 0.86650 * b3 + white * 0.3104856;
-            b4 = 0.55000 * b4 + white * 0.5329522;
-            b5 = -0.7616 * b5 - white * 0.0168980;
-            outData[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.035;
-            b6 = white * 0.115926;
-          }
-          var breezeSrc = ctx.createBufferSource();
-          breezeSrc.buffer = noiseBuf;
-          var breezeFilter = ctx.createBiquadFilter();
-          breezeFilter.type = 'lowpass';
-          breezeFilter.frequency.setValueAtTime(380, now);
-          var breezeGain = ctx.createGain();
-          breezeGain.gain.setValueAtTime(0.0001, now);
-          breezeGain.gain.linearRampToValueAtTime(0.18, now + 0.45);
-          breezeGain.gain.setValueAtTime(0.18, now + breezeDur - 0.55);
-          breezeGain.gain.exponentialRampToValueAtTime(0.0001, now + breezeDur);
-          breezeSrc.connect(breezeFilter);
-          breezeFilter.connect(breezeGain);
-          breezeGain.connect(ctx.destination);
-          breezeSrc.start(now);
-          breezeSrc.stop(now + breezeDur + 0.02);
+          // Low-frequency background noise/breeze removed so there is zero background hum ("嗡"聲)
 
           // 2) Warm Low-Pass Filtered Countryside Field Crickets (エンマコオロギ "ころころ、リーリー" in mellow 1660Hz-1890Hz woodwind register)
           // Steep low-pass filter at 2050Hz removes ALL metallic high-frequency overtones!
@@ -4561,7 +4493,7 @@
       //    If cricketSoundOn is true, plays soothing Night Crickets (夜晚蟲鳴聲) loop.
       function getOrBuildBackgroundLoopWavUrl(mode, cricketSoundOn) {
         var isBreath = (mode === 'breath');
-        var key = (isBreath ? 'breath' : 'other') + '_' + (cricketSoundOn ? 'crickets_on' : 'crickets_off') + '_v4';
+        var key = (isBreath ? 'breath' : 'other') + '_' + (cricketSoundOn ? 'crickets_on' : 'crickets_off') + '_v6_zero_hum';
         if (cachedBgWavUrls[key]) return cachedBgWavUrls[key];
 
         var sampleRate = 16000;
@@ -4589,7 +4521,7 @@
         writeStr(36, 'data');
         view.setUint32(40, numSamples * 2, true);
 
-        // Warm, non-metallic countryside field cricket phrases (1640Hz ~ 1890Hz mellow woodwind register, modeled on 田舎の夜 38:00)
+        // Pure, non-metallic countryside field cricket phrases (1670Hz ~ 1890Hz, zero low-frequency noise floor)
         var cricketWindows = [
           { start: 0.45, dur: 0.46, freq: 1710, rate: 17.5, amp: 0.038 },
           { start: 1.10, dur: 0.50, freq: 1680, rate: 17.0, amp: 0.036 },
@@ -4604,60 +4536,45 @@
         ];
 
         var twoPi = 2 * Math.PI;
-        var lpBreeze1 = 0, lpBreeze2 = 0;
-        var rngSeed = 13579;
-        function nextRand() {
-          rngSeed = (rngSeed * 16807) % 2147483647;
-          return ((rngSeed - 1) / 1073741823.5) - 1.0;
-        }
 
         for (var i = 0; i < numSamples; i++) {
           var t = i / sampleRate;
-          var sample = 0.003 * Math.sin(twoPi * 216 * t);
+          // Strictly 0 baseline (removed 216Hz carrier hum completely!)
+          var sample = 0;
 
-          // 1) Mandatory Zen Bell & Volume-Balanced Wooden Fish for 'breath' (諧振呼吸) ONLY
+          // 1) Mandatory Zen Bell & Pure Wooden Fish for 'breath' (諧振呼吸) ONLY
           if (isBreath) {
-            // 0.0s ~ 2.6s: 🔔 吸氣音：禪堂引罄聲 (Peak ~0.48)
-            if (t < 2.6) {
-              var bEnv = Math.min(1, t / 0.008) * Math.exp(-t * 1.75);
+            // 0.0s ~ 2.4s: 🔔 吸氣音：禪堂引罄聲
+            if (t < 2.4) {
+              var bEnv = Math.min(1, t / 0.008) * Math.exp(-t * 1.85);
               var bWave = 0.55 * Math.sin(twoPi * 988 * t) +
                           0.28 * Math.sin(twoPi * 1976 * t) * Math.exp(-t * 2.2) +
                           0.15 * Math.sin(twoPi * 2726 * t) * Math.exp(-t * 3.5);
               sample += 0.48 * bEnv * bWave;
             }
-            // 5.0s ~ 7.05s: 🪵 吐氣音：純木質無金屬感禪堂木魚聲（208Hz 樟木空腔 ＋ 104Hz 沉穩木箱 ＋ 0.10秒木殼敲擊，無任何高頻金屬泛音，音量與引罄同步）
-            if (t >= 5.0 && t < 7.05) {
+            // 5.0s ~ 5.50s: 🪵 吐氣音：純木質無金屬感、無低頻嗡聲之禪堂木魚聲
+            if (t >= 5.0 && t < 5.50) {
               var dt = t - 5.0;
-              var attack = Math.min(1, dt / 0.005);
+              var attack = Math.min(1, dt / 0.004);
               var woodKnockEnv = attack * Math.exp(-dt * 14.0);
-              var woodTailEnv = attack * Math.exp(-dt * 2.35);
-              var fCavity = 208 + 40 * Math.exp(-dt * 45.0);
+              var woodTailEnv = attack * Math.exp(-dt * 9.5);
+              var fCavity = 208 + 38 * Math.exp(-dt * 45.0);
               var woodCavity = Math.sin(twoPi * fCavity * dt);
-              var woodShell = Math.sin(twoPi * (295 + 30 * Math.exp(-dt * 50.0)) * dt) * Math.exp(-dt * 28.0);
-              var woodSub = Math.sin(twoPi * 104 * dt) * woodTailEnv;
+              var woodShell = Math.sin(twoPi * (295 + 25 * Math.exp(-dt * 50.0)) * dt) * Math.exp(-dt * 30.0);
 
-              var woodSignal = (0.58 * woodKnockEnv + 0.36 * woodTailEnv) * woodCavity +
-                               0.26 * woodShell +
-                               0.32 * woodSub;
+              var woodSignal = (0.64 * woodKnockEnv + 0.30 * woodTailEnv) * woodCavity +
+                               0.24 * woodShell;
               sample += 0.46 * woodSignal;
             }
           }
 
-          // 2) Optional Countryside Night Ambience (田舎の夜 38:00：溫潤夜風＋無金屬感田野蟋蟀柔音)
+          // 2) Optional Countryside Night Crickets (pure crickets only, zero low-frequency breeze hum)
           if (cricketSoundOn) {
-            // Two-pole low-pass filtered warm night breeze (~360Hz)
-            var white = nextRand();
-            lpBreeze1 += 0.12 * (white - lpBreeze1);
-            lpBreeze2 += 0.12 * (lpBreeze1 - lpBreeze2);
-            var breezeSwell = 0.75 + 0.25 * Math.sin(twoPi * 0.2 * t);
-            sample += 0.018 * lpBreeze2 * breezeSwell;
-
             for (var cw = 0; cw < cricketWindows.length; cw++) {
               var w = cricketWindows[cw];
               if (t >= w.start && t < w.start + w.dur) {
                 var lt = t - w.start;
                 var winEnv = Math.sin(Math.PI * (lt / w.dur));
-                // Smooth raised-cosine syllable droplets ("ころころ") with gentle downward pitch inflection
                 var sylPhase = (lt * w.rate) % 1.0;
                 var sylEnv = 0.5 * (1 - Math.cos(twoPi * sylPhase));
                 var fInst = w.freq * (1.0 - 0.035 * sylPhase);
@@ -4875,10 +4792,13 @@
           stopTimer();
           state.timerRemaining = state.timerSec;
           updateTimerUI();
+          // Built-in completion cue sound:
+          // - 'breath' plays Zen Bell
+          // - 'surrender' & 'meditate' ALWAYS play built-in simple cue sound (playSimpleCueSound) at completion
           if (state.timerMode === 'breath') {
             playInhaleSound();
-          } else if (document.getElementById('chkTimerBowlSound').checked) {
-            playNightCricketsBurst();
+          } else {
+            playSimpleCueSound();
           }
           state.practiceCount += 1;
           safeSetStorage('tol_practice_count_v1', state.practiceCount);
@@ -4895,6 +4815,11 @@
         state.timerRunning = true;
         state.timerEndTimeMs = Date.now() + (state.timerRemaining * 1000);
         document.getElementById('btnTimerStartPause').textContent = '暫停練習';
+
+        // Built-in start cue sound for 'surrender' (瞬間臣服) and 'meditate' (靜坐三原則)
+        if (state.timerMode === 'surrender' || state.timerMode === 'meditate') {
+          playSimpleCueSound();
+        }
 
         var bgStarted = startBackgroundBreathAudio();
         var cricketOn = document.getElementById('chkTimerBowlSound').checked;
@@ -5003,20 +4928,12 @@
             });
             btn.className = 'practice-mode-btn px-2 py-2 rounded-xl text-xs font-medium bg-[#829582] text-white transition text-center';
             var subEl = document.getElementById('timerPromptSub');
-            var breathHintBar = document.getElementById('breathSoundHintBar');
-            var statusTextEl = document.getElementById('bgPlayStatusText');
             if (state.timerMode === 'surrender') {
-              subEl.textContent = '「對眼前的瞬間說：好、是、OK。把注意力輕輕放回鼻尖的呼吸。（可調 1～15 分鐘｜可選配🦗夜晚蟲鳴聲）」';
-              if (breathHintBar) breathHintBar.classList.add('hidden');
-              if (statusTextEl) statusTextEl.textContent = '🌙 練習引導音效（🦗 夜晚蟲鳴聲）已就緒：可自由勾選是否播放，並支援螢幕鎖屏背景播放';
+              subEl.textContent = '「對眼前的瞬間說：好、是、OK。」';
             } else if (state.timerMode === 'breath') {
-              subEl.textContent = '「5 秒輕柔吸氣（🔔 禪堂清亮引罄聲），5 秒徹底吐氣（🪵 禪堂單響長尾音木魚聲，固定全程播放）。（可調 5～30 分鐘）」';
-              if (breathHintBar) breathHintBar.classList.remove('hidden');
-              if (statusTextEl) statusTextEl.textContent = '🔒 諧振呼吸專屬：練習時「禪堂引罄吸氣／木魚吐氣」固定全程播放，並可搭配「🦗 夜晚蟲鳴聲」與鎖屏背景播放';
+              subEl.textContent = '「5 秒輕柔吸氣，5 秒徹底吐氣。」';
             } else {
-              subEl.textContent = '「我什麼都沒有（I have nothing）、我什麼都不要（I need nothing）、我什麼都不是（I am nothing）。（可調 15～60 分鐘｜可選配🦗夜晚蟲鳴聲）」';
-              if (breathHintBar) breathHintBar.classList.add('hidden');
-              if (statusTextEl) statusTextEl.textContent = '🌙 練習引導音效（🦗 夜晚蟲鳴聲）已就緒：可自由勾選是否播放，並支援螢幕鎖屏背景播放';
+              subEl.textContent = '「我什麼都沒有、我什麼都不要、我什麼都不是。」';
             }
             setCustomTimerMinutes(defMin);
           });
@@ -5181,14 +5098,13 @@
             );
           });
 
-          var woodWavUri = buildPcmWavDataUri(2.0, function(t) {
-            var attack = Math.min(1, t / 0.005);
+          var woodWavUri = buildPcmWavDataUri(0.55, function(t) {
+            var attack = Math.min(1, t / 0.004);
             var knockEnv = attack * Math.exp(-t * 14.0);
-            var tailEnv = attack * Math.exp(-t * 2.35);
-            var freq = 208 + 40 * Math.exp(-t * 45);
-            var sig = (0.58 * knockEnv + 0.36 * tailEnv) * Math.sin(2 * Math.PI * freq * t) +
-                      0.26 * Math.exp(-t * 28.0) * Math.sin(2 * Math.PI * 295 * t) +
-                      0.32 * tailEnv * Math.sin(2 * Math.PI * 104 * t);
+            var tailEnv = attack * Math.exp(-t * 9.5);
+            var freq = 208 + 38 * Math.exp(-t * 45);
+            var sig = (0.64 * knockEnv + 0.30 * tailEnv) * Math.sin(2 * Math.PI * freq * t) +
+                      0.24 * Math.exp(-t * 30.0) * Math.sin(2 * Math.PI * 295 * t);
             return 0.46 * sig;
           });
 
@@ -5510,26 +5426,18 @@
             return;
           }
           btn.textContent = '停止';
-          status.textContent = '🔔 吸氣 5 秒（禪堂引罄聲）...';
-          playInhaleSound();
+          status.textContent = '對眼前瞬間說：好、是、OK';
+          playSimpleCueSound();
           fullMobileBreathTimer = setInterval(function() {
             fullMobileBreathSec--;
-            var el = 60 - fullMobileBreathSec;
-            if (el % 10 === 0) {
-              status.textContent = '🔔 吸氣 5 秒（禪堂引罄聲）...';
-              playInhaleSound();
-            } else if (el % 10 === 5) {
-              status.textContent = '🪵 吐氣 5 秒（禪堂木魚聲）...';
-              playExhaleSound();
-            }
             if (fullMobileBreathSec <= 0) {
               clearInterval(fullMobileBreathTimer);
               fullMobileBreathTimer = null;
               fullMobileBreathSec = 60;
               circle.textContent = '01:00';
               btn.textContent = '開始呼吸';
-              status.textContent = '✨ 1 分鐘呼吸圓滿完成！好、是、OK';
-              playCrystalBowlChime();
+              status.textContent = '✨ 1 分鐘練習完成！好、是、OK';
+              playSimpleCueSound();
               return;
             }
             circle.textContent = '00:' + (fullMobileBreathSec < 10 ? '0' + fullMobileBreathSec : fullMobileBreathSec);
