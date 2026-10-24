@@ -2,6 +2,22 @@
 
 靈感源自**楊定一博士《全部生命系列》**（[全部生命系列官網](https://totality-of-life.com/)）與個人靜心筆記（**非營利**），以「現代極簡・自然意象・東方留白美學」打造的跨裝置（手機、平板、電腦桌面）**靜心語錄**與生活練習網路應用程式。品牌副標題精簡為「每日靜心與生活練習」，並搭配專屬「愛心小鳥」品牌 Logo，**新使用者一打開網頁即內建 112 則不重複精選語錄（涵蓋全部 8 大主題）**，並採用「8 大主題依序輪抽 ＋ 密碼學最大亂度隨機演算法」，每次打開網頁或點擊抽題都會看到截然不同且不重複的靜心語錄，整體體驗如同一本每天願意翻閱的紙本生活手札，陪伴讀者在日常行住坐臥中隨時回到「這裡、現在」。
 
+## 🤖 Android 手機專屬：「安裝應用程式 / 加到主螢幕」完整教學（最新更新）
+
+### ❓ 為什麼在 Android 手機上沒有看到「安裝應用程式 / 加到主螢幕」？
+在 Android 手機上，有 **3 個系統限制** 會導致選單裡找不到「安裝應用程式（Install app）」或無法變成獨立 App：
+1. **直接打開下載到手機裡的 `.html` 檔（網址開頭為 `content://` 或 `file://`）**：當您從 Android「下載項目」或「檔案管理員」點開本機 `.html` 檔時，Chrome 網址列會顯示 `content://...`，此時 Android Chrome 基於安全規範會**自動隱藏右上角「⋮」選單中的「加到主螢幕／安裝應用程式」選項**。
+2. **從 LINE 聊天室直接點開連結或檔案**：LINE 的內建瀏覽器不支援安裝桌面 App，必須點右下角「**⋮**」➔ 選擇「**以預設瀏覽器開啟（Chrome）**」。
+3. **Android WebAPK 安裝器需要實體 `manifest.json` 與 `192px / 512px` 圖示檔**：Android Chrome 若要將網頁封裝為真正無網址列的獨立應用程式（WebAPK），必須透過 `https://` 網址讀取實體 `./manifest.json`、`./sw.js`、`./icon-192.png` 與 `./icon-512.png`。
+
+### ✅ Android 手機 2 種最簡單的解決方案
+
+| 安裝方案 | 適用情境 | 操作步驟（30 秒完成） | 安裝後效果 |
+| :--- | :--- | :--- | :--- |
+| **方案 1（最推薦）：10 秒免費產生 HTTPS 網址，觸發 Android Chrome 原生「📲 安裝應用程式」** | 想要像真正 App 一樣**全螢幕無網址列**、有獨立「🕊️ 愛心小鳥」桌面圖示與背景鎖屏播放 | 1. 下載隨附的 **`totality_android_pwa_package.zip`**（或在網頁內點「📦 一鍵下載 Android 專用 PWA 完整安裝包 (.zip)」）。<br>2. 打開免費免寫程式的 [Netlify Drop](https://app.netlify.com/drop) 或 [Tiiny.host](https://tiiny.host/)，直接把該 `.zip` 檔拖曳上傳，10 秒取得專屬 `https://...` 網址。<br>3. 用 Android **Chrome 瀏覽器**打開該網址，點擊網頁右上角「**📲 立即安裝 App**」或 Chrome 右上角「**⋮**」➔「**安裝應用程式 (Install app) / 加到主螢幕**」。 | Android 系統自動封裝為真實 **WebAPK 獨立 App**，出現在手機桌面與所有應用程式抽屜中，點開無網址列！ |
+| **方案 2（免上傳網址）：直接把手機裡的本機 `.html` 檔放到 Android 主螢幕** | 不想上傳到網址，只想把下載在手機裡的 `totality_of_life_app.html` 放在桌面一鍵打開 | 1. 將 `totality_of_life_app.html` 下載到 Android 手機。<br>2. 在 Google Play 免費安裝 [Shortcut Maker](https://play.google.com/store/apps/details?id=rk.android.app.shortcutmaker)。<br>3. 打開 Shortcut Maker ➔ 點選「**檔案 (Files)**」➔ 選取手機裡的 `totality_of_life_app.html` ➔ 編輯圖示與名稱為「靜心語錄」➔ 點擊「**建立捷徑 (Create Shortcut)**」。 | 直接在 Android 桌面建立專屬圖示，點一下立刻打開本機離線網頁！ |
+
+
 ## 一、視覺設計系統（Design System）
 
 ### 1. 配色規範（Color Palette）
@@ -149,22 +165,34 @@
 
 * **部署至公開網頁**：可將 `totality_of_life_app.html` 重新命名為 `index.html`，直接上傳至 GitHub Pages、Cloudflare Pages 或 Vercel，即可透過網址在手機與電腦間隨時開啟使用。
 
+### 📲 如何像「真正的 App」一樣安裝到手機主螢幕（無網址列、獨立圖示）？
 
-### 📲 如何把「手機桌面與鎖屏 Widget」安裝到真實手機上？（4 種安裝方式）
+為什麼直接把單一 `.html` 檔傳到手機、從「LINE 內建瀏覽器」或「手機檔案管理員 (`file://` 或 `content://`)」點開時，瀏覽器選單不會出現「安裝應用程式 (Install App)」或無法像真正的 App 一樣加到主螢幕？
 
-在 `totality_of_life_app.html` 的「**🛠 六大平台工具**」➔「**📱 1. 手機桌面與鎖屏 Widget**」上方與下方皆設有醒目的 **「📲 如何安裝到手機？」** 按鈕（點擊即可開啟互動教學與一鍵匯出工具）：
+1. **缺少 PWA 核心安裝晶片（現已全面內建修復）**：新版 `totality_of_life_app.html` 已正式內建完整的 **Web App Manifest (`manifest.json`，含自動生成的 `192×192` 與 `512×512` 標準愛心小鳥圖示、`display: standalone`)**、**iOS `apple-touch-icon`**、**Service Worker (`sw.js`)** 與 **`beforeinstallprompt` 原生安裝觸發器**，並在頁首右上角新增醒目的 **「📲 安裝 App」** 按鈕。
 
-1. **前置步驟（若目前在電腦上預覽）**：
-   - 點擊教學彈窗內的 **「⬇ 下載『手機專用獨立 Widget 網頁檔 (.html)』傳到手機」**，透過 LINE（Keep 筆記）、AirDrop 或 iCloud 雲端硬碟傳送到手機，並用 **iPhone Safari** 或 **Android Chrome** 打開；或將本檔案部署至免費靜態網址（如 GitHub Pages / Cloudflare Pages / Netlify）後以手機開啟。
-2. **📱 方式 1：加入手機主畫面 Web App 捷徑（支援原地引罄木魚呼吸＆小/中/大切換）**
-   - 點擊 **「📱 方式1：開啟『手機全螢幕 Widget』並加入主畫面」** 進入去外框全螢幕模式。
-   - **iPhone (iOS Safari)**：點擊底部「**分享 ⬆**」➔ 選擇「**加入主畫面 (Add to Home Screen)**」➔ 點擊「新增」。
-   - **Android (Chrome)**：點擊右上角「**⋮ 選單**」➔ 選擇「**加到主螢幕 (Add to Home screen)**」或「**安裝應用程式**」。
-3. **🍎 方式 2：iPhone 真正鑲嵌在桌面圖示之間的原生 Widget（小 2×2 / 中 4×2 / 大 4×4 ＆ iOS 鎖屏小工具）**
-   - 在 iPhone 安裝免費的 App Store 工具 **[Scriptable](https://apps.apple.com/app/scriptable/id1405459188)**。
-   - 點擊網頁中的 **「🍎 方式2：複製 iPhone 原生桌面/鎖屏 Widget 腳本 (Scriptable)」**（已內建全部 112 則《生命的全部》語錄與小/中/大/鎖屏自動排版）。
-   - 打開 Scriptable 點擊右上角「**＋**」貼上並完成 ➔ 回到 iPhone 桌面或鎖屏**長按空白處** ➔ 點左上角「**＋**」搜尋 **Scriptable** ➔ 選擇**小 (2×2)、中 (4×2)、大 (4×4) 或鎖屏矩形小工具**，長按小工具點「編輯小工具」並將 `Script` 選為剛建立的腳本即可！
-4. **📲 方式 3：手機鎖定畫面 9:16 專屬語錄桌布（免解鎖抬頭即見）**
-   - 點擊 **「📲 方式3：存鎖屏圖(9:16)」**，系統會自動產生避開上方時鐘與底部手電筒區域的高解析度 9:16 宣紙鎖屏桌布，存入相簿後設為「鎖定畫面背景」即可。
-5. **📋 方式 4：iPhone / Android 內建「備忘錄 Widget」桌面小工具（免裝額外 App）**
-   - 點擊 **「📋 方式4：複製30則貼備忘錄」**，貼入手機內建「備忘錄 (Notes)」App 並置頂該筆記，再於手機桌面長按新增「備忘錄小工具」即可在桌面直接閱讀。
+2. **手機系統對本機檔案 (`file://` / `content://`) 與 LINE 的硬性限制**：Android Chrome 與 iPhone Safari 基於系統安全規範，規定只有透過 **`https://` 網址**開啟（或 iPhone 使用官方 **`.mobileconfig` 桌面描述檔**）時，才會啟用「安裝應用程式／加到主螢幕」。
+
+您可以點擊網頁右上角的 **「📲 安裝 App」**（或「小工具」分頁的 **「📲 一鍵安裝為真正手機桌面 App」**），依您的手機選擇以下兩種真正變成獨立 App 的方式：
+
+* **🍎 方法 A：iPhone / iPad 專用（免架設網站・直接安裝真正全螢幕桌面 App 描述檔 `.mobileconfig`）**
+
+  1. 在 iPhone **Safari** 點擊安裝視窗中的 **「🍎 下載 iPhone 桌面 App 描述檔 (.mobileconfig)」**（若在電腦預覽，可下載後透過 AirDrop 或 iCloud 傳至 iPhone 用 Safari 開啟）。
+
+  2. 系統跳出「此網站正嘗試下載設定描述檔」➔ 點擊 **「允許」**。
+
+  3. 打開 iPhone **「⚙️ 設定 (Settings)」** ➔ 點選頂部 **「已下載描述檔 (Profile Downloaded)」** ➔ 點右上角 **「安裝」**。
+
+  4. iPhone 主畫面即會出現真正的 **「🕊️ 靜心語錄」獨立 App 圖示**，點開完全沒有 Safari 上下網址列與工具列，離線亦可直接抽籤與進行引罄木魚呼吸練習！
+
+* **🤖 方法 B：Android 與 iPhone 通用標準 PWA 方案（10 秒免費取得 `https://` 網址，100% 觸發系統「安裝應用程式」WebAPK）**
+
+  1. 在安裝視窗中點擊下載 **「① `index.html`」**、**「② `manifest.json`」**、**「③ `sw.js`」** 三個檔案。
+
+  2. 打開免費免註冊的靜態空間 [**Netlify Drop**](https://app.netlify.com/drop) 或 [**Tiiny.host**](https://tiiny.host/)（或上傳至 GitHub Pages），將檔案拖曳進去，10 秒內即獲得專屬的 `https://...` 網址。
+
+  3. 用手機 **Android Chrome**（或 **iPhone Safari**）打開該 `https://` 網址，點擊網頁頂部的 **「📲 立即安裝 App」** 按鈕（或 Chrome 選單的 **「安裝應用程式 / 加到主螢幕」**），系統就會將它編譯並安裝為真正的手機桌面 App！
+
+* **🧩 方法 C & D：iPhone 桌面網格 2×2 / 4×2 原生小工具（Scriptable）＆ 9:16 鎖屏桌布**
+
+  * 點擊 **「🧩 複製 iPhone 桌面網格 2×2 / 4×2 / 鎖屏原生 Widget 腳本 (Scriptable)」** 貼入免費的 [Scriptable App](https://apps.apple.com/app/scriptable/id1405459188)，即可在 iPhone 桌面圖示之間與鎖屏時鐘下方嵌入原生小/中/大尺寸語錄小工具；或點擊 **「📲 存鎖屏桌布 (9:16)」** 設為手機鎖定畫面。
