@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+<!DOCTYP
+          <button id="btnOpenEpiphanyManager" type="button" class="px-3.5 py-2.5 rounded-2xl bg-[#FDF6EC] hover:bg-[#F5E8D3] text-[#8A6530] border border-[#B79B68]/40 text-xs sm:text-sm font-semibold transition flex items-center gap-1.5 shrink-0">
+            <span>💫 靈光乍現（上傳／修改／刪除）</span>
+          </button>E html>
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8" />
@@ -326,10 +329,16 @@
                 <span class="text-xs font-semibold uppercase tracking-wider text-[#8A6530]">MINDFULNESS TIMER</span>
                 <h2 class="text-xl font-bold font-serif-tc text-[#303833] mt-0.5">互動式呼吸與靜坐練習</h2>
               </div>
-              <label class="inline-flex items-center gap-1.5 text-xs text-stone-600 cursor-pointer">
-                <input id="chkTimerBowlSound" type="checkbox" checked class="rounded text-[#829582] focus:ring-[#829582]" />
-                <span>練習引導音效</span>
-              </label>
+              <div class="flex flex-wrap items-center gap-2.5">
+                <label class="inline-flex items-center gap-1.5 text-xs text-stone-600 cursor-pointer">
+                  <input id="chkTimerBowlSound" type="checkbox" checked class="rounded text-[#829582] focus:ring-[#829582]" />
+                  <span>練習引導音效</span>
+                </label>
+                <label class="inline-flex items-center gap-1.5 text-xs text-[#5E715E] font-medium cursor-pointer bg-[#EEF2EE] px-2.5 py-1 rounded-full border border-[#829582]/30" title="開啟後，手機進入螢幕鎖屏或切換背景時，仍會透過背景音軌持續播放引罄吸氣音與木魚吐氣音">
+                  <input id="chkTimerBgLockPlay" type="checkbox" checked class="rounded text-[#829582] focus:ring-[#829582]" />
+                  <span>🌙 螢幕鎖屏背景播放</span>
+                </label>
+              </div>
             </div>
 
             <!-- Mode Selector with Min/Max bounds -->
@@ -365,6 +374,10 @@
                   <button id="btnPreviewInhaleSound" type="button" class="px-2 py-0.5 rounded-lg bg-white border border-[#E9DDCE] hover:bg-[#EEF2EE] text-[#5E715E] transition">🔔 試聽吸氣引罄聲</button>
                   <button id="btnPreviewExhaleSound" type="button" class="px-2 py-0.5 rounded-lg bg-white border border-[#E9DDCE] hover:bg-[#EEF2EE] text-[#8A6530] transition">🪵 試聽吐氣木魚聲</button>
                 </div>
+              </div>
+              <!-- Lock-Screen Background Audio Status Indicator -->
+              <div id="bgPlayStatusBadge" class="pt-1.5 border-t border-[#E9DDCE]/70 flex items-center justify-between gap-2 text-[11px] text-[#5E715E]">
+                <span id="bgPlayStatusText">🌙 螢幕鎖屏背景播放已就緒：長時間呼吸練習中即使關閉螢幕，引罄與木魚聲仍會持續引導並支援鎖屏控制</span>
               </div>
             </div>
           </div>
@@ -429,22 +442,44 @@
         </div>
       </div>
 
-      <!-- 💫 靈光乍現：個人靈感專屬快速上傳卡片（當點選「靈光乍現」分類時顯示） -->
+      <!-- 💫 靈光乍現：個人靈感專屬快速上傳與修改／刪除管理卡片 -->
       <div id="epiphanyQuickBox" class="hidden bg-[#FFFEFA] rounded-3xl p-6 shadow-sm border border-[#B79B68]/40 space-y-4">
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div>
             <span class="text-xs font-semibold uppercase tracking-wider text-[#B79B68]">PERSONAL INSPIRATION ZONE</span>
-            <h3 class="text-lg font-bold font-serif-tc text-[#303833] mt-0.5">💫 靈光乍現・個人靈感記錄專區（僅由自己上傳）</h3>
-            <p class="text-xs text-[#68726B] mt-0.5">此專區不載入網路語錄，專門珍藏您在靜心、閱讀或生活中突然湧現的個人靈感與體悟。</p>
+            <h3 class="text-lg font-bold font-serif-tc text-[#303833] mt-0.5">💫 靈光乍現・個人靈感上傳與修改／刪除管理專區</h3>
+            <p class="text-xs text-[#68726B] mt-0.5">專門珍藏您在靜心、閱讀或生活中湧現的個人靈感與體悟，支援隨時新增、修改內容或刪除紀錄。</p>
           </div>
-          <span class="px-3 py-1 rounded-full bg-[#E9DDCE]/70 text-[#303833] text-xs font-medium">📌 專屬個人上傳</span>
+          <span class="px-3 py-1 rounded-full bg-[#E9DDCE]/70 text-[#303833] text-xs font-medium">📌 個人上傳・支援修改與刪除</span>
         </div>
+
+        <!-- Edit Mode Indicator Banner -->
+        <div id="epiphanyEditModeBanner" class="hidden px-3.5 py-2 rounded-xl bg-[#FDF6EC] border border-[#C86D51]/40 flex items-center justify-between gap-2 text-xs text-[#8A6530]">
+          <span id="epiphanyEditModeLabel" class="font-medium">✏️ 正在修改「靈光乍現」個人語錄，完成調整後請點擊右側「💾 儲存修改」</span>
+          <button id="btnCancelEditEpiphanyBanner" type="button" class="px-2.5 py-1 rounded-lg bg-white border border-[#E9DDCE] text-[#303833] hover:bg-stone-100 font-medium transition">✕ 取消修改</button>
+        </div>
+
+        <input id="epiphanyEditId" type="hidden" value="" />
         <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
-          <input id="inputQuickEpiphanyText" type="text" placeholder="寫下此刻靈光乍現的一句話或領悟..." class="md:col-span-6 px-3.5 py-2.5 rounded-xl border border-[#E9DDCE] bg-[#F7F4ED] text-sm text-[#303833] focus:outline-none focus:border-[#829582]" />
+          <input id="inputQuickEpiphanyText" type="text" placeholder="寫下此刻靈光乍現的一句話或領悟..." class="md:col-span-5 px-3.5 py-2.5 rounded-xl border border-[#E9DDCE] bg-[#F7F4ED] text-sm text-[#303833] focus:outline-none focus:border-[#829582]" />
           <input id="inputQuickEpiphanyNote" type="text" placeholder="靈感來源或生活練習備註（例如：晨間靜坐體悟）" class="md:col-span-4 px-3.5 py-2.5 rounded-xl border border-[#E9DDCE] bg-[#F7F4ED] text-sm text-[#303833] focus:outline-none focus:border-[#829582]" />
-          <button id="btnSaveQuickEpiphany" type="button" class="md:col-span-2 py-2.5 px-4 rounded-xl bg-[#829582] hover:bg-[#6e826e] text-white text-xs sm:text-sm font-medium transition shadow-sm">
-            ＋ 記錄靈光
-          </button>
+          <div class="md:col-span-3 flex items-center gap-2">
+            <button id="btnSaveQuickEpiphany" type="button" class="flex-1 py-2.5 px-3 rounded-xl bg-[#829582] hover:bg-[#6e826e] text-white text-xs sm:text-sm font-medium transition shadow-sm">
+              ＋ 記錄靈光
+            </button>
+            <button id="btnCancelEditEpiphany" type="button" class="hidden py-2.5 px-3 rounded-xl bg-stone-200 hover:bg-stone-300 text-[#303833] text-xs sm:text-sm font-medium transition">
+              取消
+            </button>
+          </div>
+        </div>
+
+        <!-- Inline Quick Management List for Personal Uploads -->
+        <div class="pt-3 border-t border-[#E9DDCE]/80 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-[#5E715E]">📋 我的靈光乍現（個人上傳）清單 — 點擊即可直接修改或刪除：</span>
+            <span id="epiphanyManageCountBadge" class="text-[11px] text-[#68726B]"></span>
+          </div>
+          <div id="epiphanyManageList" class="space-y-2 max-h-60 overflow-y-auto pr-1 custom-scrollbar"></div>
         </div>
       </div>
 
@@ -1070,6 +1105,74 @@
 
       // Initial Authentic Quotes Database (Dr. Yang Ding-yi's Totality of Life Books & Web Selection - 20 Web Sources across all 8 Categories)
       var DEFAULT_QUOTES = [
+        {
+          id: 'q_epiphany_seed_1',
+          text: '每一次呼吸的停頓之間，都有一個不被念頭打擾的寧靜空間，那就是真正的自己。',
+          book: '晨間靜坐靈光筆記',
+          category: '靈光乍現',
+          sourceType: 'personal',
+          sourceLabel: '個人上傳・靈光乍現',
+          sourceUrl: 'https://totality-of-life.com/',
+          meaning: '個人靈感體悟：在吸氣與吐氣交接的微小縫隙裡，體會到頭腦安靜下來的清明。',
+          practiceTitle: '呼吸間隙覺察練習',
+          practiceGuide: '在每次吐氣結束時，溫柔留意那一秒鐘的自然停頓，安住在無念的寧靜中。',
+          practiceSteps: [
+            '1. 自然吐氣直到氣息吐盡，不急著吸下一口氣。',
+            '2. 體會那短短一秒的空白與寧靜。',
+            '3. 帶著這份從容，迎接下一個呼吸。'
+          ]
+        },
+        {
+          id: 'q_epiphany_seed_2',
+          text: '當我不再強求事情一定要照我的劇本走，心裡的緊繃瞬間就化開了。',
+          book: '日常生活覺察手記',
+          category: '靈光乍現',
+          sourceType: 'personal',
+          sourceLabel: '個人上傳・靈光乍現',
+          sourceUrl: 'https://totality-of-life.com/',
+          meaning: '個人靈感體悟：放下對結果的控制欲，反而看見生命更寬廣的安排。',
+          practiceTitle: '放下劇本練習',
+          practiceGuide: '遇到不如預期的變化時，先對自己微笑，輕聲說一句：這樣也可以。',
+          practiceSteps: [
+            '1. 覺察心裡浮現「應該要如何」的抗拒感。',
+            '2. 雙肩自然垂下，吐氣時把緊抓不放的劇本交出去。',
+            '3. 對眼前的變化說聲「好、是、OK」。'
+          ]
+        },
+        {
+          id: 'q_epiphany_seed_3',
+          text: '原來感恩不是因為擁有了完美的一切，而是看懂了每一個當下都是禮物。',
+          book: '睡前靜心隨筆',
+          category: '靈光乍現',
+          sourceType: 'personal',
+          sourceLabel: '個人上傳・靈光乍現',
+          sourceUrl: 'https://totality-of-life.com/',
+          meaning: '個人靈感體悟：睡前回顧一天，發現連微小的挫折都在教導我們溫柔與慈悲。',
+          practiceTitle: '睡前禮物盤點練習',
+          practiceGuide: '每天閉上眼睛前，在心裡感謝今天發生的三件小事。',
+          practiceSteps: [
+            '1. 手放在胸口，感受心臟穩定的跳動。',
+            '2. 浮現今天遇見的一個人或一件小事，在心裡說聲謝謝。',
+            '3. 帶著溫暖與平安入睡。'
+          ]
+        },
+        {
+          id: 'q_epiphany_seed_4',
+          text: '只要把心收回身體裡，外面的風雨就只是路過的風景。',
+          book: '午後散步靈光紀錄',
+          category: '靈光乍現',
+          sourceType: 'personal',
+          sourceLabel: '個人上傳・靈光乍現',
+          sourceUrl: 'https://totality-of-life.com/',
+          meaning: '個人靈感體悟：當注意力回到腳底與呼吸，外在的紛擾便不再能輕易動搖內在的中心。',
+          practiceTitle: '重心回歸身體練習',
+          practiceGuide: '走路或站立時，把百分之五十的注意力放在雙腳踩地的踏實感上。',
+          practiceSteps: [
+            '1. 感受雙腳與地面接觸的重量與溫度。',
+            '2. 聽見周圍的聲音，但不跟隨聲音跑掉。',
+            '3. 穩穩地安住在身體的中心。'
+          ]
+        },
         {
           id: 'q8',
           text: '這一生點點滴滴的創傷，也就是你這一生的貴人。這位創傷的貴人，會為你帶來最高的恩典。',
@@ -3035,10 +3138,146 @@
       state.quotes = deduplicateQuotesList(state.quotes);
       safeSetStorage('tol_quotes_v2', state.quotes);
 
-      // Pick deterministic daily index on initial load based on date
-      var todayObj = new Date();
-      var daySeed = todayObj.getFullYear() * 1000 + (todayObj.getMonth() + 1) * 50 + todayObj.getDate();
-      state.currentQuoteIndex = daySeed % state.quotes.length;
+      // 8-Category Round-Robin Rotation + High-Entropy Random Quote Selection
+      var ROTATION_8_CATEGORIES = [
+        '臣服與參',
+        '感恩',
+        '靜坐與呼吸',
+        '在、覺、樂',
+        '創傷與療癒',
+        '這裡、現在',
+        '祈禱與祝福',
+        '靈光乍現'
+      ];
+
+      function cryptoRandomFloat() {
+        try {
+          if (window.crypto && window.crypto.getRandomValues) {
+            var arr = new Uint32Array(2);
+            window.crypto.getRandomValues(arr);
+            // Combine crypto entropy with high-res timestamp jitter
+            var jitter = (typeof performance !== 'undefined' && performance.now) ? (performance.now() % 1) : Math.random();
+            var val = (arr[0] / 4294967296) + (arr[1] / 18446744073709551616) + jitter;
+            return val - Math.floor(val);
+          }
+        } catch (e) {}
+        return Math.random();
+      }
+
+      function cryptoRandomInt(maxExclusive) {
+        if (maxExclusive <= 1) return 0;
+        return Math.floor(cryptoRandomFloat() * maxExclusive) % maxExclusive;
+      }
+
+      function shuffleArrayMaxEntropy(arr) {
+        var copy = arr.slice();
+        for (var i = copy.length - 1; i > 0; i--) {
+          var j = cryptoRandomInt(i + 1);
+          var tmp = copy[i];
+          copy[i] = copy[j];
+          copy[j] = tmp;
+        }
+        return copy;
+      }
+
+      function drawNextRotatingRandomQuote() {
+        if (!state.quotes || state.quotes.length === 0) {
+          state.currentQuoteIndex = 0;
+          return null;
+        }
+
+        // Load last category rotation index (-1 if never opened before)
+        var rawLastCat = null;
+        try {
+          rawLastCat = localStorage.getItem('tol_rot_cat_idx_v2');
+        } catch (e) {}
+
+        var nextCatIdx;
+        if (rawLastCat === null || rawLastCat === undefined || isNaN(parseInt(rawLastCat, 10))) {
+          // First time opening: start at a random category out of the 8 so even first open isn't fixed!
+          nextCatIdx = cryptoRandomInt(ROTATION_8_CATEGORIES.length);
+        } else {
+          // Strict round-robin through the 8 categories: (0 -> 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 0)
+          nextCatIdx = (parseInt(rawLastCat, 10) + 1) % ROTATION_8_CATEGORIES.length;
+        }
+
+        var recentIds = safeGetStorage('tol_recent_drawn_ids_v2', []);
+        if (!Array.isArray(recentIds)) recentIds = [];
+        var currentQuote = state.quotes[state.currentQuoteIndex];
+        var currentId = currentQuote ? currentQuote.id : null;
+
+        // Find the next category in rotation that has at least 1 quote
+        var chosenCategory = ROTATION_8_CATEGORIES[nextCatIdx];
+        var catCandidates = [];
+        for (var step = 0; step < ROTATION_8_CATEGORIES.length; step++) {
+          var tryIdx = (nextCatIdx + step) % ROTATION_8_CATEGORIES.length;
+          var tryCat = ROTATION_8_CATEGORIES[tryIdx];
+          var matches = [];
+          for (var qi = 0; qi < state.quotes.length; qi++) {
+            if (state.quotes[qi].category === tryCat) {
+              matches.push({ quote: state.quotes[qi], index: qi });
+            }
+          }
+          if (matches.length > 0) {
+            nextCatIdx = tryIdx;
+            chosenCategory = tryCat;
+            catCandidates = matches;
+            break;
+          }
+        }
+
+        if (catCandidates.length === 0) {
+          // Fallback if no category matched
+          catCandidates = state.quotes.map(function(q, idx) { return { quote: q, index: idx }; });
+        }
+
+        // Exclude recently drawn quotes and the currently displayed quote to maximize randomness
+        var unseenInCat = catCandidates.filter(function(item) {
+          return item.quote.id !== currentId && recentIds.indexOf(item.quote.id) === -1;
+        });
+
+        if (unseenInCat.length === 0) {
+          // All quotes in this category were recently seen; reset history for this category except the very last shown quote
+          var catIdsMap = {};
+          catCandidates.forEach(function(c) { catIdsMap[c.quote.id] = true; });
+          var lastSeenInThisCat = null;
+          for (var r = recentIds.length - 1; r >= 0; r--) {
+            if (catIdsMap[recentIds[r]]) {
+              lastSeenInThisCat = recentIds[r];
+              break;
+            }
+          }
+          recentIds = recentIds.filter(function(rid) { return !catIdsMap[rid]; });
+          unseenInCat = catCandidates.filter(function(item) {
+            if (catCandidates.length <= 1) return true;
+            return item.quote.id !== currentId && item.quote.id !== lastSeenInThisCat;
+          });
+          if (unseenInCat.length === 0) unseenInCat = catCandidates;
+        }
+
+        // Shuffle candidate pool with cryptographic entropy and pick one
+        var shuffled = shuffleArrayMaxEntropy(unseenInCat);
+        var picked = shuffled[cryptoRandomInt(shuffled.length)];
+
+        state.currentQuoteIndex = picked.index;
+        state.lastRotationNumber = nextCatIdx + 1;
+        state.lastRotationCategory = chosenCategory;
+
+        recentIds.push(picked.quote.id);
+        if (recentIds.length > 80) {
+          recentIds = recentIds.slice(recentIds.length - 80);
+        }
+
+        try {
+          localStorage.setItem('tol_rot_cat_idx_v2', String(nextCatIdx));
+        } catch (e) {}
+        safeSetStorage('tol_recent_drawn_ids_v2', recentIds);
+
+        return picked.quote;
+      }
+
+      // Immediately draw a fresh rotating random quote on every page open!
+      drawNextRotatingRandomQuote();
 
       // Toast helper
       var toastTimer = null;
@@ -3315,6 +3554,165 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }
 
+
+      // 💫 靈光乍現（個人上傳）：新增、修改、刪除與管理清單輔助函式
+      function renderEpiphanyManageList() {
+        var listEl = document.getElementById('epiphanyManageList');
+        var badgeEl = document.getElementById('epiphanyManageCountBadge');
+        if (!listEl) return;
+        var personalQuotes = state.quotes.filter(function(q) {
+          return q.category === '靈光乍現' || q.sourceType === 'personal';
+        });
+        if (badgeEl) {
+          badgeEl.textContent = '共 ' + personalQuotes.length + ' 則個人靈感';
+        }
+        listEl.innerHTML = '';
+        if (personalQuotes.length === 0) {
+          listEl.innerHTML = '<div class="p-3 rounded-2xl bg-[#F7F4ED] text-xs text-[#68726B] text-center">目前尚無個人上傳的靈光乍現紀錄，歡迎於上方輸入框新增！</div>';
+          return;
+        }
+        var editingId = (document.getElementById('epiphanyEditId') || {}).value || '';
+        personalQuotes.forEach(function(pq) {
+          var row = document.createElement('div');
+          var isEditingThis = (editingId === pq.id);
+          row.className = 'p-3 rounded-2xl border transition flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs ' +
+            (isEditingThis ? 'bg-[#FDF6EC] border-[#C86D51]' : 'bg-[#F7F4ED] border-[#E9DDCE]');
+
+          var leftInfo = document.createElement('div');
+          leftInfo.className = 'space-y-0.5 pr-2';
+          var quoteP = document.createElement('p');
+          quoteP.className = 'font-serif-tc font-medium text-[#303833] text-sm';
+          quoteP.textContent = '「' + pq.text + '」';
+          var noteP = document.createElement('p');
+          noteP.className = 'text-[11px] text-[#8A6530]';
+          noteP.textContent = '— ' + (pq.book || '個人靈光乍現筆記');
+          leftInfo.appendChild(quoteP);
+          leftInfo.appendChild(noteP);
+
+          var btnGroup = document.createElement('div');
+          btnGroup.className = 'flex items-center gap-1.5 shrink-0';
+
+          var btnEdit = document.createElement('button');
+          btnEdit.type = 'button';
+          btnEdit.className = 'px-2.5 py-1.5 rounded-xl bg-white hover:bg-[#FDF6EC] text-[#8A6530] border border-[#B79B68]/40 font-medium transition';
+          btnEdit.textContent = isEditingThis ? '✏️ 修改中...' : '✏️ 修改';
+          btnEdit.addEventListener('click', function() {
+            startEditEpiphanyQuote(pq.id);
+          });
+
+          var btnDel = document.createElement('button');
+          btnDel.type = 'button';
+          btnDel.className = 'px-2.5 py-1.5 rounded-xl bg-white hover:bg-rose-50 text-rose-700 border border-rose-200 font-medium transition';
+          btnDel.textContent = '🗑️ 刪除';
+          btnDel.addEventListener('click', function() {
+            deleteEpiphanyQuote(pq.id);
+          });
+
+          btnGroup.appendChild(btnEdit);
+          btnGroup.appendChild(btnDel);
+          row.appendChild(leftInfo);
+          row.appendChild(btnGroup);
+          listEl.appendChild(row);
+        });
+      }
+
+      function startEditEpiphanyQuote(quoteId) {
+        var target = null;
+        for (var i = 0; i < state.quotes.length; i++) {
+          if (state.quotes[i].id === quoteId) {
+            target = state.quotes[i];
+            break;
+          }
+        }
+        if (!target) return;
+
+        if (state.activeTab !== 'explore') {
+          switchTab('explore');
+        }
+        state.forceShowEpiphanyBox = true;
+        var epiphanyBox = document.getElementById('epiphanyQuickBox');
+        if (epiphanyBox) epiphanyBox.classList.remove('hidden');
+
+        var editIdEl = document.getElementById('epiphanyEditId');
+        var textEl = document.getElementById('inputQuickEpiphanyText');
+        var noteEl = document.getElementById('inputQuickEpiphanyNote');
+        var saveBtn = document.getElementById('btnSaveQuickEpiphany');
+        var cancelBtn = document.getElementById('btnCancelEditEpiphany');
+        var bannerEl = document.getElementById('epiphanyEditModeBanner');
+
+        if (editIdEl) editIdEl.value = target.id;
+        if (textEl) textEl.value = target.text || '';
+        if (noteEl) noteEl.value = (target.book === '個人靈光乍現筆記' ? '' : (target.book || ''));
+        if (saveBtn) {
+          saveBtn.textContent = '💾 儲存修改';
+          saveBtn.className = 'flex-1 py-2.5 px-3 rounded-xl bg-[#C86D51] hover:bg-[#b05c42] text-white text-xs sm:text-sm font-bold transition shadow-sm';
+        }
+        if (cancelBtn) cancelBtn.classList.remove('hidden');
+        if (bannerEl) bannerEl.classList.remove('hidden');
+
+        renderEpiphanyManageList();
+        if (epiphanyBox) {
+          epiphanyBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        if (textEl) {
+          setTimeout(function() { textEl.focus(); }, 150);
+        }
+        showToast('✏️ 已載入至上方輸入框，請修改後點選「儲存修改」');
+      }
+
+      function cancelEditEpiphanyQuote() {
+        var editIdEl = document.getElementById('epiphanyEditId');
+        var textEl = document.getElementById('inputQuickEpiphanyText');
+        var noteEl = document.getElementById('inputQuickEpiphanyNote');
+        var saveBtn = document.getElementById('btnSaveQuickEpiphany');
+        var cancelBtn = document.getElementById('btnCancelEditEpiphany');
+        var bannerEl = document.getElementById('epiphanyEditModeBanner');
+
+        if (editIdEl) editIdEl.value = '';
+        if (textEl) textEl.value = '';
+        if (noteEl) noteEl.value = '';
+        if (saveBtn) {
+          saveBtn.textContent = '＋ 記錄靈光';
+          saveBtn.className = 'flex-1 py-2.5 px-3 rounded-xl bg-[#829582] hover:bg-[#6e826e] text-white text-xs sm:text-sm font-medium transition shadow-sm';
+        }
+        if (cancelBtn) cancelBtn.classList.add('hidden');
+        if (bannerEl) bannerEl.classList.add('hidden');
+        renderEpiphanyManageList();
+      }
+
+      function deleteEpiphanyQuote(quoteId) {
+        var target = null;
+        for (var i = 0; i < state.quotes.length; i++) {
+          if (state.quotes[i].id === quoteId) {
+            target = state.quotes[i];
+            break;
+          }
+        }
+        if (!target) return;
+
+        var editIdEl = document.getElementById('epiphanyEditId');
+        if (editIdEl && editIdEl.value === quoteId) {
+          cancelEditEpiphanyQuote();
+        }
+
+        state.quotes = state.quotes.filter(function(q) { return q.id !== quoteId; });
+        state.favorites = state.favorites.filter(function(fid) { return fid !== quoteId; });
+        if (state.quotes.length === 0) {
+          state.quotes = DEFAULT_QUOTES.slice();
+        }
+        if (state.currentQuoteIndex >= state.quotes.length) {
+          state.currentQuoteIndex = 0;
+        }
+        safeSetStorage('tol_quotes_v2', state.quotes);
+        safeSetStorage('tol_favorites_v1', state.favorites);
+
+        renderDailyAndHeader();
+        renderExploreTab();
+        renderFavoritesTab();
+        renderSourcesTab();
+        showToast('🗑️ 已刪除該筆「靈光乍現」個人語錄');
+      }
+
       // Render Explore & Search Tab
       function renderExploreTab() {
         var pillsContainer = document.getElementById('categoryPillsContainer');
@@ -3335,9 +3733,10 @@
 
         var epiphanyBox = document.getElementById('epiphanyQuickBox');
         var btnOneClickExplore = document.getElementById('btnExploreOneClickLoad');
-        if (state.selectedCategory === '靈光乍現') {
+        if (state.selectedCategory === '靈光乍現' || state.sourceFilter === 'personal' || state.forceShowEpiphanyBox) {
           if (epiphanyBox) epiphanyBox.classList.remove('hidden');
-          if (btnOneClickExplore) btnOneClickExplore.classList.add('hidden');
+          if (btnOneClickExplore && state.selectedCategory === '靈光乍現') btnOneClickExplore.classList.add('hidden');
+          renderEpiphanyManageList();
         } else {
           if (epiphanyBox) epiphanyBox.classList.add('hidden');
           if (btnOneClickExplore) btnOneClickExplore.classList.remove('hidden');
@@ -3429,6 +3828,29 @@
           btnFavThis.addEventListener('click', function() {
             toggleFavorite(item.id);
           });
+
+          if (item.category === '靈光乍現' || item.sourceType === 'personal') {
+            var btnEditEp = document.createElement('button');
+            btnEditEp.type = 'button';
+            btnEditEp.className = 'px-2.5 py-1.5 rounded-xl bg-[#FDF6EC] hover:bg-[#F5E8D3] text-[#8A6530] border border-[#B79B68]/30 font-medium transition';
+            btnEditEp.textContent = '✏️ 修改';
+            btnEditEp.title = '修改此筆個人靈光乍現語錄';
+            btnEditEp.addEventListener('click', function() {
+              startEditEpiphanyQuote(item.id);
+            });
+
+            var btnDelEp = document.createElement('button');
+            btnDelEp.type = 'button';
+            btnDelEp.className = 'px-2.5 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200/70 font-medium transition';
+            btnDelEp.textContent = '🗑️ 刪除';
+            btnDelEp.title = '刪除此筆個人靈光乍現語錄';
+            btnDelEp.addEventListener('click', function() {
+              deleteEpiphanyQuote(item.id);
+            });
+
+            rightActions.appendChild(btnEditEp);
+            rightActions.appendChild(btnDelEp);
+          }
 
           rightActions.appendChild(btnJournalThis);
           rightActions.appendChild(btnFavThis);
@@ -3712,10 +4134,21 @@
             viewQuoteDetail(pq.id);
           });
 
+          if (pq.category === '靈光乍現' || pq.sourceType === 'personal') {
+            var btnEditP = document.createElement('button');
+            btnEditP.type = 'button';
+            btnEditP.className = 'text-[#8A6530] hover:underline text-[11px] font-medium';
+            btnEditP.textContent = '✏️ 修改';
+            btnEditP.addEventListener('click', function() {
+              startEditEpiphanyQuote(pq.id);
+            });
+            actionGroup.appendChild(btnEditP);
+          }
+
           var btnDelP = document.createElement('button');
           btnDelP.type = 'button';
           btnDelP.className = 'text-stone-400 hover:text-rose-600 text-[11px]';
-          btnDelP.textContent = '略過';
+          btnDelP.textContent = (pq.category === '靈光乍現' || pq.sourceType === 'personal') ? '🗑️ 刪除' : '略過';
           btnDelP.addEventListener('click', function() {
             state.quotes = state.quotes.filter(function(item) { return item.id !== pq.id; });
             if (state.quotes.length === 0) state.quotes = DEFAULT_QUOTES.slice();
@@ -3876,14 +4309,266 @@
         }
       }
 
+      // -------------------------------------------------------------------
+      // 🌙 螢幕鎖屏背景播放引擎 (HTML5 Audio Loop + MediaSession API + WakeLock + Wall-Clock Timer)
+      // -------------------------------------------------------------------
+      var bgBreathAudioEl = null;
+      var cachedBgWavUrls = {};
+      var activeWakeLock = null;
+
+      // Synthesize a 10-second 16-bit PCM WAV loop in memory:
+      // - For 'breath' mode: 0.0s plays Zen Inhale Bell (引罄聲), 5.0s plays Zen Exhale Wooden Fish (木魚雙擊聲),
+      //   plus a continuous ultra-gentle 432Hz warm singing-bowl pad so iOS/Android lock screen never suspends the audio stream!
+      // - For 'surrender' / 'meditate' modes: continuous gentle 432Hz singing-bowl resonance with soft bell overtones.
+      function getOrBuildBackgroundLoopWavUrl(mode) {
+        var key = (mode === 'breath') ? 'breath_10s' : 'meditate_10s';
+        if (cachedBgWavUrls[key]) return cachedBgWavUrls[key];
+
+        var sampleRate = 16000;
+        var durationSec = 10;
+        var numSamples = sampleRate * durationSec;
+        var buffer = new ArrayBuffer(44 + numSamples * 2);
+        var view = new DataView(buffer);
+
+        function writeStr(offset, str) {
+          for (var i = 0; i < str.length; i++) {
+            view.setUint8(offset + i, str.charCodeAt(i));
+          }
+        }
+        writeStr(0, 'RIFF');
+        view.setUint32(4, 36 + numSamples * 2, true);
+        writeStr(8, 'WAVE');
+        writeStr(12, 'fmt ');
+        view.setUint32(16, 16, true);
+        view.setUint16(20, 1, true);
+        view.setUint16(22, 1, true);
+        view.setUint32(24, sampleRate, true);
+        view.setUint32(28, sampleRate * 2, true);
+        view.setUint16(32, 2, true);
+        view.setUint16(34, 16, true);
+        writeStr(36, 'data');
+        view.setUint32(40, numSamples * 2, true);
+
+        var twoPi = 2 * Math.PI;
+        for (var i = 0; i < numSamples; i++) {
+          var t = i / sampleRate;
+          // Continuous ultra-gentle 432Hz harmonic pad (ensures OS lock screen keeps audio session alive)
+          var padEnv = 0.5 + 0.5 * Math.sin(twoPi * 0.1 * t);
+          var sample = 0.012 * padEnv * (Math.sin(twoPi * 432 * t) + 0.35 * Math.sin(twoPi * 216 * t));
+
+          if (mode === 'breath') {
+            // 0.0s ~ 2.6s: 🔔 吸氣音：禪堂引罄聲 (1056Hz + 2798Hz + 4580Hz clear metallic bell)
+            if (t < 2.6) {
+              var bEnv = Math.min(1, t / 0.008) * Math.exp(-t * 1.85);
+              var bWave = 0.55 * Math.sin(twoPi * 1056 * t) +
+                          0.28 * Math.sin(twoPi * 2798 * t) * Math.exp(-t * 2.5) +
+                          0.14 * Math.sin(twoPi * 4580 * t) * Math.exp(-t * 4.2);
+              sample += 0.42 * bEnv * bWave;
+            }
+            // 5.0s ~ 6.2s: 🪵 吐氣音：禪堂木魚聲 (196Hz + 392Hz warm hollow wood block double tap)
+            if (t >= 5.0 && t < 6.4) {
+              var dt1 = t - 5.0;
+              if (dt1 >= 0 && dt1 < 0.45) {
+                var wEnv1 = Math.min(1, dt1 / 0.004) * Math.exp(-dt1 * 16.0);
+                var f1 = 196 + 90 * Math.exp(-dt1 * 45.0);
+                sample += 0.52 * wEnv1 * (0.75 * Math.sin(twoPi * f1 * dt1) + 0.25 * Math.sin(twoPi * (f1 * 1.98) * dt1) * Math.exp(-dt1 * 24.0));
+              }
+              var dt2 = t - 5.42;
+              if (dt2 >= 0 && dt2 < 0.45) {
+                var wEnv2 = Math.min(1, dt2 / 0.004) * Math.exp(-dt2 * 17.5);
+                var f2 = 188 + 80 * Math.exp(-dt2 * 45.0);
+                sample += 0.36 * wEnv2 * (0.75 * Math.sin(twoPi * f2 * dt2) + 0.25 * Math.sin(twoPi * (f2 * 1.98) * dt2) * Math.exp(-dt2 * 24.0));
+              }
+            }
+          } else {
+            // Gentle singing bowl chime at t = 0.0s for meditation/surrender loop
+            if (t < 3.2) {
+              var mEnv = Math.min(1, t / 0.015) * Math.exp(-t * 1.25);
+              sample += 0.22 * mEnv * (0.7 * Math.sin(twoPi * 528 * t) + 0.3 * Math.sin(twoPi * 1056 * t));
+            }
+          }
+
+          if (sample > 0.98) sample = 0.98;
+          if (sample < -0.98) sample = -0.98;
+          view.setInt16(44 + i * 2, Math.floor(sample * 32767), true);
+        }
+
+        var blob = new Blob([buffer], { type: 'audio/wav' });
+        var url = URL.createObjectURL(blob);
+        cachedBgWavUrls[key] = url;
+        return url;
+      }
+
+      function ensureBgAudioElement() {
+        if (!bgBreathAudioEl) {
+          bgBreathAudioEl = document.createElement('audio');
+          bgBreathAudioEl.id = 'bgMeditationAudioLoop';
+          bgBreathAudioEl.loop = true;
+          bgBreathAudioEl.preload = 'auto';
+          bgBreathAudioEl.setAttribute('playsinline', 'true');
+          bgBreathAudioEl.setAttribute('webkit-playsinline', 'true');
+          bgBreathAudioEl.style.display = 'none';
+          document.body.appendChild(bgBreathAudioEl);
+        }
+        return bgBreathAudioEl;
+      }
+
+      function requestScreenWakeLock() {
+        try {
+          if ('wakeLock' in navigator && navigator.wakeLock && navigator.wakeLock.request) {
+            navigator.wakeLock.request('screen').then(function(lock) {
+              activeWakeLock = lock;
+            }).catch(function() {});
+          }
+        } catch (e) {}
+      }
+
+      function releaseScreenWakeLock() {
+        try {
+          if (activeWakeLock && activeWakeLock.release) {
+            activeWakeLock.release().catch(function() {});
+            activeWakeLock = null;
+          }
+        } catch (e) {}
+      }
+
+      function updateMediaSessionMetadata() {
+        try {
+          if ('mediaSession' in navigator && navigator.mediaSession) {
+            var modeNames = {
+              surrender: '瞬間臣服練習',
+              breath: '諧振呼吸（🔔吸氣引罄・🪵吐氣木魚）',
+              meditate: '靜坐三原則練習'
+            };
+            var q = getCurrentQuote();
+            if (typeof MediaMetadata !== 'undefined') {
+              navigator.mediaSession.metadata = new MediaMetadata({
+                title: '全部生命・' + (modeNames[state.timerMode] || '靜心呼吸練習'),
+                artist: '🔔 吸氣 5 秒（引罄聲）・🪵 吐氣 5 秒（木魚聲）',
+                album: q ? ('每日一句：' + q.text.slice(0, 26) + '...') : '楊定一博士《全部生命系列》靜心語錄'
+              });
+            }
+            navigator.mediaSession.playbackState = state.timerRunning ? 'playing' : 'paused';
+            navigator.mediaSession.setActionHandler('play', function() {
+              if (!state.timerRunning) toggleTimer();
+            });
+            navigator.mediaSession.setActionHandler('pause', function() {
+              if (state.timerRunning) stopTimer();
+            });
+            navigator.mediaSession.setActionHandler('stop', function() {
+              if (state.timerRunning) stopTimer();
+            });
+          }
+        } catch (e) {}
+      }
+
+      function startBackgroundBreathAudio() {
+        var soundOnEl = document.getElementById('chkTimerBowlSound');
+        var bgLockEl = document.getElementById('chkTimerBgLockPlay');
+        var soundOn = soundOnEl ? soundOnEl.checked : true;
+        var bgOn = bgLockEl ? bgLockEl.checked : true;
+        var statusTextEl = document.getElementById('bgPlayStatusText');
+
+        requestScreenWakeLock();
+
+        if (!soundOn || !bgOn) {
+          if (bgBreathAudioEl) {
+            try { bgBreathAudioEl.pause(); } catch (e) {}
+          }
+          if (statusTextEl) {
+            statusTextEl.textContent = '🌙 螢幕鎖屏背景播放已關閉（僅於畫面開啟時提示）';
+          }
+          return false;
+        }
+
+        try {
+          var audioEl = ensureBgAudioElement();
+          var wavUrl = getOrBuildBackgroundLoopWavUrl(state.timerMode);
+          if (audioEl.src !== wavUrl) {
+            audioEl.src = wavUrl;
+          }
+          // Sync offset into the 10-second cycle
+          var elapsed = Math.max(0, state.timerSec - state.timerRemaining);
+          audioEl.currentTime = elapsed % 10;
+          var playPromise = audioEl.play();
+          if (playPromise && playPromise.catch) {
+            playPromise.catch(function() {});
+          }
+          updateMediaSessionMetadata();
+          if (statusTextEl) {
+            statusTextEl.textContent = '🔊 背景播放進行中：即使手機進入螢幕鎖屏，引罄吸氣音與木魚吐氣音仍會持續引導';
+          }
+          return true;
+        } catch (e) {
+          return false;
+        }
+      }
+
+      function stopBackgroundBreathAudio() {
+        releaseScreenWakeLock();
+        if (bgBreathAudioEl) {
+          try {
+            bgBreathAudioEl.pause();
+          } catch (e) {}
+        }
+        try {
+          if ('mediaSession' in navigator && navigator.mediaSession) {
+            navigator.mediaSession.playbackState = 'paused';
+          }
+        } catch (e) {}
+        var statusTextEl = document.getElementById('bgPlayStatusText');
+        if (statusTextEl) {
+          statusTextEl.textContent = '🌙 螢幕鎖屏背景播放已就緒：長時間呼吸練習中即使關閉螢幕，引罄與木魚聲仍會持續引導並支援鎖屏控制';
+        }
+      }
+
       function stopTimer() {
         if (state.timerInterval) {
           clearInterval(state.timerInterval);
           state.timerInterval = null;
         }
         state.timerRunning = false;
+        state.timerEndTimeMs = null;
+        stopBackgroundBreathAudio();
         document.getElementById('btnTimerStartPause').textContent = '開始練習';
         updateTimerUI();
+      }
+
+      function tickTimerByWallClock() {
+        if (!state.timerRunning || !state.timerEndTimeMs) return;
+        var nowMs = Date.now();
+        var remSec = Math.ceil((state.timerEndTimeMs - nowMs) / 1000);
+        if (remSec > 0) {
+          var prevRem = state.timerRemaining;
+          state.timerRemaining = remSec;
+          var elapsedNow = state.timerSec - state.timerRemaining;
+          var soundOn = document.getElementById('chkTimerBowlSound').checked;
+          var bgOnEl = document.getElementById('chkTimerBgLockPlay');
+          var bgOn = bgOnEl ? bgOnEl.checked : true;
+          var bgAudioPlaying = bgBreathAudioEl && !bgBreathAudioEl.paused;
+
+          // If background HTML5 audio loop is NOT active, trigger WebAudio chimes on 5s transitions
+          if (soundOn && !bgAudioPlaying && prevRem !== remSec && state.timerMode === 'breath') {
+            if (elapsedNow % 10 === 0) {
+              playInhaleSound();
+            } else if (elapsedNow % 10 === 5) {
+              playExhaleSound();
+            }
+          }
+          updateTimerUI();
+        } else {
+          state.timerRemaining = 0;
+          stopTimer();
+          state.timerRemaining = state.timerSec;
+          updateTimerUI();
+          if (document.getElementById('chkTimerBowlSound').checked) {
+            playCrystalBowlChime();
+          }
+          state.practiceCount += 1;
+          safeSetStorage('tol_practice_count_v1', state.practiceCount);
+          renderDailyAndHeader();
+          showToast('🔔 靜心練習圓滿完成！已為您累加練習次數');
+        }
       }
 
       function toggleTimer() {
@@ -3892,9 +4577,12 @@
           return;
         }
         state.timerRunning = true;
+        state.timerEndTimeMs = Date.now() + (state.timerRemaining * 1000);
         document.getElementById('btnTimerStartPause').textContent = '暫停練習';
+
+        var bgStarted = startBackgroundBreathAudio();
         var soundOn = document.getElementById('chkTimerBowlSound').checked;
-        if (soundOn) {
+        if (soundOn && !bgStarted) {
           if (state.timerMode === 'breath') {
             var initElapsed = state.timerSec - state.timerRemaining;
             if ((initElapsed % 10) < 5) {
@@ -3907,33 +4595,18 @@
           }
         }
         updateTimerUI();
-        state.timerInterval = setInterval(function() {
-          if (state.timerRemaining > 1) {
-            state.timerRemaining -= 1;
-            var elapsedNow = state.timerSec - state.timerRemaining;
-            if (state.timerMode === 'breath' && document.getElementById('chkTimerBowlSound').checked) {
-              if (elapsedNow % 10 === 0) {
-                playInhaleSound();
-              } else if (elapsedNow % 10 === 5) {
-                playExhaleSound();
-              }
-            }
-            updateTimerUI();
-          } else {
-            state.timerRemaining = 0;
-            stopTimer();
-            state.timerRemaining = state.timerSec;
-            updateTimerUI();
-            if (document.getElementById('chkTimerBowlSound').checked) {
-              playCrystalBowlChime();
-            }
-            state.practiceCount += 1;
-            safeSetStorage('tol_practice_count_v1', state.practiceCount);
-            renderDailyAndHeader();
-            showToast('🔔 靜心練習圓滿完成！已為您累加練習次數');
-          }
-        }, 1000);
+        state.timerInterval = setInterval(tickTimerByWallClock, 500);
       }
+
+      // Sync wall-clock timer & wake lock immediately when returning from screen lock
+      document.addEventListener('visibilitychange', function() {
+        if (state.timerRunning) {
+          tickTimerByWallClock();
+          if (document.visibilityState === 'visible') {
+            requestScreenWakeLock();
+          }
+        }
+      });
 
       // Bind All Event Listeners
       function initEvents() {
@@ -3951,7 +4624,7 @@
           document.getElementById('floatingDesktopWidget').classList.add('hidden');
         });
         document.getElementById('btnFloatingNextQuote').addEventListener('click', function() {
-          state.currentQuoteIndex = (state.currentQuoteIndex + 1) % state.quotes.length;
+          drawNextRotatingRandomQuote();
           renderDailyAndHeader();
         });
         document.getElementById('btnFloatingQuickBreath').addEventListener('click', function() {
@@ -3964,10 +4637,10 @@
           toggleFavorite(getCurrentQuote().id);
         });
         document.getElementById('btnDailyRandom').addEventListener('click', function() {
-          var nextIdx = (state.currentQuoteIndex + 1) % state.quotes.length;
-          state.currentQuoteIndex = nextIdx;
+          var picked = drawNextRotatingRandomQuote();
           renderDailyAndHeader();
-          showToast('✨ 已為您抽取下一則靜心語錄');
+          var catInfo = picked ? ('【8大主題輪抽 ' + (state.lastRotationNumber || 1) + '/8：' + picked.category + '】') : '';
+          showToast('✨ ' + catInfo + '已為您隨機抽取靜心語錄');
         });
         document.getElementById('btnDailyWriteJournal').addEventListener('click', function() {
           openJournalForQuote(getCurrentQuote().id);
@@ -4352,18 +5025,18 @@
         }
 
         document.getElementById('btnDesktopPreviewNext').addEventListener('click', function() {
-          state.currentQuoteIndex = (state.currentQuoteIndex + 1) % state.quotes.length;
+          drawNextRotatingRandomQuote();
           renderDailyAndHeader();
           renderWidgetsTab();
         });
         document.getElementById('btnMobileFrameNextQuote').addEventListener('click', function() {
-          state.currentQuoteIndex = (state.currentQuoteIndex + 1) % state.quotes.length;
+          var picked = drawNextRotatingRandomQuote();
           renderDailyAndHeader();
           renderWidgetsTab();
-          showToast('↻ 已切換手機預覽語錄');
+          showToast('↻ 已輪抽【' + (picked ? picked.category : '靜心') + '】語錄');
         });
         document.getElementById('previewMobileWidget').addEventListener('click', function() {
-          state.currentQuoteIndex = (state.currentQuoteIndex + 1) % state.quotes.length;
+          drawNextRotatingRandomQuote();
           renderDailyAndHeader();
           renderWidgetsTab();
         });
@@ -4454,7 +5127,7 @@
         }
 
         document.getElementById('btnFullMobileNextQuote').addEventListener('click', function() {
-          state.currentQuoteIndex = (state.currentQuoteIndex + 1) % state.quotes.length;
+          drawNextRotatingRandomQuote();
           renderDailyAndHeader();
           renderWidgetsTab();
           renderFullMobileWidgetOverlay();
@@ -4712,14 +5385,77 @@
 
 
 
-        // Quick Epiphany Save Handler in Explore Tab
+        // Quick Epiphany Save & Edit Handler in Explore Tab
+        var btnOpenEpMgr = document.getElementById('btnOpenEpiphanyManager');
+        if (btnOpenEpMgr) {
+          btnOpenEpMgr.addEventListener('click', function() {
+            state.selectedCategory = '靈光乍現';
+            state.forceShowEpiphanyBox = true;
+            renderExploreTab();
+            var epBox = document.getElementById('epiphanyQuickBox');
+            if (epBox) epBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+        }
+        var btnCancelEp1 = document.getElementById('btnCancelEditEpiphany');
+        if (btnCancelEp1) {
+          btnCancelEp1.addEventListener('click', function() {
+            cancelEditEpiphanyQuote();
+            showToast('已取消修改');
+          });
+        }
+        var btnCancelEp2 = document.getElementById('btnCancelEditEpiphanyBanner');
+        if (btnCancelEp2) {
+          btnCancelEp2.addEventListener('click', function() {
+            cancelEditEpiphanyQuote();
+            showToast('已取消修改');
+          });
+        }
+
         document.getElementById('btnSaveQuickEpiphany').addEventListener('click', function() {
           var epText = document.getElementById('inputQuickEpiphanyText').value.trim();
           var epNote = document.getElementById('inputQuickEpiphanyNote').value.trim();
+          var editIdEl = document.getElementById('epiphanyEditId');
+          var editingId = editIdEl ? editIdEl.value.trim() : '';
+
           if (!epText) {
             showToast('請先輸入您的靈光乍現內容');
             return;
           }
+
+          if (editingId) {
+            // Check duplicate excluding the item being edited
+            var normNew = normalizeQuoteText(epText);
+            var dupFound = state.quotes.some(function(q) {
+              return q.id !== editingId && normalizeQuoteText(q.text) === normNew;
+            });
+            if (dupFound) {
+              showToast('⚠️ 修改後的語句與題庫中其他語錄重複，請調整內容！');
+              return;
+            }
+            var updated = false;
+            for (var i = 0; i < state.quotes.length; i++) {
+              if (state.quotes[i].id === editingId) {
+                state.quotes[i].text = epText;
+                state.quotes[i].book = epNote || '個人靈光乍現筆記';
+                state.quotes[i].category = '靈光乍現';
+                state.quotes[i].sourceType = 'personal';
+                state.quotes[i].meaning = epNote ? ('個人靈感體悟：' + epNote) : '來自個人靜心與日常生活中捕捉到的靈光乍現。';
+                updated = true;
+                break;
+              }
+            }
+            if (updated) {
+              safeSetStorage('tol_quotes_v2', state.quotes);
+              cancelEditEpiphanyQuote();
+              renderDailyAndHeader();
+              renderExploreTab();
+              renderFavoritesTab();
+              renderSourcesTab();
+              showToast('💾 已成功修改「靈光乍現」個人語錄！');
+              return;
+            }
+          }
+
           if (isQuoteDuplicate(epText)) {
             showToast('⚠️ 此靈感語句已存在於題庫中，不重複新增！');
             return;
@@ -4744,10 +5480,10 @@
           state.quotes.unshift(newEp);
           state.currentQuoteIndex = 0;
           safeSetStorage('tol_quotes_v2', state.quotes);
-          document.getElementById('inputQuickEpiphanyText').value = '';
-          document.getElementById('inputQuickEpiphanyNote').value = '';
+          cancelEditEpiphanyQuote();
           renderDailyAndHeader();
           renderExploreTab();
+          renderSourcesTab();
           showToast('💫 已記錄至「靈光乍現」個人靈感專區！');
         });
 
