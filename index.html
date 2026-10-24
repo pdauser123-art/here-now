@@ -592,43 +592,177 @@
         <!-- 3 Widget Platforms Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-          <!-- Platform 1: 手機桌面 Widget (零門檻三合一：全螢幕極簡桌面模式 ＋ 9:16 手機鎖屏桌布一鍵下載 ＋ 內建備忘錄語錄包) -->
-          <div class="bg-[#F7F4ED] rounded-3xl p-5 border border-[#829582]/30 flex flex-col justify-between space-y-5">
-            <div class="space-y-2">
-              <div class="flex items-center justify-between">
-                <span class="px-2.5 py-1 rounded-full bg-[#EEF2EE] text-[#5E715E] text-xs font-semibold">📱 1. 手機桌面與鎖屏小工具</span>
-                <div class="flex items-center gap-1">
-                  <button type="button" data-m-size="small" class="mobile-size-btn px-2 py-0.5 rounded text-xs bg-[#829582] text-white">方卡</button>
-                  <button type="button" data-m-size="medium" class="mobile-size-btn px-2 py-0.5 rounded text-xs bg-stone-200 text-stone-700">寬卡</button>
-                </div>
+          <!-- Platform 1: 高擬真互動手機 Widget 模擬器（小 2x2 / 中 4x2 / 大 4x4 / 鎖屏模式 ＋ 原地呼吸微互動） -->
+          <div class="bg-[#F7F4ED] rounded-3xl p-5 border border-[#829582]/30 flex flex-col justify-between space-y-4">
+            <div class="space-y-2.5">
+              <div class="flex items-center justify-between gap-1">
+                <span class="px-2.5 py-1 rounded-full bg-[#EEF2EE] text-[#5E715E] text-xs font-semibold">📱 1. 手機桌面與鎖屏 Widget</span>
+                <button type="button" id="btnShowMobileInstallGuide" class="px-2 py-0.5 rounded-lg bg-white border border-[#E9DDCE] text-[#8A6530] text-[11px] font-medium hover:bg-[#EEF2EE] transition">📖 安裝教學</button>
               </div>
-                                        </div>
+              <!-- 4-Mode Size & Lockscreen Switcher -->
+              <div class="grid grid-cols-4 gap-1 bg-white p-1 rounded-2xl border border-[#E9DDCE]">
+                <button type="button" data-m-size="small" class="mobile-size-btn py-1.5 rounded-xl text-[11px] font-semibold bg-[#829582] text-white transition">小 2×2</button>
+                <button type="button" data-m-size="medium" class="mobile-size-btn py-1.5 rounded-xl text-[11px] font-semibold text-stone-600 hover:bg-stone-100 transition">中 4×2</button>
+                <button type="button" data-m-size="large" class="mobile-size-btn py-1.5 rounded-xl text-[11px] font-semibold text-stone-600 hover:bg-stone-100 transition">大 4×4</button>
+                <button type="button" data-m-size="lockscreen" class="mobile-size-btn py-1.5 rounded-xl text-[11px] font-semibold text-stone-600 hover:bg-stone-100 transition">🔒 鎖屏</button>
+              </div>
+            </div>
 
-            <!-- Simulated Phone Home Screen Frame (Interactive Preview: Click to Next Quote) -->
-            <div class="bg-stone-900 rounded-[32px] p-4 shadow-inner border-4 border-stone-800 mx-auto w-full max-w-[290px]">
-              <div class="w-16 h-1.5 bg-stone-700 rounded-full mx-auto mb-3"></div>
-              <!-- The Mobile Widget Card -->
-              <div id="previewMobileWidget" class="widget-forest rounded-2xl p-4 shadow-lg transition-all duration-300 space-y-2.5 cursor-pointer" title="點擊預覽卡片可切換下一句">
-                <div class="flex items-center justify-between text-[10px] opacity-85">
-                  <span>🌿 全部生命・靜心語錄</span>
-                  <span id="mobileWidgetDate">10/22</span>
+            <!-- High-Fidelity Phone Bezel & Interactive Screen -->
+            <div class="bg-stone-950 rounded-[38px] p-3.5 shadow-2xl border-[5px] border-stone-800 mx-auto w-full max-w-[316px] relative overflow-hidden select-none">
+              <!-- Dynamic Island & Status Bar -->
+              <div class="flex items-center justify-between px-3 pt-0.5 pb-2 text-[10px] text-stone-300 font-mono">
+                <span id="simPhoneStatusBarTime">09:41</span>
+                <div class="w-16 h-3.5 bg-black rounded-full border border-stone-800 flex items-center justify-end pr-1.5">
+                  <span id="simIslandDot" class="w-1.5 h-1.5 rounded-full bg-emerald-400 hidden animate-pulse"></span>
                 </div>
-                <p id="mobileWidgetQuote" class="font-serif-tc text-sm font-medium leading-relaxed line-clamp-4"></p>
-                <div class="pt-1.5 flex items-center justify-between text-[11px] opacity-90 border-t border-current/15">
-                  <span id="mobileWidgetBook" class="truncate max-w-[140px]"></span>
-                  <span class="px-1.5 py-0.5 rounded bg-black/15 text-[10px]">點此換句 ↻</span>
+                <div class="flex items-center gap-1 text-[9px]">
+                  <span>5G</span>
+                  <span>🔋</span>
                 </div>
               </div>
-              <!-- Quick Mobile Action Pills Inside Phone Frame -->
-              <div class="grid grid-cols-2 gap-2 mt-3 text-[11px]">
-                <button type="button" id="btnMobileFrameNextQuote" class="py-1.5 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-200 font-medium transition">↻ 換一句預覽</button>
-                <button type="button" id="btnShowMobileInstallGuide" class="py-1.5 rounded-xl bg-stone-800 hover:bg-stone-700 text-[#E9DDCE] font-medium transition">📖 3秒放到桌面教學</button>
+
+              <!-- Phone Screen Viewport -->
+              <div id="simPhoneViewport" class="min-h-[340px] rounded-[26px] bg-gradient-to-b from-stone-900 via-[#232D28] to-stone-900 p-3 flex flex-col justify-between relative overflow-hidden transition-all duration-300">
+
+                <!-- Lock Screen Clock Header (Only visible in lockscreen mode) -->
+                <div id="simLockScreenHeader" class="hidden text-center pt-2 pb-1 text-[#F7F4ED] space-y-0.5">
+                  <div class="text-[10px] opacity-80 flex items-center justify-center gap-1">
+                    <span>🔒</span><span id="simLockDateText">10月24日 週六</span>
+                  </div>
+                  <div id="simLockBigClock" class="text-4xl font-light tracking-tight font-mono">09:41</div>
+                </div>
+
+                <!-- Home Screen Grid Area (Holds the active Widget + Mock App Icons) -->
+                <div id="simHomeGridWrap" class="my-auto space-y-3">
+                  <div id="simWidgetLayoutRow" class="grid grid-cols-2 gap-2.5 items-stretch">
+                    <!-- Interactive Widget Card (Spans 1 col in Small 2x2, 2 cols in Medium/Large/Lockscreen) -->
+                    <div id="previewMobileWidget" class="col-span-1 widget-forest rounded-[22px] p-3.5 shadow-xl transition-all duration-300 flex flex-col justify-between space-y-2 relative overflow-hidden">
+                      <!-- Top Metadata Row -->
+                      <div class="flex items-center justify-between gap-1 text-[10px] opacity-90">
+                        <span id="mobileWidgetCatBadge" class="font-semibold truncate">🌿 臣服與參</span>
+                        <span id="mobileWidgetDate" class="font-mono opacity-80 shrink-0">10/24</span>
+                      </div>
+
+                      <!-- Main Quote Text (Click to rotate next quote) -->
+                      <div id="mobileWidgetQuoteClickArea" class="cursor-pointer space-y-1 my-auto py-0.5" title="點擊切換下一則語錄">
+                        <p id="mobileWidgetQuote" class="font-serif-tc text-xs font-medium leading-relaxed line-clamp-4"></p>
+                        <p id="mobileWidgetBook" class="text-[10px] opacity-80 truncate"></p>
+                      </div>
+
+                      <!-- Large 4x4 Exclusive: Daily Practice 3-Step Mini Box -->
+                      <div id="mobileWidgetLargePracticeBox" class="hidden rounded-xl bg-black/15 p-2.5 text-[10px] space-y-1 border border-current/10">
+                        <div class="font-semibold flex items-center justify-between">
+                          <span id="mobileWidgetPracticeTitle" class="truncate">🌱 今日練習</span>
+                          <button type="button" id="btnSimOpenJournal" class="px-1.5 py-0.5 rounded bg-white/20 hover:bg-white/30 text-[9px] font-semibold transition shrink-0">✍️ 寫手札</button>
+                        </div>
+                        <p id="mobileWidgetPracticeGuide" class="opacity-85 line-clamp-2 leading-relaxed"></p>
+                      </div>
+
+                      <!-- In-Place Micro-Interaction Breathing Pod (Toggled inside Widget without opening full app!) -->
+                      <div id="simInPlaceBreathPod" class="hidden rounded-2xl bg-black/20 p-2.5 space-y-2 border border-white/15 backdrop-blur-sm">
+                        <div class="flex items-center justify-between gap-1">
+                          <div class="flex items-center gap-1">
+                            <button type="button" data-sim-mode="surrender" class="sim-breath-mode-pill px-1.5 py-0.5 rounded-lg text-[9px] font-semibold bg-white text-[#303833] transition">臣服</button>
+                            <button type="button" data-sim-mode="breath" class="sim-breath-mode-pill px-1.5 py-0.5 rounded-lg text-[9px] font-semibold bg-white/15 text-current hover:bg-white/25 transition">諧振</button>
+                            <button type="button" data-sim-mode="meditate" class="sim-breath-mode-pill px-1.5 py-0.5 rounded-lg text-[9px] font-semibold bg-white/15 text-current hover:bg-white/25 transition">靜坐</button>
+                          </div>
+                          <label class="inline-flex items-center gap-1 text-[9px] cursor-pointer opacity-90">
+                            <input id="chkSimCrickets" type="checkbox" class="rounded text-[#829582] w-3 h-3" />
+                            <span>🌿蟲鳴</span>
+                          </label>
+                        </div>
+
+                        <div class="flex items-center justify-between gap-2 pt-0.5">
+                          <div class="flex items-center gap-2 min-w-0">
+                            <div class="relative w-8 h-8 flex items-center justify-center shrink-0">
+                              <div id="simBreathPulseRing" class="absolute inset-0 rounded-full bg-white/25 transition-transform duration-1000"></div>
+                              <span id="simBreathTimeText" class="relative z-10 font-mono text-[10px] font-bold">01:00</span>
+                            </div>
+                            <div class="min-w-0">
+                              <p id="simBreathPhaseLabel" class="text-[10px] font-semibold truncate">好・是・OK</p>
+                              <p id="simBreathSubHint" class="text-[9px] opacity-75 truncate">內建起訖簡單提示音</p>
+                            </div>
+                          </div>
+                          <button type="button" id="btnSimBreathStartStop" class="px-2.5 py-1 rounded-xl bg-[#F7F4ED] text-[#303833] text-[10px] font-bold shadow-sm active:scale-95 transition shrink-0">
+                            開始
+                          </button>
+                        </div>
+                      </div>
+
+                      <!-- Bottom Micro-Interaction Action Bar -->
+                      <div class="pt-1.5 border-t border-current/15 flex items-center justify-between gap-1 text-[10px]">
+                        <button type="button" id="btnMobileFrameNextQuote" class="px-2 py-1 rounded-lg bg-black/15 hover:bg-black/25 font-medium transition flex items-center gap-1">
+                          <span>↻</span><span id="simNextBtnLabel">換句</span>
+                        </button>
+                        <div class="flex items-center gap-1">
+                          <button type="button" id="btnSimToggleFav" class="px-2 py-1 rounded-lg bg-black/15 hover:bg-black/25 transition" title="收藏語錄">
+                            <span id="iconSimFav">🤍</span>
+                          </button>
+                          <button type="button" id="btnSimToggleBreathPod" class="px-2 py-1 rounded-lg bg-white/20 hover:bg-white/30 font-semibold transition flex items-center gap-0.5" title="原地呼吸練習">
+                            <span>🧘</span><span id="simBreathToggleText">呼吸</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Right-side 2x2 Mock App Icons (Visible ONLY in Small 2x2 mode to show realistic proportion) -->
+                    <div id="simSmallSideApps" class="grid grid-cols-2 gap-2 content-between py-0.5">
+                      <div class="flex flex-col items-center gap-1">
+                        <div class="w-11 h-11 rounded-2xl bg-stone-800/90 border border-white/10 flex items-center justify-center text-base shadow">📅</div>
+                        <span class="text-[9px] text-stone-300">行事曆</span>
+                      </div>
+                      <div class="flex flex-col items-center gap-1">
+                        <div class="w-11 h-11 rounded-2xl bg-stone-800/90 border border-white/10 flex items-center justify-center text-base shadow">🌤️</div>
+                        <span class="text-[9px] text-stone-300">天氣</span>
+                      </div>
+                      <div class="flex flex-col items-center gap-1">
+                        <div class="w-11 h-11 rounded-2xl bg-stone-800/90 border border-white/10 flex items-center justify-center text-base shadow">📝</div>
+                        <span class="text-[9px] text-stone-300">備忘錄</span>
+                      </div>
+                      <div id="simAppIconOpenFull" class="flex flex-col items-center gap-1 cursor-pointer group" title="點擊開啟手機滿版極簡模式">
+                        <div class="w-11 h-11 rounded-2xl bg-[#829582] border border-[#E9DDCE]/40 flex items-center justify-center text-base shadow group-hover:scale-105 transition">🕊️</div>
+                        <span class="text-[9px] text-[#E9DDCE] font-medium">靜心語錄</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Bottom Row Mock App Icons (Visible in Small 2x2 & Medium 4x2 modes) -->
+                  <div id="simBottomAppIconsRow" class="grid grid-cols-4 gap-2 pt-1">
+                    <div class="flex flex-col items-center gap-1 opacity-80">
+                      <div class="w-10 h-10 rounded-2xl bg-stone-800/80 border border-white/10 flex items-center justify-center text-sm">📷</div>
+                      <span class="text-[9px] text-stone-300">相機</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-1 opacity-80">
+                      <div class="w-10 h-10 rounded-2xl bg-stone-800/80 border border-white/10 flex items-center justify-center text-sm">🎵</div>
+                      <span class="text-[9px] text-stone-300">音樂</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-1 opacity-80">
+                      <div class="w-10 h-10 rounded-2xl bg-stone-800/80 border border-white/10 flex items-center justify-center text-sm">📖</div>
+                      <span class="text-[9px] text-stone-300">閱讀</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-1 opacity-80">
+                      <div class="w-10 h-10 rounded-2xl bg-stone-800/80 border border-white/10 flex items-center justify-center text-sm">⚙️</div>
+                      <span class="text-[9px] text-stone-300">設定</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Lock Screen Bottom Shortcuts (Only visible in lockscreen mode) -->
+                <div id="simLockScreenFooter" class="hidden flex items-center justify-between px-4 pt-2 pb-0.5 text-xs text-stone-300">
+                  <span class="w-8 h-8 rounded-full bg-white/15 backdrop-blur flex items-center justify-center">🔦</span>
+                  <span class="text-[10px] opacity-75">向上滑動或點上方卡片互動</span>
+                  <span class="w-8 h-8 rounded-full bg-white/15 backdrop-blur flex items-center justify-center">📷</span>
+                </div>
+
+                <!-- Home Indicator Bar -->
+                <div class="w-24 h-1 bg-stone-500/70 rounded-full mx-auto mt-2"></div>
               </div>
             </div>
 
             <div class="space-y-2 pt-1">
               <button id="btnEnterMobileFullWidgetMode" type="button" class="w-full py-2.5 px-4 rounded-2xl bg-[#829582] hover:bg-[#6e826e] text-white text-xs font-semibold transition shadow-sm flex items-center justify-center gap-1.5">
-                <span>📱 開啟手機極簡桌面模式</span>
+                <span>📱 開啟手機全螢幕互動 Widget 模式</span>
               </button>
               <button id="btnDownloadMobileWallpaperPng" type="button" class="w-full py-2.5 px-4 rounded-2xl bg-[#B79B68] hover:bg-[#a38856] text-white text-xs font-semibold transition shadow-sm flex items-center justify-center gap-1.5">
                 <span>📲 下載今日手機鎖屏桌布 (9:16)</span>
@@ -944,44 +1078,71 @@
     </div>
   </div>
 
-  <!-- Full-Screen Mobile Minimalist Widget Mode Overlay (專為手機「加入主畫面」打造的零干擾大字版桌面小工具模式) -->
-  <div id="mobileFullWidgetOverlay" class="hidden fixed inset-0 z-50 bg-[#F7F4ED] flex flex-col justify-between p-5 sm:p-8 select-none">
+  <!-- Full-Screen Mobile Minimalist Widget Mode Overlay (專為手機「加入主畫面」打造的高擬真桌面小工具模式) -->
+  <div id="mobileFullWidgetOverlay" class="hidden fixed inset-0 z-50 bg-[#F7F4ED] flex flex-col justify-between p-4 sm:p-7 select-none overflow-y-auto">
     <!-- Top Subtle Bar -->
-    <div class="flex items-center justify-between max-w-lg w-full mx-auto text-xs text-[#68726B]">
+    <div class="flex items-center justify-between max-w-lg w-full mx-auto text-xs text-[#68726B] gap-2">
       <div class="flex items-center gap-2">
         <span class="w-2.5 h-2.5 rounded-full bg-[#829582]"></span>
-        <span class="font-medium text-[#303833]">全部生命・手機桌面極簡模式</span>
+        <span class="font-medium text-[#303833]">手機桌面 Widget 模式</span>
       </div>
-      <button type="button" id="btnExitMobileFullWidgetMode" class="px-4 py-2 rounded-full bg-[#C86D51] hover:bg-[#b2593e] text-white font-bold text-xs sm:text-sm shadow-lg border-2 border-white ring-2 ring-[#C86D51]/40 active:scale-95 transition">
+      <div class="flex items-center gap-1.5">
+        <button type="button" data-ov-size="small" class="ov-size-pill px-2.5 py-1 rounded-full text-[11px] font-medium bg-white border border-[#E9DDCE] text-[#303833]">小</button>
+        <button type="button" data-ov-size="medium" class="ov-size-pill px-2.5 py-1 rounded-full text-[11px] font-medium bg-white border border-[#E9DDCE] text-[#303833]">中</button>
+        <button type="button" data-ov-size="large" class="ov-size-pill px-2.5 py-1 rounded-full text-[11px] font-medium bg-[#829582] text-white">大</button>
+      </div>
+      <button type="button" id="btnExitMobileFullWidgetMode" class="px-3.5 py-1.5 rounded-full bg-[#C86D51] hover:bg-[#b2593e] text-white font-bold text-xs shadow-lg border-2 border-white ring-2 ring-[#C86D51]/40 active:scale-95 transition shrink-0">
         ← 返回完整模式
       </button>
     </div>
 
     <!-- Centerpiece Giant Mobile Widget Card -->
-    <div class="max-w-lg w-full mx-auto my-auto space-y-5">
-      <div id="fullMobileWidgetCard" class="widget-forest rounded-[32px] p-7 sm:p-9 shadow-xl border border-white/20 space-y-5 transition-all">
+    <div id="fullMobileWidgetContainer" class="max-w-lg w-full mx-auto my-auto space-y-4 py-3 transition-all duration-300">
+      <div id="fullMobileWidgetCard" class="widget-forest rounded-[32px] p-6 sm:p-8 shadow-xl border border-white/20 space-y-4 transition-all">
         <div class="flex items-center justify-between text-xs opacity-85 border-b border-current/15 pb-3">
           <span id="fullMobileWidgetCategory" class="font-medium">🌿 臣服與參</span>
-          <span id="fullMobileWidgetDate" class="font-mono"></span>
+          <div class="flex items-center gap-2">
+            <span id="fullMobileWidgetDate" class="font-mono"></span>
+            <button type="button" id="btnFullMobileFav" class="px-2 py-0.5 rounded-full bg-black/15 text-xs">🤍</button>
+          </div>
         </div>
-        <p id="fullMobileWidgetQuote" class="font-serif-tc text-xl sm:text-2xl leading-relaxed font-medium tracking-wide"></p>
-        <div class="pt-2 flex items-center justify-between text-xs sm:text-sm opacity-90">
+        <p id="fullMobileWidgetQuote" class="font-serif-tc text-xl sm:text-2xl leading-relaxed font-medium tracking-wide cursor-pointer" title="點擊換下一句"></p>
+        <div class="pt-1 flex items-center justify-between text-xs sm:text-sm opacity-90">
           <span id="fullMobileWidgetBook" class="font-serif-tc font-medium"></span>
           <span class="text-xs opacity-75">好・是・OK</span>
         </div>
+        <!-- Practice step preview in Large mode -->
+        <div id="fullMobilePracticeBox" class="pt-3 border-t border-current/15 text-xs opacity-90 space-y-1">
+          <p id="fullMobilePracticeTitle" class="font-semibold"></p>
+          <p id="fullMobilePracticeGuide" class="opacity-85 leading-relaxed"></p>
+        </div>
       </div>
 
-      <!-- Mini 1-Minute Surrender Breath Bar inside Mobile Widget Mode -->
-      <div class="bg-white rounded-3xl p-4 border border-[#E9DDCE] shadow-sm flex items-center justify-between gap-3">
-        <div class="flex items-center gap-3">
-          <div id="fullMobileBreathCircle" class="w-11 h-11 rounded-2xl bg-[#EEF2EE] text-[#5E715E] flex items-center justify-center font-mono font-bold text-sm">01:00</div>
-          <div>
-            <p id="fullMobileBreathStatus" class="text-xs sm:text-sm font-semibold text-[#303833]">1 分鐘・瞬間臣服呼吸</p>
-                      </div>
+      <!-- In-Place Multi-Mode Breathing Bar inside Mobile Widget Mode (Updated with Today's Audio Rules!) -->
+      <div class="bg-white rounded-3xl p-4 border border-[#E9DDCE] shadow-sm space-y-3">
+        <div class="flex items-center justify-between gap-2">
+          <div class="flex items-center gap-1.5">
+            <button type="button" data-fm-mode="surrender" class="fm-mode-btn px-2.5 py-1 rounded-xl text-xs font-semibold bg-[#829582] text-white transition">瞬間臣服</button>
+            <button type="button" data-fm-mode="breath" class="fm-mode-btn px-2.5 py-1 rounded-xl text-xs font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 transition">諧振呼吸</button>
+            <button type="button" data-fm-mode="meditate" class="fm-mode-btn px-2.5 py-1 rounded-xl text-xs font-semibold bg-stone-100 text-stone-700 hover:bg-stone-200 transition">靜坐三原則</button>
+          </div>
+          <label class="inline-flex items-center gap-1 text-xs text-[#303833] font-medium cursor-pointer bg-[#F7F4ED] px-2.5 py-1 rounded-full border border-[#E9DDCE]">
+            <input id="chkFullMobileCrickets" type="checkbox" class="rounded text-[#829582]" />
+            <span>🌿 夜晚蟲鳴</span>
+          </label>
         </div>
-        <button type="button" id="btnFullMobileToggleBreath" class="px-4 py-2 rounded-2xl bg-[#829582] text-white text-xs font-semibold shadow-sm">
-          開始呼吸
-        </button>
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <div id="fullMobileBreathCircle" class="w-12 h-12 rounded-2xl bg-[#EEF2EE] text-[#5E715E] flex items-center justify-center font-mono font-bold text-sm transition-transform duration-700">01:00</div>
+            <div>
+              <p id="fullMobileBreathStatus" class="text-xs sm:text-sm font-semibold text-[#303833]">瞬間臣服・好、是、OK</p>
+              <p id="fullMobileBreathSub" class="text-[11px] text-[#68726B]">開始與結束內建簡單提示音</p>
+            </div>
+          </div>
+          <button type="button" id="btnFullMobileToggleBreath" class="px-4 py-2.5 rounded-2xl bg-[#829582] hover:bg-[#6e826e] text-white text-xs font-semibold shadow-sm transition">
+            開始呼吸
+          </button>
+        </div>
       </div>
 
       <!-- Big Touch-Friendly Bottom Controls -->
@@ -4033,12 +4194,15 @@
         });
       }
 
-      // Render Widgets Center Tab
+      // Render Widgets Center Tab (Supports Small 2x2 / Medium 4x2 / Large 4x4 / Lock Screen + In-Place Micro-Interaction Breathing)
       function renderWidgetsTab() {
         var q = getCurrentQuote();
         if (!q) return;
         var d = new Date();
+        var weekdays = ['週日', '週一', '週二', '週三', '週四', '週五', '週六'];
         var shortDate = (d.getMonth() + 1) + '/' + d.getDate();
+        var pad = function(n) { return n < 10 ? '0' + n : String(n); };
+        var timeStr = pad(d.getHours()) + ':' + pad(d.getMinutes());
 
         var mWidget = document.getElementById('previewMobileWidget');
         var dWidget = document.getElementById('previewDesktopWidget');
@@ -4046,22 +4210,101 @@
 
         var themeClasses = ['widget-forest', 'widget-dawn', 'widget-cosmos', 'widget-zen'];
         [mWidget, dWidget, wWidget].forEach(function(el) {
+          if (!el) return;
           themeClasses.forEach(function(tc) { el.classList.remove(tc); });
           el.classList.add(state.widgetTheme);
         });
 
-        // Mobile size adjust
-        if (state.mobileWidgetSize === 'small') {
-          mWidget.classList.remove('w-full');
-          mWidget.style.maxWidth = '195px';
-          mWidget.style.margin = '0 auto';
-        } else {
-          mWidget.style.maxWidth = '100%';
-        }
+        // Update Simulated Phone Clocks & Lockscreen Date
+        var statusTimeEl = document.getElementById('simPhoneStatusBarTime');
+        var lockClockEl = document.getElementById('simLockBigClock');
+        var lockDateEl = document.getElementById('simLockDateText');
+        if (statusTimeEl) statusTimeEl.textContent = timeStr;
+        if (lockClockEl) lockClockEl.textContent = timeStr;
+        if (lockDateEl) lockDateEl.textContent = (d.getMonth() + 1) + '月' + d.getDate() + '日 ' + weekdays[d.getDay()];
 
+        var sizeMode = state.mobileWidgetSize || 'small';
+        var sideAppsEl = document.getElementById('simSmallSideApps');
+        var bottomAppsEl = document.getElementById('simBottomAppIconsRow');
+        var lockHeaderEl = document.getElementById('simLockScreenHeader');
+        var lockFooterEl = document.getElementById('simLockScreenFooter');
+        var largePracticeEl = document.getElementById('mobileWidgetLargePracticeBox');
+        var quoteEl = document.getElementById('mobileWidgetQuote');
+        var bookEl = document.getElementById('mobileWidgetBook');
+        var catBadgeEl = document.getElementById('mobileWidgetCatBadge');
+        var nextLblEl = document.getElementById('simNextBtnLabel');
+        var breathPodEl = document.getElementById('simInPlaceBreathPod');
+
+        if (catBadgeEl) catBadgeEl.textContent = '🌿 ' + (q.category || '臣服與參');
         document.getElementById('mobileWidgetDate').textContent = shortDate;
-        document.getElementById('mobileWidgetQuote').textContent = '「' + q.text + '」';
-        document.getElementById('mobileWidgetBook').textContent = q.book;
+        if (quoteEl) quoteEl.textContent = '「' + q.text + '」';
+        if (bookEl) bookEl.textContent = '— ' + q.book;
+
+        var isFav = state.favorites.indexOf(q.id) !== -1;
+        var favIconEl = document.getElementById('iconSimFav');
+        if (favIconEl) favIconEl.textContent = isFav ? '❤️' : '🤍';
+
+        var pracTitleEl = document.getElementById('mobileWidgetPracticeTitle');
+        var pracGuideEl = document.getElementById('mobileWidgetPracticeGuide');
+        if (pracTitleEl) pracTitleEl.textContent = '🌱 ' + (q.practiceTitle || '當下臣服練習');
+        if (pracGuideEl) pracGuideEl.textContent = q.practiceGuide || '深呼吸，對眼前瞬間說「好、是、OK」。';
+
+        // Reset layout classes before applying mode-specific proportions
+        mWidget.classList.remove('col-span-1', 'col-span-2');
+        if (sizeMode === 'small') {
+          // 2x2 Square Widget (Left half of 4-col grid, with 2x2 app icons on right + 4 icons on bottom)
+          mWidget.classList.add('col-span-1');
+          if (sideAppsEl) sideAppsEl.classList.remove('hidden');
+          if (bottomAppsEl) bottomAppsEl.classList.remove('hidden');
+          if (lockHeaderEl) lockHeaderEl.classList.add('hidden');
+          if (lockFooterEl) lockFooterEl.classList.add('hidden');
+          if (largePracticeEl) largePracticeEl.classList.add('hidden');
+          if (bookEl) bookEl.classList.add('hidden');
+          if (nextLblEl) nextLblEl.textContent = '';
+          if (quoteEl) {
+            quoteEl.className = 'font-serif-tc text-[11px] font-medium leading-snug line-clamp-4';
+          }
+        } else if (sizeMode === 'medium') {
+          // 4x2 Wide Card (Full width, 1 row of app icons below)
+          mWidget.classList.add('col-span-2');
+          if (sideAppsEl) sideAppsEl.classList.add('hidden');
+          if (bottomAppsEl) bottomAppsEl.classList.remove('hidden');
+          if (lockHeaderEl) lockHeaderEl.classList.add('hidden');
+          if (lockFooterEl) lockFooterEl.classList.add('hidden');
+          if (largePracticeEl) largePracticeEl.classList.add('hidden');
+          if (bookEl) bookEl.classList.remove('hidden');
+          if (nextLblEl) nextLblEl.textContent = '換句';
+          if (quoteEl) {
+            quoteEl.className = 'font-serif-tc text-xs sm:text-sm font-medium leading-relaxed line-clamp-3';
+          }
+        } else if (sizeMode === 'large') {
+          // 4x4 Full Sanctuary Card (Full width, shows Quote + Daily Practice + In-Place Breathing Pod)
+          mWidget.classList.add('col-span-2');
+          if (sideAppsEl) sideAppsEl.classList.add('hidden');
+          if (bottomAppsEl) bottomAppsEl.classList.add('hidden');
+          if (lockHeaderEl) lockHeaderEl.classList.add('hidden');
+          if (lockFooterEl) lockFooterEl.classList.add('hidden');
+          if (largePracticeEl) largePracticeEl.classList.remove('hidden');
+          if (breathPodEl) breathPodEl.classList.remove('hidden');
+          if (bookEl) bookEl.classList.remove('hidden');
+          if (nextLblEl) nextLblEl.textContent = '換句';
+          if (quoteEl) {
+            quoteEl.className = 'font-serif-tc text-sm font-medium leading-relaxed line-clamp-4';
+          }
+        } else if (sizeMode === 'lockscreen') {
+          // Lock Screen Mode (Shows big lock clock above, translucent lockscreen widget, flashlight/camera below)
+          mWidget.classList.add('col-span-2');
+          if (sideAppsEl) sideAppsEl.classList.add('hidden');
+          if (bottomAppsEl) bottomAppsEl.classList.add('hidden');
+          if (lockHeaderEl) lockHeaderEl.classList.remove('hidden');
+          if (lockFooterEl) lockFooterEl.classList.remove('hidden');
+          if (largePracticeEl) largePracticeEl.classList.add('hidden');
+          if (bookEl) bookEl.classList.remove('hidden');
+          if (nextLblEl) nextLblEl.textContent = '換句';
+          if (quoteEl) {
+            quoteEl.className = 'font-serif-tc text-xs font-medium leading-relaxed line-clamp-3';
+          }
+        }
 
         var pad = function(n) { return n < 10 ? '0' + n : String(n); };
         document.getElementById('desktopWidgetClock').textContent = pad(d.getHours()) + ':' + pad(d.getMinutes());
@@ -5035,9 +5278,9 @@
           btn.addEventListener('click', function() {
             state.mobileWidgetSize = btn.getAttribute('data-m-size');
             document.querySelectorAll('.mobile-size-btn').forEach(function(b) {
-              b.className = 'mobile-size-btn px-2 py-0.5 rounded text-xs bg-stone-200 text-stone-700';
+              b.className = 'mobile-size-btn py-1.5 rounded-xl text-[11px] font-semibold text-stone-600 hover:bg-stone-100 transition';
             });
-            btn.className = 'mobile-size-btn px-2 py-0.5 rounded text-xs bg-[#829582] text-white';
+            btn.className = 'mobile-size-btn py-1.5 rounded-xl text-[11px] font-semibold bg-[#829582] text-white transition';
             renderWidgetsTab();
           });
         });
@@ -5308,17 +5551,271 @@
           renderDailyAndHeader();
           renderWidgetsTab();
         });
-        document.getElementById('btnMobileFrameNextQuote').addEventListener('click', function() {
+        // -----------------------------------------------------------------
+        // 📱 高擬真手機 Widget 互動原型控制器 (Simulator + Full-Screen Overlay)
+        //    支援小(2x2)/中(4x2)/大(4x4)/鎖屏模式 ＋ 原地呼吸微互動（搭載今日最新音效引擎）
+        // -----------------------------------------------------------------
+        var simBreathState = {
+          running: false,
+          mode: 'surrender', // 'surrender' (1m), 'breath' (5m), 'meditate' (15m)
+          totalSec: 60,
+          remSec: 60,
+          timer: null
+        };
+
+        var SIM_MODE_META = {
+          surrender: { sec: 60, title: '好・是・OK', sub: '內建起訖簡單提示音' },
+          breath: { sec: 300, title: '🔔吸氣引罄・🪵吐氣木魚', sub: '諧振呼吸專屬法器音' },
+          meditate: { sec: 900, title: 'I have nothing', sub: '內建起訖簡單提示音' }
+        };
+
+        function updateSimBreathUI() {
+          var meta = SIM_MODE_META[simBreathState.mode] || SIM_MODE_META.surrender;
+          var timeTxt = formatMMSS(simBreathState.remSec);
+          var simTimeEl = document.getElementById('simBreathTimeText');
+          var simPhaseEl = document.getElementById('simBreathPhaseLabel');
+          var simSubEl = document.getElementById('simBreathSubHint');
+          var simBtnEl = document.getElementById('btnSimBreathStartStop');
+          var simRingEl = document.getElementById('simBreathPulseRing');
+          var islandDot = document.getElementById('simIslandDot');
+
+          var fmCircle = document.getElementById('fullMobileBreathCircle');
+          var fmStatus = document.getElementById('fullMobileBreathStatus');
+          var fmSub = document.getElementById('fullMobileBreathSub');
+          var fmBtn = document.getElementById('btnFullMobileToggleBreath');
+
+          if (simTimeEl) simTimeEl.textContent = timeTxt;
+          if (fmCircle) fmCircle.textContent = timeTxt;
+          if (islandDot) islandDot.classList.toggle('hidden', !simBreathState.running);
+
+          if (!simBreathState.running) {
+            if (simPhaseEl) simPhaseEl.textContent = meta.title;
+            if (simSubEl) simSubEl.textContent = meta.sub;
+            if (simBtnEl) simBtnEl.textContent = '開始';
+            if (simRingEl) simRingEl.style.transform = 'scale(1)';
+            if (fmStatus) fmStatus.textContent = meta.title;
+            if (fmSub) fmSub.textContent = meta.sub;
+            if (fmBtn) fmBtn.textContent = '開始呼吸';
+            if (fmCircle) fmCircle.style.transform = 'scale(1)';
+            return;
+          }
+
+          if (simBtnEl) simBtnEl.textContent = '停止';
+          if (fmBtn) fmBtn.textContent = '停止';
+
+          var elapsed = simBreathState.totalSec - simBreathState.remSec;
+          var phaseStr = meta.title;
+          if (simBreathState.mode === 'breath') {
+            var c = elapsed % 10;
+            if (c < 5) {
+              phaseStr = '🔔 吸氣 5 秒（禪堂引罄）...';
+              if (simRingEl) simRingEl.style.transform = 'scale(1.28)';
+              if (fmCircle) fmCircle.style.transform = 'scale(1.12)';
+            } else {
+              phaseStr = '🪵 吐氣 5 秒（純木質木魚）...';
+              if (simRingEl) simRingEl.style.transform = 'scale(0.88)';
+              if (fmCircle) fmCircle.style.transform = 'scale(0.94)';
+            }
+          } else if (simBreathState.mode === 'surrender') {
+            phaseStr = '對眼前瞬間說：好、是、OK';
+            if (simRingEl) simRingEl.style.transform = (elapsed % 2 === 0) ? 'scale(1.15)' : 'scale(0.95)';
+          } else {
+            var phrases = ['I have nothing（我什麼都沒有）', 'I need nothing（我什麼都不要）', 'I am nothing（我什麼都不是）'];
+            phaseStr = phrases[Math.floor((elapsed / 20) % 3)];
+          }
+          if (simPhaseEl) simPhaseEl.textContent = phaseStr;
+          if (fmStatus) fmStatus.textContent = phaseStr;
+        }
+
+        function stopSimWidgetBreath() {
+          if (simBreathState.timer) {
+            clearInterval(simBreathState.timer);
+            simBreathState.timer = null;
+          }
+          simBreathState.running = false;
+          pauseYoutubeNatureAudio();
+          var meta = SIM_MODE_META[simBreathState.mode] || SIM_MODE_META.surrender;
+          simBreathState.remSec = meta.sec;
+          updateSimBreathUI();
+        }
+
+        function setSimWidgetBreathMode(modeKey) {
+          stopSimWidgetBreath();
+          simBreathState.mode = modeKey || 'surrender';
+          var meta = SIM_MODE_META[simBreathState.mode] || SIM_MODE_META.surrender;
+          simBreathState.totalSec = meta.sec;
+          simBreathState.remSec = meta.sec;
+
+          document.querySelectorAll('.sim-breath-mode-pill').forEach(function(b) {
+            var active = b.getAttribute('data-sim-mode') === simBreathState.mode;
+            b.className = 'sim-breath-mode-pill px-1.5 py-0.5 rounded-lg text-[9px] font-semibold transition ' +
+              (active ? 'bg-white text-[#303833]' : 'bg-white/15 text-current hover:bg-white/25');
+          });
+          document.querySelectorAll('.fm-mode-btn').forEach(function(b) {
+            var active = b.getAttribute('data-fm-mode') === simBreathState.mode;
+            b.className = 'fm-mode-btn px-2.5 py-1 rounded-xl text-xs font-semibold transition ' +
+              (active ? 'bg-[#829582] text-white' : 'bg-stone-100 text-stone-700 hover:bg-stone-200');
+          });
+          updateSimBreathUI();
+        }
+
+        function toggleSimWidgetBreath() {
+          if (simBreathState.running) {
+            stopSimWidgetBreath();
+            return;
+          }
+          simBreathState.running = true;
+          var chkSim = document.getElementById('chkSimCrickets');
+          var chkFm = document.getElementById('chkFullMobileCrickets');
+          var cricketOn = (chkSim && chkSim.checked) || (chkFm && chkFm.checked);
+
+          // Today's updated audio rules:
+          // - 'surrender' & 'meditate' play built-in simple cue sound (playSimpleCueSound) at start & end
+          // - 'breath' plays mandatory Zen Bell (Inhale) & pure non-metallic Wooden Fish (Exhale) with zero hum
+          if (simBreathState.mode === 'breath') {
+            playInhaleSound();
+          } else {
+            playSimpleCueSound();
+          }
+          if (cricketOn) {
+            startYoutubeNatureAt38Min(false);
+            playNightCricketsBurst();
+          }
+          updateSimBreathUI();
+
+          simBreathState.timer = setInterval(function() {
+            simBreathState.remSec--;
+            var elapsed = simBreathState.totalSec - simBreathState.remSec;
+            var cOn = (chkSim && chkSim.checked) || (chkFm && chkFm.checked);
+
+            if (simBreathState.remSec > 0) {
+              if (simBreathState.mode === 'breath') {
+                if (elapsed % 10 === 0) {
+                  playInhaleSound();
+                } else if (elapsed % 10 === 5) {
+                  playExhaleSound();
+                }
+              }
+              if (cOn && (elapsed % 3 === 1)) {
+                playNightCricketsBurst();
+              }
+              updateSimBreathUI();
+            } else {
+              stopSimWidgetBreath();
+              if (simBreathState.mode === 'breath') {
+                playInhaleSound();
+              } else {
+                playSimpleCueSound();
+              }
+              state.practiceCount += 1;
+              safeSetStorage('tol_practice_count_v1', state.practiceCount);
+              renderDailyAndHeader();
+              showToast('🔔 小工具呼吸練習完成！好、是、OK');
+            }
+          }, 1000);
+        }
+
+        document.querySelectorAll('.sim-breath-mode-pill').forEach(function(btn) {
+          btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            setSimWidgetBreathMode(btn.getAttribute('data-sim-mode'));
+          });
+        });
+        document.querySelectorAll('.fm-mode-btn').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            setSimWidgetBreathMode(btn.getAttribute('data-fm-mode'));
+          });
+        });
+
+        var chkSimCricketsEl = document.getElementById('chkSimCrickets');
+        var chkFmCricketsEl = document.getElementById('chkFullMobileCrickets');
+        if (chkSimCricketsEl) {
+          chkSimCricketsEl.addEventListener('change', function() {
+            if (chkFmCricketsEl) chkFmCricketsEl.checked = chkSimCricketsEl.checked;
+            if (chkSimCricketsEl.checked) {
+              if (simBreathState.running) startYoutubeNatureAt38Min(false);
+              playNightCricketsBurst(true);
+            } else {
+              pauseYoutubeNatureAudio();
+            }
+          });
+        }
+        if (chkFmCricketsEl) {
+          chkFmCricketsEl.addEventListener('change', function() {
+            if (chkSimCricketsEl) chkSimCricketsEl.checked = chkFmCricketsEl.checked;
+            if (chkFmCricketsEl.checked) {
+              if (simBreathState.running) startYoutubeNatureAt38Min(false);
+              playNightCricketsBurst(true);
+            } else {
+              pauseYoutubeNatureAudio();
+            }
+          });
+        }
+
+        document.getElementById('btnSimBreathStartStop').addEventListener('click', function(e) {
+          e.stopPropagation();
+          toggleSimWidgetBreath();
+        });
+
+        document.getElementById('btnSimToggleBreathPod').addEventListener('click', function(e) {
+          e.stopPropagation();
+          var pod = document.getElementById('simInPlaceBreathPod');
+          if (!pod) return;
+          var isHidden = pod.classList.contains('hidden');
+          if (isHidden) {
+            pod.classList.remove('hidden');
+            if (!simBreathState.running) toggleSimWidgetBreath();
+          } else {
+            if (simBreathState.running) {
+              stopSimWidgetBreath();
+            } else {
+              pod.classList.add('hidden');
+            }
+          }
+        });
+
+        document.getElementById('btnSimToggleFav').addEventListener('click', function(e) {
+          e.stopPropagation();
+          var q = getCurrentQuote();
+          if (q) {
+            toggleFavorite(q.id);
+            renderWidgetsTab();
+            renderFullMobileWidgetOverlay();
+          }
+        });
+
+        var btnSimOpenJournalEl = document.getElementById('btnSimOpenJournal');
+        if (btnSimOpenJournalEl) {
+          btnSimOpenJournalEl.addEventListener('click', function(e) {
+            e.stopPropagation();
+            var q = getCurrentQuote();
+            if (q) openJournalForQuote(q.id);
+          });
+        }
+
+        document.getElementById('btnMobileFrameNextQuote').addEventListener('click', function(e) {
+          e.stopPropagation();
           var picked = drawNextRotatingRandomQuote();
           renderDailyAndHeader();
           renderWidgetsTab();
+          renderFullMobileWidgetOverlay();
           showToast('↻ 已輪抽【' + (picked ? picked.category : '靜心') + '】語錄');
         });
-        document.getElementById('previewMobileWidget').addEventListener('click', function() {
-          drawNextRotatingRandomQuote();
+
+        document.getElementById('mobileWidgetQuoteClickArea').addEventListener('click', function() {
+          var picked = drawNextRotatingRandomQuote();
           renderDailyAndHeader();
           renderWidgetsTab();
+          renderFullMobileWidgetOverlay();
+          showToast('↻ 已輪抽【' + (picked ? picked.category : '靜心') + '】語錄');
         });
+
+        var simAppIconOpenFullEl = document.getElementById('simAppIconOpenFull');
+        if (simAppIconOpenFullEl) {
+          simAppIconOpenFullEl.addEventListener('click', function() {
+            enterPersistentMobileWidgetMode(false);
+          });
+        }
 
         document.getElementById('btnLaunchFloatingDesktopNow').addEventListener('click', function() {
           launchPersistentDesktopMiniWindow();
@@ -5328,7 +5825,7 @@
         document.getElementById('btnDownloadWindowsHtaWidget').addEventListener('click', function() {
           var htaContent = buildInteractiveDesktopWidgetCode(true);
           downloadFile('全部生命_Windows桌面靜心小工具.hta', htaContent, 'application/hta;charset=utf-8');
-          showToast('🪟 已下載 Windows 專用桌面小工具 (.hta)！若出現安全性提示，請對檔案按右鍵 ➔ 內容 ➔ 勾選「解除封鎖」即可開啟');
+          showToast('🪟 已下載 Windows 專用桌面小工具 (.hta)！');
         });
 
         // Cross-Platform Standalone .html Desktop Widget Download
@@ -5339,10 +5836,6 @@
         });
 
         // Fix 4: Android & iPhone Persistent Mobile Full-Screen Minimalist Widget Mode
-        // Saves `tol_mobile_widget_mode_v1 = true` in localStorage AND sets URL hash `#widget` + Web App Manifest `start_url: "#widget"`,
-        // so when Android creates a Home Screen shortcut, tapping the shortcut ALWAYS opens directly in Minimalist Widget Mode!
-        var fullMobileBreathTimer = null;
-        var fullMobileBreathSec = 60;
         function renderFullMobileWidgetOverlay() {
           var q = getCurrentQuote();
           if (!q) return;
@@ -5351,12 +5844,49 @@
           document.getElementById('fullMobileWidgetDate').textContent = d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate();
           document.getElementById('fullMobileWidgetQuote').textContent = '「' + q.text + '」';
           document.getElementById('fullMobileWidgetBook').textContent = '— ' + q.book;
+
+          var isFav = state.favorites.indexOf(q.id) !== -1;
+          var favBtn = document.getElementById('btnFullMobileFav');
+          if (favBtn) favBtn.textContent = isFav ? '❤️' : '🤍';
+
+          var pTitle = document.getElementById('fullMobilePracticeTitle');
+          var pGuide = document.getElementById('fullMobilePracticeGuide');
+          if (pTitle) pTitle.textContent = '🌱 ' + (q.practiceTitle || '當下臣服練習');
+          if (pGuide) pGuide.textContent = q.practiceGuide || '深呼吸，對眼前瞬間說「好、是、OK」。';
+
           var cardEl = document.getElementById('fullMobileWidgetCard');
           if (cardEl) {
             ['widget-forest', 'widget-dawn', 'widget-cosmos', 'widget-zen'].forEach(function(tc) { cardEl.classList.remove(tc); });
             cardEl.classList.add(state.widgetTheme || 'widget-forest');
           }
         }
+
+        // Size switcher inside Full-Screen Mobile Overlay (小 / 中 / 大)
+        document.querySelectorAll('.ov-size-pill').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            var sz = btn.getAttribute('data-ov-size');
+            document.querySelectorAll('.ov-size-pill').forEach(function(b) {
+              b.className = 'ov-size-pill px-2.5 py-1 rounded-full text-[11px] font-medium bg-white border border-[#E9DDCE] text-[#303833]';
+            });
+            btn.className = 'ov-size-pill px-2.5 py-1 rounded-full text-[11px] font-medium bg-[#829582] text-white';
+            var wrapEl = document.getElementById('fullMobileWidgetContainer');
+            var pracBox = document.getElementById('fullMobilePracticeBox');
+            var quoteEl = document.getElementById('fullMobileWidgetQuote');
+            if (sz === 'small') {
+              if (wrapEl) wrapEl.className = 'max-w-xs w-full mx-auto my-auto space-y-4 py-3 transition-all duration-300';
+              if (pracBox) pracBox.classList.add('hidden');
+              if (quoteEl) quoteEl.className = 'font-serif-tc text-lg leading-relaxed font-medium tracking-wide cursor-pointer';
+            } else if (sz === 'medium') {
+              if (wrapEl) wrapEl.className = 'max-w-md w-full mx-auto my-auto space-y-4 py-3 transition-all duration-300';
+              if (pracBox) pracBox.classList.add('hidden');
+              if (quoteEl) quoteEl.className = 'font-serif-tc text-xl leading-relaxed font-medium tracking-wide cursor-pointer';
+            } else {
+              if (wrapEl) wrapEl.className = 'max-w-lg w-full mx-auto my-auto space-y-4 py-3 transition-all duration-300';
+              if (pracBox) pracBox.classList.remove('hidden');
+              if (quoteEl) quoteEl.className = 'font-serif-tc text-xl sm:text-2xl leading-relaxed font-medium tracking-wide cursor-pointer';
+            }
+          });
+        });
 
         function enterPersistentMobileWidgetMode(silentToast) {
           renderFullMobileWidgetOverlay();
@@ -5370,15 +5900,12 @@
             }
           } catch (e) {}
           if (!silentToast) {
-            showToast('📱 已鎖定「手機桌面極簡模式」！現在於 Android 點選「新增至主畫面／建立捷徑」，以後打開永遠是極簡模式');
+            showToast('📱 已開啟手機全螢幕 Widget 模式！');
           }
         }
 
         function exitPersistentMobileWidgetMode() {
-          if (fullMobileBreathTimer) {
-            clearInterval(fullMobileBreathTimer);
-            fullMobileBreathTimer = null;
-          }
+          stopSimWidgetBreath();
           document.getElementById('mobileFullWidgetOverlay').classList.add('hidden');
           safeSetStorage('tol_mobile_widget_mode_v1', false);
           try {
@@ -5411,37 +5938,23 @@
           renderWidgetsTab();
           renderFullMobileWidgetOverlay();
         });
+        document.getElementById('fullMobileWidgetQuote').addEventListener('click', function() {
+          drawNextRotatingRandomQuote();
+          renderDailyAndHeader();
+          renderWidgetsTab();
+          renderFullMobileWidgetOverlay();
+        });
+        document.getElementById('btnFullMobileFav').addEventListener('click', function() {
+          var q = getCurrentQuote();
+          if (q) {
+            toggleFavorite(q.id);
+            renderWidgetsTab();
+            renderFullMobileWidgetOverlay();
+          }
+        });
 
         document.getElementById('btnFullMobileToggleBreath').addEventListener('click', function() {
-          var btn = document.getElementById('btnFullMobileToggleBreath');
-          var circle = document.getElementById('fullMobileBreathCircle');
-          var status = document.getElementById('fullMobileBreathStatus');
-          if (fullMobileBreathTimer) {
-            clearInterval(fullMobileBreathTimer);
-            fullMobileBreathTimer = null;
-            fullMobileBreathSec = 60;
-            circle.textContent = '01:00';
-            btn.textContent = '開始呼吸';
-            status.textContent = '1 分鐘・瞬間臣服呼吸';
-            return;
-          }
-          btn.textContent = '停止';
-          status.textContent = '對眼前瞬間說：好、是、OK';
-          playSimpleCueSound();
-          fullMobileBreathTimer = setInterval(function() {
-            fullMobileBreathSec--;
-            if (fullMobileBreathSec <= 0) {
-              clearInterval(fullMobileBreathTimer);
-              fullMobileBreathTimer = null;
-              fullMobileBreathSec = 60;
-              circle.textContent = '01:00';
-              btn.textContent = '開始呼吸';
-              status.textContent = '✨ 1 分鐘練習完成！好、是、OK';
-              playSimpleCueSound();
-              return;
-            }
-            circle.textContent = '00:' + (fullMobileBreathSec < 10 ? '0' + fullMobileBreathSec : fullMobileBreathSec);
-          }, 1000);
+          toggleSimWidgetBreath();
         });
 
         // 9:16 Mobile Lock Screen / Home Screen Wallpaper PNG Generator (1080x1920, leaves top 35% clear for phone clock)
