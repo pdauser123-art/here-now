@@ -3446,7 +3446,6 @@
       var ytNaturePlayer = null;
       var ytNatureReady = false;
       var ytNaturePlaying = false;
-      var ytPendingPlay = false;
       var ytPreviewStopTimeout = null;
 
       function ensureYoutubeNatureApiLoaded() {
@@ -3492,44 +3491,18 @@
               onReady: function(event) {
                 ytNatureReady = true;
                 try {
-                  event.target.setVolume(85);
+                  event.target.setVolume(70);
                   event.target.seekTo(2280, true);
-                  var chkSound = document.getElementById('chkTimerBowlSound');
-                  if (ytPendingPlay || (state.timerRunning && chkSound && chkSound.checked)) {
-                    ytPendingPlay = false;
-                    event.target.playVideo();
-                    ytNaturePlaying = true;
-                  } else {
-                    event.target.pauseVideo();
-                  }
+                  event.target.pauseVideo();
                 } catch (e) {}
               },
               onStateChange: function(event) {
-                if (!window.YT) return;
-                if (event.data === window.YT.PlayerState.PLAYING) {
+                if (window.YT && event.data === window.YT.PlayerState.PLAYING) {
                   ytNaturePlaying = true;
-                  updateMediaSessionMetadata();
-                } else if (event.data === window.YT.PlayerState.ENDED) {
+
+                } else if (window.YT && (event.data === window.YT.PlayerState.PAUSED || event.data === window.YT.PlayerState.ENDED)) {
                   ytNaturePlaying = false;
-                  var chkSoundEnd = document.getElementById('chkTimerBowlSound');
-                  if (state.timerRunning && chkSoundEnd && chkSoundEnd.checked) {
-                    try {
-                      event.target.seekTo(2280, true);
-                      event.target.playVideo();
-                    } catch (e) {}
-                  }
-                } else if (event.data === window.YT.PlayerState.PAUSED) {
-                  ytNaturePlaying = false;
-                  // When 🌙 鎖屏播放 is checked, auto-resume the YouTube nature stream if the browser attempts to pause it on lock screen / visibility change
-                  var chkSoundPause = document.getElementById('chkTimerBowlSound');
-                  var chkBgLockPause = document.getElementById('chkTimerBgLockPlay');
-                  if (state.timerRunning && chkSoundPause && chkSoundPause.checked && chkBgLockPause && chkBgLockPause.checked) {
-                    setTimeout(function() {
-                      if (state.timerRunning && chkSoundPause.checked && chkBgLockPause.checked && ytNaturePlayer && typeof ytNaturePlayer.playVideo === 'function') {
-                        try { ytNaturePlayer.playVideo(); } catch (e) {}
-                      }
-                    }, 120);
-                  }
+
                 }
               }
             }
@@ -3549,10 +3522,9 @@
             if (!cur || cur < 2280 || cur > 7200) {
               ytNaturePlayer.seekTo(2280, true);
             }
-            ytNaturePlayer.setVolume(85);
+            ytNaturePlayer.setVolume(70);
             ytNaturePlayer.playVideo();
             ytNaturePlaying = true;
-            ytPendingPlay = false;
             if (isPreviewOnly && !state.timerRunning) {
               ytPreviewStopTimeout = setTimeout(function() {
                 if (!state.timerRunning) pauseYoutubeNatureAudio();
@@ -3560,14 +3532,11 @@
             }
             return true;
           } catch (e) {}
-        } else {
-          ytPendingPlay = true;
         }
         return false;
       }
 
       function pauseYoutubeNatureAudio() {
-        ytPendingPlay = false;
         if (ytPreviewStopTimeout) {
           clearTimeout(ytPreviewStopTimeout);
           ytPreviewStopTimeout = null;
@@ -3580,14 +3549,59 @@
         }
       }
 
-      // All built-in synthetic cricket sounds removed: 🌿 夜晚蟲鳴 & 🌙 鎖屏播放 exclusively use the YouTube 5HB43YxzE6M (38:00) nature audio stream
-      function playNightCricketsBurst() {
-        var chkSound = document.getElementById('chkTimerBowlSound');
-        if (state.timerRunning && chkSound && chkSound.checked) {
-          if (!ytNaturePlaying) {
-            startYoutubeNatureAt38Min(false);
+      // Warm, Non-Metallic Countryside Night Ambience (田舎の夜 38:00 Acoustic Emulation)
+      // Uses filtered pink/brown night breeze + mellow 1680Hz-1890Hz low-pass-filtered field cricket ("ころころ") droplets
+      function playNightCricketsBurst(forceOrganicBurst) {
+        try {
+          // If YouTube 5HB43YxzE6M (38:00) is already actively streaming during timer run, let the real nature recording shine without overlapping!
+          if (!forceOrganicBurst && ytNaturePlaying && state.timerRunning) {
+            return;
           }
-        }
+          var ctx = getAudioContext();
+          if (!ctx) return;
+          var now = ctx.currentTime;
+
+          // Low-frequency background noise/breeze removed so there is zero background hum ("嗡"聲)
+
+          // 2) Warm Low-Pass Filtered Countryside Field Crickets (エンマコオロギ "ころころ、リーリー" in mellow 1660Hz-1890Hz woodwind register)
+          // Steep low-pass filter at 2050Hz removes ALL metallic high-frequency overtones!
+          var warmNatureFilter = ctx.createBiquadFilter();
+          warmNatureFilter.type = 'lowpass';
+          warmNatureFilter.frequency.setValueAtTime(2050, now);
+          warmNatureFilter.Q.setValueAtTime(0.7, now);
+          warmNatureFilter.connect(ctx.destination);
+
+          function scheduleSoftCountrysideChirp(startOffset, baseFreq, syllables, syllableGap, peakGain) {
+            for (var s = 0; s < syllables; s++) {
+              var st = now + startOffset + s * syllableGap;
+              var sylDur = syllableGap * 0.72;
+              var osc = ctx.createOscillator();
+              var g = ctx.createGain();
+              // Soft woodwind-like sine wave with natural downward pitch inflection ("koro-koro")
+              osc.type = 'sine';
+              var fStart = baseFreq * (1 + 0.025 * Math.sin(s * 1.3));
+              osc.frequency.setValueAtTime(fStart, st);
+              osc.frequency.exponentialRampToValueAtTime(fStart * 0.94, st + sylDur);
+
+              // Envelope shaped with soft raised-cosine-like fade so there is zero click or metallic edge
+              var envPeak = peakGain * Math.sin(Math.PI * ((s + 0.8) / (syllables + 0.6)));
+              g.gain.setValueAtTime(0.0001, st);
+              g.gain.linearRampToValueAtTime(Math.max(0.002, envPeak), st + sylDur * 0.35);
+              g.gain.exponentialRampToValueAtTime(0.0001, st + sylDur);
+
+              osc.connect(g);
+              g.connect(warmNatureFilter);
+              osc.start(st);
+              osc.stop(st + sylDur + 0.01);
+            }
+          }
+
+          // Near field cricket ("ころころころ..." around 1720Hz) + distant field cricket answer (around 1680Hz & 1890Hz)
+          scheduleSoftCountrysideChirp(0.08, 1720, 7, 0.058, 0.042);
+          scheduleSoftCountrysideChirp(0.68, 1680, 9, 0.055, 0.038);
+          scheduleSoftCountrysideChirp(1.42, 1890, 6, 0.060, 0.026);
+          scheduleSoftCountrysideChirp(2.05, 1710, 8, 0.056, 0.036);
+        } catch (e) {}
       }
 
       function getCurrentQuote() {
@@ -4468,14 +4482,71 @@
       var cachedBgWavUrls = {};
       var activeWakeLock = null;
 
-      // Synthesize a 10-second 16-bit PCM WAV loop ONLY for 'breath' (諧振呼吸) when 🌿 夜晚蟲鳴 is unchecked:
-      // Includes ONLY mandatory Zen Inhale Bell (0.0s) + Pure Camphor-Wood Wooden Fish (5.0s ~ 5.50s), with ZERO built-in synthetic crickets!
-      function getOrBuildBackgroundLoopWavUrl(mode) {
+      // Synthesize a 10-second 16-bit PCM WAV loop in memory:
+      // 1) 'breath' (諧振呼吸): ALWAYS includes mandatory Zen Inhale Bell (0.0s) + Boosted Single-Strike Long-Tail Zen Wooden Fish (5.0s ~ 7.8s).
+      //    If cricketSoundOn is true, also layers soothing Night Crickets (夜晚蟲鳴聲).
+      // 2) 'surrender' / 'meditate': NEVER includes Zen Bell or Wooden Fish.
+      //    If cricketSoundOn is true, plays soothing Night Crickets (夜晚蟲鳴聲) loop.
+      var realNatureCricketPcm = null;
+      var realNatureCricketLoading = false;
+
+      // Try preloading real outdoor field cricket audio from Google Actions Sound Library if network/CORS allows
+      function preloadRealNatureCricketAudio() {
+        if (realNatureCricketPcm || realNatureCricketLoading) return;
+        realNatureCricketLoading = true;
+        try {
+          fetch('https://actions.google.com/sounds/v1/animals/afternoon_crickets_long.ogg', { mode: 'cors' })
+            .then(function(res) { return res.ok ? res.arrayBuffer() : Promise.reject(); })
+            .then(function(arrBuf) {
+              var Ctx = window.AudioContext || window.webkitAudioContext;
+              if (!Ctx) return Promise.reject();
+              var tmpCtx = new Ctx();
+              return tmpCtx.decodeAudioData(arrBuf).then(function(audioBuf) {
+                var sr = 22050;
+                var totalLen = sr * 10;
+                var out = new Float32Array(totalLen);
+                var chData = audioBuf.getChannelData(0);
+                var srcSr = audioBuf.sampleRate;
+                var srcLen = chData.length;
+                if (srcLen > srcSr * 2) {
+                  for (var i = 0; i < totalLen; i++) {
+                    var srcPos = ((i / sr) * srcSr) % (srcLen - 1);
+                    var idx0 = Math.floor(srcPos);
+                    var frac = srcPos - idx0;
+                    out[i] = chData[idx0] * (1 - frac) + chData[idx0 + 1] * frac;
+                  }
+                  realNatureCricketPcm = out;
+                  cachedBgWavUrls = {};
+                  if (state.timerRunning && bgBreathAudioEl && !bgBreathAudioEl.paused) {
+                    var chkS = document.getElementById('chkTimerBowlSound');
+                    if (chkS && chkS.checked) {
+                      var newUrl = getOrBuildBackgroundLoopWavUrl(state.timerMode, true);
+                      var curT = bgBreathAudioEl.currentTime || 0;
+                      bgBreathAudioEl.src = newUrl;
+                      bgBreathAudioEl.currentTime = curT % 10;
+                      var p = bgBreathAudioEl.play();
+                      if (p && p.catch) p.catch(function() {});
+                    }
+                  }
+                }
+                try { tmpCtx.close(); } catch (e) {}
+              });
+            })
+            .catch(function() {});
+        } catch (e) {}
+      }
+
+      function getOrBuildBackgroundLoopWavUrl(mode, cricketSoundOn) {
         var isBreath = (mode === 'breath');
-        var key = (isBreath ? 'breath_only_zen' : 'silent') + '_v7_no_synth_crickets';
+        var hasRealPcm = (cricketSoundOn && realNatureCricketPcm !== null);
+        var key = (isBreath ? 'breath' : 'other') + '_' + (cricketSoundOn ? 'crickets_on' : 'crickets_off') + (hasRealPcm ? '_real' : '_acoustic38m') + '_v8';
         if (cachedBgWavUrls[key]) return cachedBgWavUrls[key];
 
-        var sampleRate = 16000;
+        if (cricketSoundOn && !realNatureCricketPcm && !realNatureCricketLoading) {
+          preloadRealNatureCricketAudio();
+        }
+
+        var sampleRate = 22050;
         var durationSec = 10;
         var numSamples = sampleRate * durationSec;
         var buffer = new ArrayBuffer(44 + numSamples * 2);
@@ -4501,12 +4572,77 @@
         view.setUint32(40, numSamples * 2, true);
 
         var twoPi = 2 * Math.PI;
+        var cricketBuf = new Float32Array(numSamples);
+
+        // Exact sample-accurate rendering of scheduleSoftCountrysideChirp (田舎の夜 38:00 Acoustic Emulation)
+        // Uses true phase integration per syllable + 2050Hz Biquad low-pass filter so lock-screen audio has the exact same frequency spectrum & natural timbre as foreground!
+        if (cricketSoundOn) {
+          function renderCountrysideChirp(startOffset, baseFreq, syllables, syllableGap, peakGain) {
+            var sylDur = syllableGap * 0.72;
+            var sylSamples = Math.floor(sylDur * sampleRate);
+            var attackSamples = Math.max(1, Math.floor(sylSamples * 0.35));
+            var decaySamples = Math.max(1, sylSamples - attackSamples);
+            for (var s = 0; s < syllables; s++) {
+              var st = startOffset + s * syllableGap;
+              var startIdx = Math.floor(st * sampleRate);
+              var fStart = baseFreq * (1.0 + 0.025 * Math.sin(s * 1.3));
+              var envPeak = Math.max(0.002, peakGain * Math.sin(Math.PI * ((s + 0.8) / (syllables + 0.6))));
+              var phase = 0.0;
+              for (var k = 0; k < sylSamples; k++) {
+                var idx = (startIdx + k) % numSamples;
+                var u = k / sylSamples;
+                var fInst = fStart * Math.pow(0.94, u);
+                phase += (twoPi * fInst) / sampleRate;
+                var g;
+                if (k <= attackSamples) {
+                  g = 0.0001 + (envPeak - 0.0001) * (k / attackSamples);
+                } else {
+                  var du = (k - attackSamples) / decaySamples;
+                  g = envPeak * Math.pow(0.0001 / envPeak, du);
+                }
+                cricketBuf[idx] += g * Math.sin(phase);
+              }
+            }
+          }
+
+          // Continuous 3-second cycles matching playNightCricketsBurst across the 10-second loop
+          var cycleOffsets = [0.0, 3.33, 6.66];
+          for (var c = 0; c < cycleOffsets.length; c++) {
+            var co = cycleOffsets[c];
+            renderCountrysideChirp(co + 0.08, 1720, 7, 0.058, 0.048);
+            renderCountrysideChirp(co + 0.68, 1680, 9, 0.055, 0.044);
+            renderCountrysideChirp(co + 1.42, 1890, 6, 0.060, 0.032);
+            renderCountrysideChirp(co + 2.05, 1710, 8, 0.056, 0.042);
+            renderCountrysideChirp(co + 2.68, 1690, 7, 0.057, 0.038);
+          }
+
+          // Apply 2nd-order Biquad Low-Pass Filter at 2050Hz (Q = 0.707) identical to warmNatureFilter in playNightCricketsBurst
+          var w0 = twoPi * 2050.0 / sampleRate;
+          var cosW0 = Math.cos(w0);
+          var alpha = Math.sin(w0) / (2.0 * 0.707);
+          var b0 = (1.0 - cosW0) * 0.5;
+          var b1 = 1.0 - cosW0;
+          var b2 = (1.0 - cosW0) * 0.5;
+          var a0 = 1.0 + alpha;
+          var a1 = -2.0 * cosW0;
+          var a2 = 1.0 - alpha;
+          b0 /= a0; b1 /= a0; b2 /= a0; a1 /= a0; a2 /= a0;
+
+          var x1 = 0, x2 = 0, y1 = 0, y2 = 0;
+          for (var fIdx = 0; fIdx < numSamples; fIdx++) {
+            var x0 = cricketBuf[fIdx];
+            var y0 = b0 * x0 + b1 * x1 + b2 * x2 - a1 * y1 - a2 * y2;
+            x2 = x1; x1 = x0;
+            y2 = y1; y1 = y0;
+            cricketBuf[fIdx] = y0 + (hasRealPcm ? realNatureCricketPcm[fIdx] * 0.35 : 0);
+          }
+        }
 
         for (var i = 0; i < numSamples; i++) {
           var t = i / sampleRate;
           var sample = 0;
 
-          // Mandatory Zen Bell & Pure Wooden Fish for 'breath' (諧振呼吸) ONLY
+          // 1) Mandatory Zen Bell & Pure Wooden Fish for 'breath' (諧振呼吸) ONLY
           if (isBreath) {
             // 0.0s ~ 2.4s: 🔔 吸氣音：禪堂引罄聲
             if (t < 2.4) {
@@ -4530,6 +4666,11 @@
                                0.24 * woodShell;
               sample += 0.46 * woodSignal;
             }
+          }
+
+          // 2) Countryside Night Crickets (exact same 1680Hz-1890Hz 2050Hz-lowpass acoustic waveform as playNightCricketsBurst)
+          if (cricketSoundOn) {
+            sample += cricketBuf[i];
           }
 
           if (sample > 0.98) sample = 0.98;
@@ -4618,35 +4759,23 @@
         var bgOn = bgLockEl ? bgLockEl.checked : true;
         var isBreath = (state.timerMode === 'breath');
 
-        if (bgOn) {
-          requestScreenWakeLock();
-        } else {
-          releaseScreenWakeLock();
-        }
+        requestScreenWakeLock();
 
-        // When 🌿 夜晚蟲鳴 is checked: ALWAYS use the YouTube 5HB43YxzE6M (38:00) nature stream!
-        // Never play bgBreathAudioEl when cricketOn is true so it never plays built-in synthetic sounds or steals audio focus from YouTube.
         if (cricketOn) {
-          if (bgBreathAudioEl) {
-            try { bgBreathAudioEl.pause(); } catch (e) {}
-          }
           startYoutubeNatureAt38Min(false);
-          updateMediaSessionMetadata();
-          return false;
         } else {
           pauseYoutubeNatureAudio();
         }
 
-        // When 🌿 夜晚蟲鳴 is unchecked:
-        // In 'surrender' and 'meditate', only start/end simple cue sounds are needed
-        if (!isBreath) {
+        // In 'surrender' and 'meditate', if cricketOn is unchecked, no audio is needed at all
+        if (!isBreath && !cricketOn) {
           if (bgBreathAudioEl) {
             try { bgBreathAudioEl.pause(); } catch (e) {}
           }
           return false;
         }
 
-        // In 'breath' (諧振呼吸) with 🌿 夜晚蟲鳴 unchecked:
+        // If user turned off bgOn, we pause the looping HTML5 <audio> element and let tickTimerByWallClock trigger WebAudio in foreground
         if (!bgOn) {
           if (bgBreathAudioEl) {
             try { bgBreathAudioEl.pause(); } catch (e) {}
@@ -4656,10 +4785,11 @@
 
         try {
           var audioEl = ensureBgAudioElement();
-          var wavUrl = getOrBuildBackgroundLoopWavUrl('breath');
+          var wavUrl = getOrBuildBackgroundLoopWavUrl(state.timerMode, cricketOn);
           if (audioEl.src !== wavUrl) {
             audioEl.src = wavUrl;
           }
+          // Sync offset into the 10-second cycle
           var elapsed = Math.max(0, state.timerSec - state.timerRemaining);
           audioEl.currentTime = elapsed % 10;
           var playPromise = audioEl.play();
@@ -4686,7 +4816,6 @@
             navigator.mediaSession.playbackState = 'paused';
           }
         } catch (e) {}
-
       }
 
       function stopTimer() {
@@ -4712,8 +4841,9 @@
           var cricketOn = document.getElementById('chkTimerBowlSound').checked;
           var bgAudioPlaying = bgBreathAudioEl && !bgBreathAudioEl.paused;
 
-          // Trigger WebAudio Zen Bell / Wooden Fish in 'breath' mode if bgBreathAudioEl is not active, and keep YouTube nature stream alive:
+          // If background HTML5 audio loop is NOT active, trigger foreground WebAudio sounds:
           if (!bgAudioPlaying && prevRem !== remSec) {
+            // 1) In 'breath' mode, 禪堂法器呼吸音 (引罄/木魚) is MANDATORY and ALWAYS plays!
             if (state.timerMode === 'breath') {
               if (elapsedNow % 10 === 0) {
                 playInhaleSound();
@@ -4721,22 +4851,9 @@
                 playExhaleSound();
               }
             }
-          }
-          // Keep YouTube 5HB43YxzE6M (38:00) nature stream active during timer (including lock-screen mode when 🌙 鎖屏播放 is checked)
-          if (cricketOn && prevRem !== remSec) {
-            var bgLockChk = document.getElementById('chkTimerBgLockPlay');
-            var allowWhenHidden = bgLockChk ? bgLockChk.checked : true;
-            if (document.visibilityState === 'visible' || allowWhenHidden) {
-              if (ytNatureReady && ytNaturePlayer && typeof ytNaturePlayer.getPlayerState === 'function') {
-                try {
-                  var pState = ytNaturePlayer.getPlayerState();
-                  if (pState !== 1 && pState !== 3) {
-                    ytNaturePlayer.playVideo();
-                  }
-                } catch (e) {}
-              } else if (!ytNaturePlaying) {
-                startYoutubeNatureAt38Min(false);
-              }
+            // 2) In ALL 3 modes, if '練習引導音效（夜晚蟲鳴聲）' is checked, play soothing night crickets every 3 seconds
+            if (cricketOn && (elapsedNow % 3 === 1)) {
+              playNightCricketsBurst();
             }
           }
           updateTimerUI();
@@ -4795,24 +4912,22 @@
         state.timerInterval = setInterval(tickTimerByWallClock, 500);
       }
 
-      // Sync wall-clock timer, wake lock & YouTube nature stream on screen lock / unlock
+      // Sync wall-clock timer, wake lock & lock-screen audio loop when locking or unlocking screen
       document.addEventListener('visibilitychange', function() {
         if (state.timerRunning) {
           tickTimerByWallClock();
-          var chkSound = document.getElementById('chkTimerBowlSound');
-          var chkBgLock = document.getElementById('chkTimerBgLockPlay');
-          var cricketOn = chkSound ? chkSound.checked : true;
-          var bgOn = chkBgLock ? chkBgLock.checked : true;
+          var bgLockEl = document.getElementById('chkTimerBgLockPlay');
+          var soundOnEl = document.getElementById('chkTimerBowlSound');
+          var bgOn = bgLockEl ? bgLockEl.checked : true;
+          var cricketOn = soundOnEl ? soundOnEl.checked : true;
           if (document.visibilityState === 'visible') {
             if (bgOn) requestScreenWakeLock();
-            if (cricketOn) startYoutubeNatureAt38Min(false);
           } else {
-            if (cricketOn) {
-              if (bgOn) {
-                startYoutubeNatureAt38Min(false);
-              } else {
-                pauseYoutubeNatureAudio();
-              }
+            // When screen locks: pause YouTube iframe so it never conflicts with native HTML5 lock-screen <audio>, and ensure bgBreathAudioEl continues playing
+            pauseYoutubeNatureAudio();
+            if (bgOn && (state.timerMode === 'breath' || cricketOn) && bgBreathAudioEl && bgBreathAudioEl.paused) {
+              var p = bgBreathAudioEl.play();
+              if (p && p.catch) p.catch(function() {});
             }
           }
         }
@@ -4939,16 +5054,15 @@
         var chkSoundEl = document.getElementById('chkTimerBowlSound');
         if (chkSoundEl) {
           chkSoundEl.addEventListener('change', function() {
-            if (chkSoundEl.checked) {
-              if (state.timerRunning) {
-                startYoutubeNatureAt38Min(false);
-              }
-              showToast('🌿 已開啟「大自然夜晚蟲鳴（YouTube 第 38:00 起原音）」');
+            if ( chkSoundEl.checked ) {
+              startYoutubeNatureAt38Min(!state.timerRunning);
+              playNightCricketsBurst(true);
+              showToast('🌿 已開啟「練習引導音效（大自然夜晚蟲鳴・第 38:00 起）」');
             } else {
               pauseYoutubeNatureAudio();
               showToast(state.timerMode === 'breath'
                 ? '已關閉大自然蟲鳴聲（諧振呼吸專屬「引罄／木魚呼吸音」仍會固定全程播放）'
-                : '已關閉「大自然夜晚蟲鳴聲」');
+                : '已關閉「練習引導音效（大自然夜晚蟲鳴聲）」');
             }
             if (state.timerRunning) {
               startBackgroundBreathAudio();
