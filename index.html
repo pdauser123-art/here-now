@@ -964,9 +964,9 @@
           <span id="fullMobileWidgetCategory" class="font-medium">🌿 臣服與參</span>
           <span id="fullMobileWidgetDate" class="font-mono"></span>
         </div>
-        <p id="fullMobileWidgetQuote" class="font-serif-tc text-xl sm:text-2xl leading-relaxed font-medium tracking-wide"></p>
+        <p id="fullMobileWidgetQuote" class="font-serif-tc text-xl sm:text-2xl leading-relaxed font-medium tracking-wide">「回到這裡、現在，對眼前的瞬間說：好、是、OK。」</p>
         <div class="pt-2 flex items-center justify-between text-xs sm:text-sm opacity-90">
-          <span id="fullMobileWidgetBook" class="font-serif-tc font-medium"></span>
+          <span id="fullMobileWidgetBook" class="font-serif-tc font-medium">— 楊定一《全部的你》</span>
           <span class="text-xs opacity-75">好・是・OK</span>
         </div>
       </div>
@@ -997,6 +997,21 @@
 
     <div></div>
   </div>
+  <script>
+    (function() {
+      try {
+        var ua = navigator.userAgent || navigator.vendor || window.opera || "";
+        var isMobOrLine = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Line\/|LIFF|MicroMessenger|FBAN|FBAV/i.test(ua) ||
+          (window.innerWidth <= 820 && ("ontouchstart" in window || navigator.maxTouchPoints > 0)) ||
+          window.innerWidth <= 640;
+        var forceFull = (window.location.hash === "#full" || window.location.search.indexOf("full=1") !== -1);
+        if (!forceFull && (isMobOrLine || window.location.hash === "#widget" || window.location.search.indexOf("widget=1") !== -1)) {
+          var ov = document.getElementById("mobileFullWidgetOverlay");
+          if (ov) ov.classList.remove("hidden");
+        }
+      } catch (e) {}
+    })();
+  </script>
 
   <!-- Modal: 手機桌面 Widget 安裝教學 (Simplified Zero-Code Mobile Guide Modal) -->
   <div id="modalMobileGuide" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
@@ -3646,6 +3661,18 @@
         // Update nav badges
         document.getElementById('badgeFavCount').textContent = String(state.favorites.length);
         document.getElementById('badgeJournalCount').textContent = String(state.journals.length);
+
+        // Keep Mobile Minimalist Widget Mode overlay synced with current quote
+        var fmCat = document.getElementById('fullMobileWidgetCategory');
+        var fmDate = document.getElementById('fullMobileWidgetDate');
+        var fmQuote = document.getElementById('fullMobileWidgetQuote');
+        var fmBook = document.getElementById('fullMobileWidgetBook');
+        if (fmCat && fmQuote && fmBook) {
+          fmCat.textContent = '✦ ' + (q.category || '臣服與參');
+          if (fmDate) fmDate.textContent = d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate();
+          fmQuote.textContent = '「' + q.text + '」';
+          fmBook.textContent = '— ' + q.book;
+        }
       }
 
       // Toggle Favorite by Quote ID
@@ -5530,11 +5557,22 @@
           exitPersistentMobileWidgetMode();
         });
 
-        // Auto-restore Mobile Widget Mode on page load if Android shortcut was created in Widget Mode (`#widget` or `tol_mobile_widget_mode_v1 === true`)
-        if (window.location.hash === '#widget' || window.location.search.indexOf('widget=1') !== -1 || safeGetStorage('tol_mobile_widget_mode_v1', false) === true) {
-          setTimeout(function() {
-            enterPersistentMobileWidgetMode(true);
-          }, 50);
+        // Default to Mobile Minimalist Widget Mode on all mobile phones & LINE in-app browsers (unless #full or ?full=1 is specified)
+        var isMobileOrLineBrowser = false;
+        try {
+          var uaStr = navigator.userAgent || navigator.vendor || window.opera || '';
+          isMobileOrLineBrowser = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Line\/|LIFF|MicroMessenger|FBAN|FBAV/i.test(uaStr) ||
+            (window.innerWidth <= 820 && ('ontouchstart' in window || navigator.maxTouchPoints > 0)) ||
+            window.innerWidth <= 640;
+        } catch (e) {}
+        var isForceFullUrl = (window.location.hash === '#full' || window.location.search.indexOf('full=1') !== -1);
+        if (!isForceFullUrl && (
+          isMobileOrLineBrowser ||
+          window.location.hash === '#widget' ||
+          window.location.search.indexOf('widget=1') !== -1 ||
+          safeGetStorage('tol_mobile_widget_mode_v1', false) === true
+        )) {
+          enterPersistentMobileWidgetMode(true);
         }
 
         document.getElementById('btnFullMobileNextQuote').addEventListener('click', function() {
