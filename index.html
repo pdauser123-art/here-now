@@ -944,58 +944,56 @@
     </div>
   </div>
 
-  <!-- Full-Screen Mobile Minimalist Widget Mode Overlay (專為手機「加入主畫面」打造的零干擾大字版桌面小工具模式) -->
-  <div id="mobileFullWidgetOverlay" class="hidden fixed inset-0 z-50 bg-[#F7F4ED] flex flex-col justify-between p-5 sm:p-8 select-none">
-    <!-- Top Subtle Bar -->
-    <div class="flex items-center justify-between max-w-lg w-full mx-auto text-xs text-[#68726B]">
-      <div class="flex items-center gap-2">
-        <span class="w-2.5 h-2.5 rounded-full bg-[#829582]"></span>
-        <span class="font-medium text-[#303833]">全部生命・手機桌面極簡模式</span>
-      </div>
-      <button type="button" id="btnExitMobileFullWidgetMode" class="px-4 py-2 rounded-full bg-[#C86D51] hover:bg-[#b2593e] text-white font-bold text-xs sm:text-sm shadow-lg border-2 border-white ring-2 ring-[#C86D51]/40 active:scale-95 transition">
-        ← 返回完整模式
-      </button>
-    </div>
-
-    <!-- Centerpiece Giant Mobile Widget Card -->
-    <div class="max-w-lg w-full mx-auto my-auto space-y-5">
-      <div id="fullMobileWidgetCard" class="widget-forest rounded-[32px] p-7 sm:p-9 shadow-xl border border-white/20 space-y-5 transition-all">
-        <div class="flex items-center justify-between text-xs opacity-85 border-b border-current/15 pb-3">
-          <span id="fullMobileWidgetCategory" class="font-medium">🌿 臣服與參</span>
-          <span id="fullMobileWidgetDate" class="font-mono"></span>
+  <!-- Full-Screen Mobile Minimalist Widget Mode Overlay (專為手機與 LINE 內建瀏覽器最佳化的一頁式極簡桌面模式) -->
+  <div id="mobileFullWidgetOverlay" class="hidden fixed inset-x-0 top-0 z-50 bg-[#F7F4ED] flex flex-col justify-center px-3.5 py-2.5 sm:p-6 overflow-y-auto select-none" style="height: 100dvh; max-height: 100dvh; -webkit-text-size-adjust: 100%; text-size-adjust: 100%;">
+    <div id="mobileWidgetInnerWrap" class="max-w-md w-full mx-auto my-auto flex flex-col gap-2.5 sm:gap-3.5">
+      <!-- Top Subtle Bar (Single-line no-wrap for LINE In-App Browser) -->
+      <div class="flex items-center justify-between gap-2 w-full text-[#68726B]">
+        <div class="flex items-center gap-1.5 min-w-0">
+          <span class="w-2 h-2 rounded-full bg-[#829582] shrink-0"></span>
+          <span id="fullMobileTopTitle" class="font-semibold text-[#303833] whitespace-nowrap truncate" style="font-size: 13px;">全部生命・手機桌面極簡模式</span>
         </div>
-        <p id="fullMobileWidgetQuote" class="font-serif-tc text-xl sm:text-2xl leading-relaxed font-medium tracking-wide">「回到這裡、現在，對眼前的瞬間說：好、是、OK。」</p>
-        <div class="pt-2 flex items-center justify-between text-xs sm:text-sm opacity-90">
-          <span id="fullMobileWidgetBook" class="font-serif-tc font-medium">— 楊定一《全部的你》</span>
-          <span class="text-xs opacity-75">好・是・OK</span>
+        <button type="button" id="btnExitMobileFullWidgetMode" class="px-3 py-1.5 rounded-full bg-[#C86D51] hover:bg-[#b2593e] text-white font-bold shadow-md border border-white ring-2 ring-[#C86D51]/30 active:scale-95 transition whitespace-nowrap shrink-0" style="font-size: 12px; line-height: 1.2;">
+          ← 返回完整模式
+        </button>
+      </div>
+
+      <!-- Centerpiece Mobile Widget Card -->
+      <div id="fullMobileWidgetCard" class="widget-forest rounded-[26px] px-5 py-4 sm:p-7 shadow-lg border border-white/20 space-y-2.5 sm:space-y-4 transition-all">
+        <div class="flex items-center justify-between opacity-85 border-b border-current/15 pb-2" style="font-size: 12px;">
+          <span id="fullMobileWidgetCategory" class="font-medium whitespace-nowrap">🌿 臣服與參</span>
+          <span id="fullMobileWidgetDate" class="font-mono whitespace-nowrap"></span>
+        </div>
+        <p id="fullMobileWidgetQuote" class="font-serif-tc font-medium tracking-wide" style="font-size: 18px; line-height: 1.52;">「回到這裡、現在，對眼前的瞬間說：好、是、OK。」</p>
+        <div class="pt-1 flex items-center justify-between gap-2 opacity-90" style="font-size: 12px;">
+          <span id="fullMobileWidgetBook" class="font-serif-tc font-medium flex-1 min-w-0 truncate">— 楊定一《全部的你》</span>
+          <span id="fullMobileOkLabel" class="opacity-80 whitespace-nowrap shrink-0">好・是・OK</span>
         </div>
       </div>
 
       <!-- Mini 1-Minute Surrender Breath Bar inside Mobile Widget Mode -->
-      <div class="bg-white rounded-3xl p-4 border border-[#E9DDCE] shadow-sm flex items-center justify-between gap-3">
-        <div class="flex items-center gap-3">
-          <div id="fullMobileBreathCircle" class="w-11 h-11 rounded-2xl bg-[#EEF2EE] text-[#5E715E] flex items-center justify-center font-mono font-bold text-sm">01:00</div>
-          <div>
-            <p id="fullMobileBreathStatus" class="text-xs sm:text-sm font-semibold text-[#303833]">1 分鐘・瞬間臣服呼吸</p>
-                      </div>
+      <div id="fullMobileBreathBar" class="bg-white rounded-2xl px-3.5 py-2.5 border border-[#E9DDCE] shadow-sm flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <div id="fullMobileBreathCircle" class="w-9 h-9 rounded-xl bg-[#EEF2EE] text-[#5E715E] flex items-center justify-center font-mono font-bold shrink-0" style="font-size: 12px;">01:00</div>
+          <div class="min-w-0">
+            <p id="fullMobileBreathStatus" class="font-semibold text-[#303833] whitespace-nowrap truncate" style="font-size: 13px;">1 分鐘・瞬間臣服呼吸</p>
+          </div>
         </div>
-        <button type="button" id="btnFullMobileToggleBreath" class="px-4 py-2 rounded-2xl bg-[#829582] text-white text-xs font-semibold shadow-sm">
+        <button type="button" id="btnFullMobileToggleBreath" class="px-3.5 py-2 rounded-xl bg-[#829582] text-white font-semibold shadow-sm whitespace-nowrap shrink-0 active:scale-95 transition" style="font-size: 12px;">
           開始呼吸
         </button>
       </div>
 
-      <!-- Big Touch-Friendly Bottom Controls -->
-      <div class="grid grid-cols-2 gap-3">
-        <button type="button" id="btnFullMobileNextQuote" class="py-3.5 px-4 rounded-2xl bg-white border border-[#E9DDCE] text-[#303833] text-sm font-semibold shadow-sm active:scale-98 transition">
+      <!-- Big Touch-Friendly Bottom Controls (Guaranteed visible inside LINE In-App Browser) -->
+      <div id="fullMobileBottomBtns" class="grid grid-cols-2 gap-2.5 pb-1">
+        <button type="button" id="btnFullMobileNextQuote" class="py-2.5 px-3 rounded-2xl bg-white border border-[#E9DDCE] text-[#303833] font-semibold shadow-sm active:scale-95 transition whitespace-nowrap text-center" style="font-size: 13px;">
           ↻ 換下一句語錄
         </button>
-        <button type="button" id="btnFullMobileSaveWallpaper" class="py-3.5 px-4 rounded-2xl bg-[#B79B68] text-white text-sm font-semibold shadow-sm active:scale-98 transition">
+        <button type="button" id="btnFullMobileSaveWallpaper" class="py-2.5 px-3 rounded-2xl bg-[#B79B68] text-white font-semibold shadow-sm active:scale-95 transition whitespace-nowrap text-center" style="font-size: 13px;">
           📲 存為手機鎖屏圖
         </button>
       </div>
     </div>
-
-    <div></div>
   </div>
   <script>
     (function() {
@@ -5502,6 +5500,78 @@
         // so when Android creates a Home Screen shortcut, tapping the shortcut ALWAYS opens directly in Minimalist Widget Mode!
         var fullMobileBreathTimer = null;
         var fullMobileBreathSec = 60;
+        function fitMobileWidgetToViewport() {
+          var ov = document.getElementById('mobileFullWidgetOverlay');
+          var wrap = document.getElementById('mobileWidgetInnerWrap');
+          var quoteEl = document.getElementById('fullMobileWidgetQuote');
+          var cardEl = document.getElementById('fullMobileWidgetCard');
+          if (!ov || !wrap || !quoteEl || ov.classList.contains('hidden')) return;
+
+          // 1. Lock overlay height to exact visible viewport inside LINE In-App Browser (excluding LINE top/bottom bars)
+          var vh = (window.visualViewport && window.visualViewport.height) ? window.visualViewport.height : window.innerHeight;
+          if (vh && vh > 200) {
+            ov.style.height = vh + 'px';
+            ov.style.maxHeight = vh + 'px';
+          }
+
+          // 2. Detect Android WebView / LINE system font inflation factor (e.g. 1.25x or 1.35x)
+          var probe = document.createElement('span');
+          probe.style.cssText = 'position:fixed;top:-9999px;left:-9999px;font-size:100px;line-height:1;visibility:hidden;pointer-events:none;';
+          probe.textContent = 'M';
+          document.body.appendChild(probe);
+          var computedProbe = parseFloat(window.getComputedStyle(probe).fontSize) || 100;
+          document.body.removeChild(probe);
+          var fontZoom = Math.max(1.0, computedProbe / 100.0);
+
+          // Counteract Android WebView font inflation on all fixed UI labels inside Mobile Widget Mode
+          var fixedFontTargets = [
+            ['fullMobileTopTitle', 13],
+            ['btnExitMobileFullWidgetMode', 12],
+            ['fullMobileWidgetCategory', 12],
+            ['fullMobileWidgetDate', 12],
+            ['fullMobileWidgetBook', 12],
+            ['fullMobileOkLabel', 12],
+            ['fullMobileBreathCircle', 12],
+            ['fullMobileBreathStatus', 13],
+            ['btnFullMobileToggleBreath', 12],
+            ['btnFullMobileNextQuote', 13],
+            ['btnFullMobileSaveWallpaper', 13]
+          ];
+          fixedFontTargets.forEach(function(pair) {
+            var el = document.getElementById(pair[0]);
+            if (el) el.style.fontSize = (pair[1] / fontZoom).toFixed(2) + 'px';
+          });
+
+          // 3. Dynamically size quote text based on character length & viewport height so bottom buttons are ALWAYS visible
+          var qLen = (quoteEl.textContent || '').length;
+          var baseQuotePx = 18.5;
+          if (qLen > 85) baseQuotePx = 14.5;
+          else if (qLen > 65) baseQuotePx = 15.8;
+          else if (qLen > 48) baseQuotePx = 17.0;
+          if (vh < 600) baseQuotePx = Math.min(baseQuotePx, 16.0);
+          quoteEl.style.fontSize = (baseQuotePx / fontZoom).toFixed(2) + 'px';
+          quoteEl.style.lineHeight = qLen > 65 ? '1.45' : '1.52';
+
+          // Reset transform first, then shrink quote font or scale slightly if total height still exceeds viewport
+          wrap.style.transform = 'none';
+          var availH = (vh || window.innerHeight) - 20;
+          var guard = 0;
+          while (wrap.scrollHeight > availH && baseQuotePx > 12.5 && guard < 8) {
+            baseQuotePx -= 0.8;
+            quoteEl.style.fontSize = (baseQuotePx / fontZoom).toFixed(2) + 'px';
+            if (cardEl && guard === 2) {
+              cardEl.style.paddingTop = '12px';
+              cardEl.style.paddingBottom = '12px';
+            }
+            guard++;
+          }
+        }
+
+        window.addEventListener('resize', fitMobileWidgetToViewport);
+        if (window.visualViewport) {
+          window.visualViewport.addEventListener('resize', fitMobileWidgetToViewport);
+        }
+
         function renderFullMobileWidgetOverlay() {
           var q = getCurrentQuote();
           if (!q) return;
@@ -5515,11 +5585,12 @@
             ['widget-forest', 'widget-dawn', 'widget-cosmos', 'widget-zen'].forEach(function(tc) { cardEl.classList.remove(tc); });
             cardEl.classList.add(state.widgetTheme || 'widget-forest');
           }
+          fitMobileWidgetToViewport();
         }
 
         function enterPersistentMobileWidgetMode(silentToast) {
-          renderFullMobileWidgetOverlay();
           document.getElementById('mobileFullWidgetOverlay').classList.remove('hidden');
+          renderFullMobileWidgetOverlay();
           safeSetStorage('tol_mobile_widget_mode_v1', true);
           try {
             if (window.history && window.history.replaceState) {
